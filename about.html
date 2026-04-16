@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me | Ronnie Balonon Jr.</title>
+  <meta name="description" content="Learn more about Ronnie Balonon Jr. — UI/UX & Web Designer based in Dubai." />
+  <meta name="author" content="Ronnie Balonon Jr." />
+  <meta name="theme-color" content="#0075FF" />
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      if (t === 'light') {
+        document.documentElement.classList.replace('dark', 'light');
+        document.documentElement.style.background = '#fff';
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ===== ABOUT PAGE SPECIFIC ===== */
+
+    /* -- My Story -- */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .story-portrait {
+      position: relative;
+    }
+    .story-portrait-glow {
+      position: absolute; inset: -20px; border-radius: 1.25rem;
+      background: radial-gradient(ellipse at center, hsl(var(--primary) / 0.25) 0%, transparent 70%);
+      animation: storyGlow 4s ease-in-out infinite;
+      z-index: 0;
+    }
+    @keyframes storyGlow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.04); }
+    }
+    .story-portrait-img {
+      position: relative; z-index: 1;
+      width: 100%; aspect-ratio: 3/4;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      border: 1px solid hsl(var(--primary) / 0.3);
+    }
+    .story-portrait-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .story-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      line-height: 1.15;
+    }
+    .story-text p {
+      color: hsl(var(--muted-foreground));
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .story-stats {
+      display: flex; gap: 2rem; margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid hsl(var(--border));
+    }
+    .story-stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 800;
+      color: hsl(var(--primary));
+      line-height: 1;
+    }
+    .story-stat-label {
+      font-size: 0.8rem;
+      color: hsl(var(--muted-foreground));
+      margin-top: 0.25rem;
+    }
+    @media (max-width: 768px) {
+      .story-grid { grid-template-columns: 1fr; text-align: center; }
+      .story-portrait { max-width: 320px; margin: 0 auto; }
+      .story-stats { justify-content: center; }
+    }
+
+    /* -- Skills Bars -- */
+    .skills-bars-section { background: #000; }
+    .skills-bars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .skill-bar-card {
+      position: relative;
+      background: hsl(var(--card) / 0.85);
+      border: 1px solid hsl(var(--border));
+      border-radius: 1rem;
+      padding: 1.5rem;
+      overflow: hidden;
+    }
+    /* Card border glow */
+    @property --skb-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    .skill-bar-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--skb-angle),
+        transparent 0%,
+        hsl(var(--skb-accent, var(--primary)) / 0.3) 2%,
+        hsl(var(--skb-accent, var(--primary))) 4%,
+        hsl(var(--skb-accent, var(--primary)) / 0.3) 6%,
+        transparent 9%,
+        transparent 50%,
+        hsl(var(--skb-accent, var(--primary)) / 0.3) 52%,
+        hsl(var(--skb-accent, var(--primary))) 54%,
+        hsl(var(--skb-accent, var(--primary)) / 0.3) 56%,
+        transparent 59%,
+        transparent 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: skbSpin 5s linear infinite;
+      pointer-events: none; z-index: 0;
+    }
+    @keyframes skbSpin { to { --skb-angle: 360deg; } }
+    .skill-bar-card[data-accent="blue"]   { --skb-accent: 220 100% 50%; }
+    .skill-bar-card[data-accent="purple"] { --skb-accent: 268 82% 63%; }
+    .skill-bar-card[data-accent="teal"]   { --skb-accent: 168 100% 39%; }
+    .skill-bar-card[data-accent="amber"]  { --skb-accent: 33 100% 64%; }
+    .skill-bar-card[data-accent="rose"]   { --skb-accent: 340 82% 55%; }
+    .skill-bar-card[data-accent="cyan"]   { --skb-accent: 190 95% 45%; }
+    .skill-bar-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.75rem;
+      position: relative; z-index: 1;
+    }
+    .skill-bar-name {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem; font-weight: 700;
+      color: hsl(var(--foreground));
+    }
+    .skill-bar-icon {
+      width: 2.25rem; height: 2.25rem; border-radius: 0.5rem;
+      background: hsl(var(--skb-accent, var(--primary)) / 0.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .skill-bar-icon svg {
+      width: 1.15rem; height: 1.15rem;
+      color: hsl(var(--skb-accent, var(--primary)));
+    }
+    .skill-bar-pct {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 800;
+      color: hsl(var(--skb-accent, var(--primary)));
+      line-height: 1;
+    }
+    .skill-bar-track {
+      position: relative; z-index: 1;
+      width: 100%; height: 8px;
+      background: hsl(var(--border));
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      width: 0;
+      background: linear-gradient(90deg,
+        hsl(var(--skb-accent, var(--primary))),
+        hsl(var(--skb-accent, var(--primary)) / 0.7));
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .skill-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 30px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+      border-radius: 4px;
+      animation: barShimmer 2s ease-in-out infinite;
+    }
+    @keyframes barShimmer {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+    @media (max-width: 640px) {
+      .skills-bars-grid { grid-template-columns: 1fr; }
+    }
+
+    /* -- Tools Section (reuse marquee from index) -- */
+    .about-tools-section {
+      position: relative;
+      overflow: hidden;
+      background: hsl(227 55% 6%);
+    }
+    .about-tools-section .container { position: relative; z-index: 2; }
+    .about-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .about-tool-card {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 1rem 1.25rem;
+      background: hsl(var(--dark-surface) / 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid hsl(var(--neon-purple) / 0.15);
+      border-radius: 0.75rem;
+      transition: all 0.3s;
+    }
+    .about-tool-card:hover {
+      border-color: hsl(var(--primary) / 0.4);
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.15);
+    }
+    .about-tool-icon {
+      width: 2.75rem; height: 2.75rem; border-radius: 0.5rem;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: hsl(var(--primary) / 0.1);
+      flex-shrink: 0;
+    }
+    .about-tool-icon svg { width: 1.75rem; height: 1.75rem; }
+    .about-tool-name {
+      font-family: var(--font-display);
+      font-size: 0.875rem; font-weight: 600;
+      color: hsl(225 100% 97%);
+    }
+    .about-tool-role {
+      font-size: 0.72rem;
+      color: hsl(225 20% 65%);
+    }
+    @media (max-width: 768px) {
+      .about-tools-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .about-tools-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Light mode adjustments */
+    html.light .skills-bars-section { background: #fff; }
+    html.light .skill-bar-card { background: #fff; border-color: hsl(220 18% 88%); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    html.light .skill-bar-name { color: #111; }
+    html.light .skill-bar-track { background: hsl(220 18% 90%); }
+    html.light .story-text p { color: #333; }
+    html.light .story-text h2 { color: #111; }
+    html.light .story-stat-num { color: hsl(220 100% 40%); }
+    html.light .story-stat-label { color: #555; }
+    html.light .story-stats { border-top-color: hsl(220 18% 88%); }
+    html.light .about-tools-section { background: hsl(227 55% 6%); }
+    html.light .about-tool-card {
+      background: hsl(227 45% 12% / 0.7);
+      border-color: hsl(227 30% 18%);
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">RB</div>
+        <span class="nav-logo-text">Ronnie Balonon</span>
+      </a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#skills">My Skills</a>
+          <div class="nav-dropdown">
+            <button type="button" class="nav-dropdown-trigger">
+              Portfolio
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="skill-uiux.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>UIUX</a>
+              <a href="skill-photography.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Photography</a>
+              <a href="skill-video-editing.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>Video</a>
+              <a href="skill-artificial-intelligence.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.57-3.25 3.92L12 10v2"/><circle cx="12" cy="16" r="2"/><path d="M12 18v2"/><path d="M7 20h10"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>AI</a>
+              <a href="skill-social-media.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SocialMedia</a>
+              <a href="skill-graphic-design.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>Graphic</a>
+            </div>
+          </div>
+          <a href="about.html" class="active">About Me</a>
+        </div>
+        <a href="contact.html" class="btn btn-sm" style="background:hsl(var(--primary));color:#fff;border:1px solid hsl(var(--primary));font-size:0.8rem;padding:0.4rem 1rem;border-radius:0.5rem;">Contact</a>
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="mobile-menu-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" style="background:hsl(var(--card));border-top:1px solid hsl(var(--border));padding:1rem;">
+      <div style="display:flex;flex-direction:column;gap:0.5rem;">
+        <a href="index.html" onclick="closeMobile()" style="padding:0.75rem 1rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Home</a>
+        <a href="index.html#skills" onclick="closeMobile()" style="padding:0.75rem 1rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">My Skills</a>
+        <div style="padding:0.5rem 1rem 0.25rem;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:hsl(var(--primary));">Portfolio</div>
+        <a href="skill-uiux.html" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">UI/UX &amp; Web Design</a>
+        <a href="skill-photography.html" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Photography</a>
+        <a href="skill-video-editing.html" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Video Editing</a>
+        <a href="skill-artificial-intelligence.html" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Artificial Intelligence</a>
+        <a href="skill-social-media.html" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Social Media Management</a>
+        <a href="skill-graphic-design.html" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Graphic Design</a>
+        <a href="about.html" onclick="closeMobile()" style="padding:0.75rem 1rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--primary));">About Me</a>
+        <a href="index.html#contact" onclick="closeMobile()" style="padding:0.75rem 1rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="subpage-hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="subpage-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>About Me</span>
+      </div>
+      <h1 class="font-display gradient-text">About Me</h1>
+      <p class="hero-subtitle">Get to know the person behind the pixels — my journey, my craft, and the tools I use every day.</p>
+    </div>
+  </section>
+
+  <!-- ===== MY STORY ===== -->
+  <section class="py-24">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-portrait">
+          <div class="story-portrait-glow"></div>
+          <div class="story-portrait-img">
+            <img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69de67668f687747494b545f_Untitled-1.jpg" alt="Ronnie Balonon Jr." />
+          </div>
+        </div>
+        <div class="story-text">
+          <span class="text-primary font-medium tracking-wider uppercase text-sm" style="margin-bottom:0.5rem;display:block;">My Story</span>
+          <h2>Crafting Digital<br>Experiences from <span class="gradient-text">Dubai</span></h2>
+          <p>I'm Ronnie Balonon Jr., a multi-disciplinary designer based in Dubai, UAE. My journey into design started with a deep curiosity for how visuals communicate ideas — and it hasn't stopped since.</p>
+          <p>From UI/UX and web design to photography, video editing, graphic design, and AI-powered workflows, I bring a versatile creative toolkit to every project. I believe great design isn't just about looking good — it's about solving real problems and creating meaningful connections.</p>
+          <p>Whether I'm wireframing a mobile app, shooting a product campaign, or crafting a brand identity, my goal is always the same: deliver work that's clean, functional, and visually powerful.</p>
+          <div class="story-stats">
+            <div>
+              <div class="story-stat-num">5+</div>
+              <div class="story-stat-label">Years Experience</div>
+            </div>
+            <div>
+              <div class="story-stat-num">50+</div>
+              <div class="story-stat-label">Projects Completed</div>
+            </div>
+            <div>
+              <div class="story-stat-num">20+</div>
+              <div class="story-stat-label">Happy Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MY SKILLS ===== -->
+  <section class="py-24 skills-bars-section">
+    <div class="container">
+      <div class="text-center mb-16">
+        <span class="text-primary font-medium tracking-wider uppercase text-sm">Expertise</span>
+        <h2 class="font-display section-title mt-2">My <span class="gradient-text">Skills</span></h2>
+        <p class="section-subtitle">A breakdown of my core competencies and proficiency levels</p>
+      </div>
+      <div class="skills-bars-grid">
+
+        <!-- UI/UX — 60% -->
+        <div class="skill-bar-card" data-accent="blue">
+          <div class="skill-bar-header">
+            <div class="skill-bar-name">
+              <div class="skill-bar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+              </div>
+              UI/UX Design
+            </div>
+            <span class="skill-bar-pct">60%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="60"></div>
+          </div>
+        </div>
+
+        <!-- Photography — 55% -->
+        <div class="skill-bar-card" data-accent="purple">
+          <div class="skill-bar-header">
+            <div class="skill-bar-name">
+              <div class="skill-bar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </div>
+              Photography
+            </div>
+            <span class="skill-bar-pct">55%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="55"></div>
+          </div>
+        </div>
+
+        <!-- Video Editing — 45% -->
+        <div class="skill-bar-card" data-accent="rose">
+          <div class="skill-bar-header">
+            <div class="skill-bar-name">
+              <div class="skill-bar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              </div>
+              Video Editing
+            </div>
+            <span class="skill-bar-pct">45%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="45"></div>
+          </div>
+        </div>
+
+        <!-- Social Media — 40% -->
+        <div class="skill-bar-card" data-accent="teal">
+          <div class="skill-bar-header">
+            <div class="skill-bar-name">
+              <div class="skill-bar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+              </div>
+              Social Media
+            </div>
+            <span class="skill-bar-pct">40%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="40"></div>
+          </div>
+        </div>
+
+        <!-- Graphic Design — 40% -->
+        <div class="skill-bar-card" data-accent="amber">
+          <div class="skill-bar-header">
+            <div class="skill-bar-name">
+              <div class="skill-bar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+              </div>
+              Graphic Design
+            </div>
+            <span class="skill-bar-pct">40%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="40"></div>
+          </div>
+        </div>
+
+        <!-- Artificial Intelligence — 75% -->
+        <div class="skill-bar-card" data-accent="cyan">
+          <div class="skill-bar-header">
+            <div class="skill-bar-name">
+              <div class="skill-bar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.57-3.25 3.92L12 10v2"/><circle cx="12" cy="16" r="2"/><path d="M12 18v2"/><path d="M7 20h10"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 6.34l1.41-1.41"/></svg>
+              </div>
+              Artificial Intelligence
+            </div>
+            <span class="skill-bar-pct">75%</span>
+          </div>
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" data-width="75"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MY WORK TOOLS ===== -->
+  <section class="py-24 about-tools-section">
+    <div class="cyber-line"></div>
+    <div class="container">
+      <div class="text-center mb-16">
+        <span style="color:hsl(var(--primary));font-weight:500;letter-spacing:0.05em;text-transform:uppercase;font-size:0.875rem;">Arsenal</span>
+        <h2 class="font-display section-title mt-2" style="color:hsl(225 100% 97%);">My Work <span class="gradient-text">Tools</span></h2>
+        <p style="color:hsl(225 20% 65%);font-size:1.125rem;max-width:42rem;margin:0 auto;">The design stack powering every project</p>
+      </div>
+      <!-- Adobe Suites -->
+      <h3 class="font-display text-center" style="color:hsl(var(--primary));font-size:1.25rem;font-weight:700;margin-bottom:1.25rem;">Adobe Suites</h3>
+      <div class="about-tools-grid" style="margin-bottom:3rem;">
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d3318ff5e7352575151b_PS.jpg" alt="Photoshop" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Photoshop</div><div class="about-tool-role">Photo Editing</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d33175133b77a613ad59_AI.jpg" alt="Illustrator" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Illustrator</div><div class="about-tool-role">Vector Design</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d33144a84c9e84cfaac3_Li.jpg" alt="Lightroom" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Lightroom</div><div class="about-tool-role">Photo Grading</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d331f7d5c40e7103cd5a_Id.jpg" alt="InDesign" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">InDesign</div><div class="about-tool-role">Print &amp; Layout</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d3312cab125e78feeeba_Xd.jpg" alt="Adobe XD" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Adobe XD</div><div class="about-tool-role">UX Prototyping</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d331441e930caf87ac92_Pr.jpg" alt="Premiere Pro" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Premiere Pro</div><div class="about-tool-role">Video Editing</div></div>
+        </div>
+      </div>
+
+      <!-- AI Tools -->
+      <h3 class="font-display text-center" style="color:hsl(var(--primary));font-size:1.25rem;font-weight:700;margin-bottom:1.25rem;">AI Tools</h3>
+      <div class="about-tools-grid" style="margin-bottom:3rem;">
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d331032b7a20c557ffbf_ChatGPT.jpg" alt="ChatGPT" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">ChatGPT</div><div class="about-tool-role">AI Writing</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d3314a7346a752b3a640_Claude.jpg" alt="Claude" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Claude</div><div class="about-tool-role">AI Assistant</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d331769148d735e99acc_Midjourney.jpg" alt="Midjourney" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Midjourney</div><div class="about-tool-role">AI Image Gen</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d331ae844b87799a6a8f_Dreamania.jpg" alt="Dreamania" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Dreamania</div><div class="about-tool-role">AI Image Gen</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d33169a7b2ff6d713f03_Freepik.jpg" alt="Freepik" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Freepik</div><div class="about-tool-role">Design Assets</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d331e5c7315e4130a179_Kling.jpg" alt="Kling" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Kling</div><div class="about-tool-role">AI Video Gen</div></div>
+        </div>
+      </div>
+
+      <!-- Web Tools -->
+      <h3 class="font-display text-center" style="color:hsl(var(--primary));font-size:1.25rem;font-weight:700;margin-bottom:1.25rem;">Web Tools</h3>
+      <div class="about-tools-grid" style="max-width:520px;margin:0 auto;grid-template-columns:repeat(2, 1fr);">
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d45b1042a6a3bd653492_Figma.jpg" alt="Figma" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Figma</div><div class="about-tool-role">UI/UX Design</div></div>
+        </div>
+        <div class="about-tool-card">
+          <div class="about-tool-icon"><img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69e0d3318ee7300fa8b0bf4f_VS.jpg" alt="Visual Studio" style="width:2.5rem;height:2.5rem;border-radius:0.35rem;object-fit:cover;" /></div>
+          <div><div class="about-tool-name">Visual Studio</div><div class="about-tool-role">Code Editor</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container" style="padding-top:4rem;padding-bottom:4rem;">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="nav-logo mb-4" style="margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;">
+            <div class="nav-logo-icon">RB</div>
+            <span class="font-display text-lg font-bold">Ronnie Balonon Jr.</span>
+          </a>
+          <p class="text-muted text-sm leading-relaxed mb-4" style="margin-bottom:1rem;">
+            UI/UX &amp; Web Designer crafting bold digital experiences — from responsive websites to brand visuals, photography, and social media design.
+          </p>
+          <div class="flex items-center gap-2 text-sm text-muted">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Dubai, UAE
+          </div>
+        </div>
+        <div>
+          <h4 class="font-display text-lg font-semibold mb-4">Quick Links</h4>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <a href="index.html" class="text-muted text-sm" style="transition:color 0.3s;" onmouseover="this.style.color='hsl(212,100%,50%)'" onmouseout="this.style.color=''">Home</a>
+            <a href="about.html" class="text-muted text-sm" style="transition:color 0.3s;" onmouseover="this.style.color='hsl(212,100%,50%)'" onmouseout="this.style.color=''">About</a>
+            <a href="index.html#contact" class="text-muted text-sm" style="transition:color 0.3s;" onmouseover="this.style.color='hsl(212,100%,50%)'" onmouseout="this.style.color=''">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-display text-lg font-semibold mb-4">Connect</h4>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem;">
+            <a href="mailto:ronniebalonon1996@gmail.com" class="flex items-center gap-2 text-muted text-sm" style="transition:color 0.3s;" onmouseover="this.style.color='hsl(212,100%,50%)'" onmouseout="this.style.color=''">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              ronniebalonon1996@gmail.com
+            </a>
+            <a href="tel:+971543763091" class="flex items-center gap-2 text-muted text-sm" style="transition:color 0.3s;" onmouseover="this.style.color='hsl(212,100%,50%)'" onmouseout="this.style.color=''">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +971 54 376 3091
+            </a>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-top:0.25rem;">
+            <a href="https://www.instagram.com/ronnieeee25/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;border-radius:0.5rem;background:hsl(var(--muted));color:hsl(var(--muted-foreground));transition:all 0.3s;" onmouseover="this.style.background='linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)';this.style.color='#fff'" onmouseout="this.style.background='hsl(var(--muted))';this.style.color='hsl(var(--muted-foreground))'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.facebook.com/ronnieeee25" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="display:flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;border-radius:0.5rem;background:hsl(var(--muted));color:hsl(var(--muted-foreground));transition:all 0.3s;" onmouseover="this.style.background='#1877F2';this.style.color='#fff'" onmouseout="this.style.background='hsl(var(--muted))';this.style.color='hsl(var(--muted-foreground))'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@ronnie.balonon" target="_blank" rel="noopener noreferrer" aria-label="TikTok" style="display:flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;border-radius:0.5rem;background:hsl(var(--muted));color:hsl(var(--muted-foreground));transition:all 0.3s;" onmouseover="this.style.background='#010101';this.style.color='#fff'" onmouseout="this.style.background='hsl(var(--muted))';this.style.color='hsl(var(--muted-foreground))'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="text-muted text-sm">&copy; 2026 Ronnie Balonon Jr. Designed with &#10084;&#65039;</p>
+        <p class="text-muted text-xs">UI/UX &amp; Web Designer — Dubai, UAE</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== WHATSAPP BUTTON ===== -->
+  <button class="whatsapp-btn" onclick="window.open('https://wa.me/971543763091','_blank')" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </button>
+
+  <script>
+    // Navbar scroll
+    window.addEventListener("scroll", function() {
+      var nav = document.getElementById("navbar");
+      if (window.scrollY > 50) { nav.classList.add("scrolled"); }
+      else { nav.classList.remove("scrolled"); }
+    });
+    function closeMobile() { document.getElementById("mobileMenu").classList.remove("open"); }
+
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      var html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.replace('dark', 'light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.replace('light', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Dropdown — hover with 0.5s close delay + click toggle
+    document.querySelectorAll('.nav-dropdown').forEach(function(dd) {
+      var closeTimer = null;
+      function openDropdown() {
+        clearTimeout(closeTimer);
+        document.querySelectorAll('.nav-dropdown.open').forEach(function(d) {
+          if (d !== dd) d.classList.remove('open');
+        });
+        dd.classList.add('open');
+      }
+      function startCloseTimer() {
+        closeTimer = setTimeout(function() {
+          dd.classList.remove('open');
+        }, 500);
+      }
+      dd.addEventListener('mouseenter', openDropdown);
+      dd.addEventListener('mouseleave', startCloseTimer);
+      dd.querySelector('.nav-dropdown-trigger').addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (dd.classList.contains('open')) {
+          dd.classList.remove('open');
+        } else {
+          openDropdown();
+        }
+      });
+    });
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.nav-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+    });
+
+    // Skill bars — animate on scroll
+    (function() {
+      var bars = document.querySelectorAll('.skill-bar-fill');
+      if (!bars.length) return;
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var bar = entry.target;
+            bar.style.width = bar.getAttribute('data-width') + '%';
+            obs.unobserve(bar);
+          }
+        });
+      }, { threshold: 0.3 });
+      bars.forEach(function(bar) { obs.observe(bar); });
+    })();
+
+    // Scroll animation
+    (function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll("section > .container > *:not(.skills-bars-grid):not(.about-tools-grid)").forEach(function(el) {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(30px)";
+        el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        observer.observe(el);
+      });
+    })();
+  </script>
+<script src="chatbot.js" defer></script>
+</body>
+</html>
