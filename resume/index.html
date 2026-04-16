@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Ronnie Balonon Jr. — Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #3b5bff;
+      --text: #111;
+      --muted: #555;
+      --line: #e5e5e5;
+      --bg: #ffffff;
+    }
+
+    html, body {
+      background: #e9e9ec;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .toolbar {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; justify-content: center; gap: 0.75rem;
+      padding: 1rem; background: #111; color: #fff;
+    }
+    .toolbar a, .toolbar button {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.2rem; border-radius: 0.5rem;
+      font-family: inherit; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid #fff6 !important; }
+    .btn-ghost:hover { background: #fff1; }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 2rem auto;
+      background: var(--bg);
+      padding: 16mm 14mm;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      display: flex; flex-direction: column;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      color: var(--text);
+    }
+
+    /* Header */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      gap: 1.25rem;
+      align-items: center;
+      padding-bottom: 0.9rem;
+      border-bottom: 2px solid var(--text);
+    }
+    .header h1 {
+      font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .header .role {
+      font-size: 0.95rem; color: var(--muted); margin-top: 0.15rem; font-weight: 500;
+    }
+    .header .contact {
+      margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem;
+      font-size: 0.78rem; color: var(--text);
+    }
+    .header .contact span { display: inline-flex; align-items: center; gap: 0.3rem; }
+    .header .contact b { color: var(--accent); font-weight: 700; }
+    .avatar {
+      width: 100px; height: 120px;
+      border-radius: 8px; overflow: hidden;
+      border: 2px solid var(--accent);
+      background: #f2f2f2;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Body */
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.25rem;
+      margin-top: 0.85rem;
+      flex: 1;
+    }
+
+    .section { margin-bottom: 0.8rem; }
+    .section h2 {
+      font-size: 0.82rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--accent);
+      margin-bottom: 0.45rem;
+      padding-bottom: 0.2rem; border-bottom: 1px solid var(--line);
+    }
+
+    .about p {
+      font-size: 0.82rem; line-height: 1.5; color: var(--text);
+    }
+
+    /* Skills bars */
+    .skill { margin-bottom: 0.45rem; }
+    .skill-head {
+      display: flex; justify-content: space-between;
+      font-size: 0.78rem; font-weight: 600; margin-bottom: 0.18rem;
+    }
+    .skill-head .pct { color: var(--accent); font-weight: 700; }
+    .bar {
+      height: 5px; background: var(--line); border-radius: 3px; overflow: hidden;
+    }
+    .bar > span {
+      display: block; height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    /* Services */
+    .services ul, .tools ul, .capabilities ul {
+      list-style: none; display: grid;
+      font-size: 0.78rem; line-height: 1.55;
+    }
+    .services ul { grid-template-columns: 1fr; }
+    .services li { padding-left: 0.9rem; position: relative; margin-bottom: 0.25rem; }
+    .services li::before {
+      content: ""; position: absolute; left: 0; top: 0.52rem;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+    }
+    .services li b { color: var(--text); font-weight: 700; }
+
+    /* Tools */
+    .tools-group { margin-bottom: 0.55rem; }
+    .tools-group h3 {
+      font-size: 0.72rem; font-weight: 700; color: var(--accent);
+      margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .tools-group .chips {
+      display: flex; flex-wrap: wrap; gap: 0.3rem;
+    }
+    .chip {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--text);
+      border-radius: 999px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Capabilities */
+    .capabilities ul {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 0.75rem;
+    }
+    .capabilities li {
+      padding-left: 0.9rem; position: relative;
+    }
+    .capabilities li::before {
+      content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 800;
+    }
+
+    .footer {
+      margin-top: auto; padding-top: 0.6rem;
+      border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between;
+      font-size: 0.7rem; color: var(--muted);
+    }
+    .footer b { color: var(--accent); }
+
+    /* Print */
+    @media print {
+      html, body { background: #fff; }
+      .toolbar { display: none; }
+      .page {
+        width: 100%; min-height: auto; margin: 0;
+        box-shadow: none; padding: 12mm;
+      }
+      @page { size: A4; margin: 0; }
+    }
+
+    @media (max-width: 800px) {
+      .page { width: 100%; margin: 0; padding: 1rem; box-shadow: none; }
+      .body-grid { grid-template-columns: 1fr; }
+      .capabilities ul { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button class="btn-primary" onclick="window.print()">⬇ Download as PDF</button>
+    <a href="/" class="btn-ghost">← Back to site</a>
+  </div>
+
+  <div class="page">
+
+    <!-- Header -->
+    <header class="header">
+      <div>
+        <h1>RONNIE BALONON JR.</h1>
+        <div class="role">UI/UX &amp; Web Designer — Dubai, UAE</div>
+        <div class="contact">
+          <span>✉ <b>Email:</b> ronniebalonon1996@gmail.com</span>
+          <span>✆ <b>Phone:</b> +971 54 376 3091</span>
+          <span>◉ <b>Location:</b> Dubai, UAE</span>
+          <span>🌐 <b>Web:</b> balononr.com</span>
+        </div>
+      </div>
+      <div class="avatar">
+        <img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69de67668f687747494b545f_Untitled-1.jpg" alt="Ronnie Balonon Jr." />
+      </div>
+    </header>
+
+    <!-- About -->
+    <section class="section about" style="margin-top:0.7rem;">
+      <h2>About Me</h2>
+      <p>UI/UX Designer focused on creating intuitive, visually engaging, and user-centered digital experiences. I combine strong design aesthetics with usability and strategic thinking to ensure every interface is both functional and aligned with business goals.</p>
+    </section>
+
+    <!-- Body grid -->
+    <div class="body-grid">
+
+      <!-- Left column -->
+      <div>
+        <section class="section services">
+          <h2>Core Services</h2>
+          <ul>
+            <li><b>UI/UX &amp; Web Design</b> — Responsive, SEO-driven, conversion-focused websites built mobile-first.</li>
+            <li><b>Photography</b> — Creative compositions enhanced with AI upscaling, smart retouching, and cinematic grading.</li>
+            <li><b>Video Editing</b> — Branded media, content editing, motion graphics, and multi-platform adaptation.</li>
+            <li><b>Graphic Design</b> — Branding &amp; identity, mockups, company profiles, and marketing visuals.</li>
+            <li><b>Social Media</b> — Content strategy, platform-specific design, analytics, and community management.</li>
+            <li><b>Artificial Intelligence</b> — AI-assisted workflows, image/video prompts, chatbots, and smart ideation.</li>
+          </ul>
+        </section>
+
+        <section class="section capabilities">
+          <h2>Key Capabilities</h2>
+          <ul>
+            <li>UI &amp; UX Design</li>
+            <li>Wireframing &amp; Prototyping</li>
+            <li>Webflow Development</li>
+            <li>SEO Optimization</li>
+            <li>Landing Pages</li>
+            <li>Web Animation</li>
+            <li>Branding &amp; Identity</li>
+            <li>Cinematic Techniques</li>
+            <li>Motion Graphics</li>
+            <li>Audio Design &amp; Sync</li>
+            <li>AI Upscaling &amp; Retouching</li>
+            <li>Content Strategy</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Right column -->
+      <div>
+        <section class="section skills">
+          <h2>Skill Overview</h2>
+
+          <div class="skill">
+            <div class="skill-head"><span>Web Designer (UI/UX)</span><span class="pct">60%</span></div>
+            <div class="bar"><span style="width:60%"></span></div>
+          </div>
+          <div class="skill">
+            <div class="skill-head"><span>Photography</span><span class="pct">55%</span></div>
+            <div class="bar"><span style="width:55%"></span></div>
+          </div>
+          <div class="skill">
+            <div class="skill-head"><span>Video Editor</span><span class="pct">45%</span></div>
+            <div class="bar"><span style="width:45%"></span></div>
+          </div>
+          <div class="skill">
+            <div class="skill-head"><span>Social Media Management</span><span class="pct">40%</span></div>
+            <div class="bar"><span style="width:40%"></span></div>
+          </div>
+          <div class="skill">
+            <div class="skill-head"><span>Graphic Designer</span><span class="pct">40%</span></div>
+            <div class="bar"><span style="width:40%"></span></div>
+          </div>
+          <div class="skill">
+            <div class="skill-head"><span>Artificial Intelligence</span><span class="pct">75%</span></div>
+            <div class="bar"><span style="width:75%"></span></div>
+          </div>
+        </section>
+
+        <section class="section tools">
+          <h2>Tools &amp; Software</h2>
+          <div class="tools-group">
+            <h3>Adobe Suite</h3>
+            <div class="chips">
+              <span class="chip">Photoshop</span>
+              <span class="chip">Illustrator</span>
+              <span class="chip">InDesign</span>
+              <span class="chip">Lightroom</span>
+              <span class="chip">Premiere Pro</span>
+              <span class="chip">Adobe XD</span>
+            </div>
+          </div>
+          <div class="tools-group">
+            <h3>AI Tools</h3>
+            <div class="chips">
+              <span class="chip">Claude</span>
+              <span class="chip">ChatGPT</span>
+              <span class="chip">Midjourney</span>
+              <span class="chip">Kling</span>
+              <span class="chip">Freepik</span>
+              <span class="chip">Dreamania</span>
+            </div>
+          </div>
+          <div class="tools-group">
+            <h3>Web &amp; Design</h3>
+            <div class="chips">
+              <span class="chip">Figma</span>
+              <span class="chip">Visual Studio</span>
+              <span class="chip">Webflow</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <span>Filipino · DOB: May 25, 1996</span>
+      <span>Portfolio: <b>balononr.com</b></span>
+    </div>
+
+  </div>
+
+</body>
+</html>
