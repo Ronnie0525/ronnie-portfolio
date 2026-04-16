@@ -294,21 +294,35 @@
     }
     .foot b { color: var(--accent); }
 
-    /* Print — force exactly one A4 page */
+    /* Print — force exactly one A4 page (210mm × 297mm) */
+    @page {
+      size: 210mm 297mm;
+      margin: 0;
+    }
     @media print {
-      html, body { background: #fff; width: 210mm; height: 297mm; }
-      .toolbar { display: none !important; }
-      .page {
+      html, body {
+        background: #fff !important;
         width: 210mm;
         height: 297mm;
-        margin: 0;
-        box-shadow: none;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .toolbar, .print-help { display: none !important; }
+      .page {
+        width: 210mm !important;
+        height: 297mm !important;
+        max-width: 210mm;
+        max-height: 297mm;
+        margin: 0 !important;
+        box-shadow: none !important;
         page-break-after: avoid;
         page-break-inside: avoid;
         overflow: hidden;
+        transform: none !important;
       }
-      @page { size: A4 portrait; margin: 0; }
-      .section, .skill, .sb-block, .highlights, .foot {
+      .section, .skill, .sb-block, .highlights, .foot, .exp-item {
         page-break-inside: avoid;
         break-inside: avoid;
       }
@@ -329,6 +343,14 @@
   <div class="toolbar">
     <button class="btn-primary" onclick="window.print()">⬇ Download as PDF</button>
     <a href="/" class="btn-ghost">← Back to site</a>
+  </div>
+
+  <div class="print-help" style="max-width:210mm;margin:0.75rem auto 0;padding:0.65rem 1rem;background:#fff7d6;border:1px solid #eacb5b;border-radius:6px;font-size:0.82rem;color:#333;font-family:Inter,sans-serif;">
+    <b>When the print dialog opens, set:</b>
+    &nbsp;Paper size → <b>A4</b> &nbsp;·&nbsp;
+    Margins → <b>None</b> &nbsp;·&nbsp;
+    Scale → <b>Default (100%)</b> &nbsp;·&nbsp;
+    Destination → <b>Save as PDF</b>
   </div>
 
   <div class="page">
