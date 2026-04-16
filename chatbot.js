@@ -339,56 +339,56 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'uiux',
           keys: ['ui','ux','uiux','ui/ux','web design','website design','wireframe','prototype','figma','user interface','user experience','responsive','landing page','web page','webpage','frontend','front-end','app design','mobile design','dashboard'],
           replies: [
-            "Ronnie specializes in UI/UX & Web Design! This includes:\n\n• Wireframing & prototyping in Figma\n• Responsive website design\n• Mobile app UI design\n• Landing page design\n• Dashboard & SaaS interfaces\n• User research & interaction design\n\nCheck out the " + L('skill-uiux.html') + "UIUX Portfolio" + E + " to see his work!"
+            "Ronnie specializes in UI/UX & Web Design! This includes:\n\n• Wireframing & prototyping in Figma\n• Responsive website design\n• Mobile app UI design\n• Landing page design\n• Dashboard & SaaS interfaces\n• User research & interaction design\n\nCheck out the " + L('/skill-uiux/') + "UIUX Portfolio" + E + " to see his work!"
           ]
         },
         {
           name: 'photography',
           keys: ['photo','photography','photographer','shoot','shooting','camera','portrait','product photo','headshot','event photo','studio','lifestyle photo','food photo'],
           replies: [
-            "Ronnie is a skilled photographer covering:\n\n• Product photography\n• Portrait sessions\n• Lifestyle & brand shoots\n• Event coverage\n• Studio photography\n• Food & restaurant shoots\n\nSee his shots in the " + L('skill-photography.html') + "Photography Portfolio" + E + "!"
+            "Ronnie is a skilled photographer covering:\n\n• Product photography\n• Portrait sessions\n• Lifestyle & brand shoots\n• Event coverage\n• Studio photography\n• Food & restaurant shoots\n\nSee his shots in the " + L('/skill-photography/') + "Photography Portfolio" + E + "!"
           ]
         },
         {
           name: 'video',
           keys: ['video','editing','premiere','reel','reels','cinematic','motion','film','footage','color grad','colour grad','short form','content creation','tiktok','youtube','vlog'],
           replies: [
-            "Ronnie handles video editing with expertise in:\n\n• Brand promo reels\n• Social media short-form content (Reels, TikTok)\n• Product showcase videos\n• Corporate videos\n• Event highlights\n• Cinematic travel edits\n• Color grading in Premiere Pro\n\nExplore the " + L('skill-video-editing.html') + "Video Portfolio" + E + "!"
+            "Ronnie handles video editing with expertise in:\n\n• Brand promo reels\n• Social media short-form content (Reels, TikTok)\n• Product showcase videos\n• Corporate videos\n• Event highlights\n• Cinematic travel edits\n• Color grading in Premiere Pro\n\nExplore the " + L('/skill-video-editing/') + "Video Portfolio" + E + "!"
           ]
         },
         {
           name: 'social_media',
           keys: ['social media','social','instagram','facebook','tiktok content','content strat','engagement','followers','posting','content calendar','smm','community','brand presence','online presence','marketing'],
           replies: [
-            "Ronnie manages social media end-to-end:\n\n• Content strategy & calendars\n• Post design & copywriting\n• Instagram, Facebook, TikTok management\n• Engagement & community building\n• Analytics & performance reporting\n• Brand voice development\n\nSee examples in the " + L('skill-social-media.html') + "Social Media Portfolio" + E + "!"
+            "Ronnie manages social media end-to-end:\n\n• Content strategy & calendars\n• Post design & copywriting\n• Instagram, Facebook, TikTok management\n• Engagement & community building\n• Analytics & performance reporting\n• Brand voice development\n\nSee examples in the " + L('/skill-social-media/') + "Social Media Portfolio" + E + "!"
           ]
         },
         {
           name: 'graphic_design',
           keys: ['graphic','design','logo','brand','branding','identity','poster','flyer','brochure','print','business card','packaging','illustrat','vector','adobe','layout','visual identity','banner','signage'],
           replies: [
-            "Ronnie creates bold visual designs:\n\n• Brand identity systems & logo design\n• Poster & print design\n• Business cards & stationery\n• Social media graphics & templates\n• Packaging design\n• Marketing collateral (brochures, flyers, banners)\n\nBrowse the " + L('skill-graphic-design.html') + "Graphic Design Portfolio" + E + "!"
+            "Ronnie creates bold visual designs:\n\n• Brand identity systems & logo design\n• Poster & print design\n• Business cards & stationery\n• Social media graphics & templates\n• Packaging design\n• Marketing collateral (brochures, flyers, banners)\n\nBrowse the " + L('/skill-graphic-design/') + "Graphic Design Portfolio" + E + "!"
           ]
         },
         {
           name: 'ai',
           keys: ['ai','artificial intelligence','midjourney','chatgpt','claude','kling','generative','prompt engineer','ai image','ai video','ai tool','machine learning','automation','gpt','dall-e','stable diffusion','ai art','ai design','ai assist'],
           replies: [
-            "Ronnie leverages cutting-edge AI tools:\n\n• <b>Midjourney</b> — AI image generation for branding\n• <b>ChatGPT & Claude</b> — AI-assisted copywriting & strategy\n• <b>Kling AI</b> — AI video generation\n• <b>Prompt Engineering</b> — Crafting production-ready outputs\n• <b>AI Workflows</b> — End-to-end creative automation\n\nSee AI work in the " + L('skill-artificial-intelligence.html') + "AI Portfolio" + E + "!"
+            "Ronnie leverages cutting-edge AI tools:\n\n• <b>Midjourney</b> — AI image generation for branding\n• <b>ChatGPT & Claude</b> — AI-assisted copywriting & strategy\n• <b>Kling AI</b> — AI video generation\n• <b>Prompt Engineering</b> — Crafting production-ready outputs\n• <b>AI Workflows</b> — End-to-end creative automation\n\nSee AI work in the " + L('/skill-artificial-intelligence/') + "AI Portfolio" + E + "!"
           ]
         },
         {
           name: 'portfolio',
           keys: ['portfolio','work','project','projects','sample','samples','example','examples','showcase','case study','previous work','past work','show me','see your'],
           replies: [
-            "Here are all of Ronnie's portfolio pages:\n\n• " + L('skill-uiux.html') + "UIUX" + E + " — Web & app interfaces\n• " + L('skill-photography.html') + "Photography" + E + " — Shoots & sessions\n• " + L('skill-video-editing.html') + "Video" + E + " — Reels & edits\n• " + L('skill-artificial-intelligence.html') + "AI" + E + " — Generative & AI work\n• " + L('skill-social-media.html') + "SocialMedia" + E + " — Campaigns & strategy\n• " + L('skill-graphic-design.html') + "Graphic" + E + " — Branding & print\n\nWhich one would you like to explore?"
+            "Here are all of Ronnie's portfolio pages:\n\n• " + L('/skill-uiux/') + "UIUX" + E + " — Web & app interfaces\n• " + L('/skill-photography/') + "Photography" + E + " — Shoots & sessions\n• " + L('/skill-video-editing/') + "Video" + E + " — Reels & edits\n• " + L('/skill-artificial-intelligence/') + "AI" + E + " — Generative & AI work\n• " + L('/skill-social-media/') + "SocialMedia" + E + " — Campaigns & strategy\n• " + L('/skill-graphic-design/') + "Graphic" + E + " — Branding & print\n\nWhich one would you like to explore?"
           ]
         },
         {
           name: 'contact',
           keys: ['contact','reach','email','mail','phone','call','message','get in touch','talk','connect','reach out','speak','dm','direct message'],
           replies: [
-            "You can reach Ronnie through:\n\n• <b>Email:</b> " + L('mailto:ronniebalonon1996@gmail.com') + "ronniebalonon1996@gmail.com" + E + "\n• <b>Phone:</b> " + L('tel:+971543763091') + "+971 54 376 3091" + E + "\n• <b>WhatsApp:</b> " + La('https://wa.me/971543763091') + "Chat now" + E + "\n• <b>Contact form:</b> " + L('contact.html') + "Contact page" + E + "\n\nHe typically responds within a few hours!"
+            "You can reach Ronnie through:\n\n• <b>Email:</b> " + L('mailto:ronniebalonon1996@gmail.com') + "ronniebalonon1996@gmail.com" + E + "\n• <b>Phone:</b> " + L('tel:+971543763091') + "+971 54 376 3091" + E + "\n• <b>WhatsApp:</b> " + La('https://wa.me/971543763091') + "Chat now" + E + "\n• <b>Contact form:</b> " + L('/contact/') + "Contact page" + E + "\n\nHe typically responds within a few hours!"
           ]
         },
         {
@@ -402,21 +402,21 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'price',
           keys: ['price','pricing','cost','rate','rates','charge','fee','fees','budget','how much','quote','estimate','affordable','cheap','expensive','pay','payment','invoice'],
           replies: [
-            "Pricing varies depending on the project:\n\n• <b>UI/UX & Web Design:</b> Based on pages & complexity\n• <b>Photography:</b> Per session or per hour\n• <b>Video Editing:</b> Per project or per minute of final cut\n• <b>Graphic Design:</b> Per deliverable\n• <b>Social Media:</b> Monthly retainer packages\n\nFor a free custom quote, reach out via " + L('contact.html') + "Contact page" + E + " or " + La('https://wa.me/971543763091') + "WhatsApp" + E + "!"
+            "Pricing varies depending on the project:\n\n• <b>UI/UX & Web Design:</b> Based on pages & complexity\n• <b>Photography:</b> Per session or per hour\n• <b>Video Editing:</b> Per project or per minute of final cut\n• <b>Graphic Design:</b> Per deliverable\n• <b>Social Media:</b> Monthly retainer packages\n\nFor a free custom quote, reach out via " + L('/contact/') + "Contact page" + E + " or " + La('https://wa.me/971543763091') + "WhatsApp" + E + "!"
           ]
         },
         {
           name: 'hire',
           keys: ['hire','hiring','freelance','freelancer','available','availability','book','booking','work together','collaborate','commission','engage','open for work','project start'],
           replies: [
-            "Great news — Ronnie is currently <b>available for freelance projects</b>!\n\nHe works with clients in Dubai and remotely worldwide. To get started:\n\n1. Share your project brief\n2. Get a free quote\n3. Kick off the project!\n\n" + L('contact.html') + "Send a project inquiry" + E + " or " + La('https://wa.me/971543763091') + "chat on WhatsApp" + E + ""
+            "Great news — Ronnie is currently <b>available for freelance projects</b>!\n\nHe works with clients in Dubai and remotely worldwide. To get started:\n\n1. Share your project brief\n2. Get a free quote\n3. Kick off the project!\n\n" + L('/contact/') + "Send a project inquiry" + E + " or " + La('https://wa.me/971543763091') + "chat on WhatsApp" + E + ""
           ]
         },
         {
           name: 'experience',
           keys: ['experience','background','about','story','bio','resume','cv','journey','career','history','who is','who are','about you','about ronnie','tell me about','yourself','introduction'],
           replies: [
-            "Ronnie Balonon Jr. is a multi-disciplinary designer based in <b>Dubai, UAE</b> with:\n\n• <b>5+ years</b> of professional experience\n• <b>50+ projects</b> completed\n• <b>20+ happy clients</b>\n\nHe specializes in UI/UX design, photography, video editing, graphic design, social media, and AI-powered creative workflows.\n\nLearn more on the " + L('about.html') + "About Me page" + E + "!"
+            "Ronnie Balonon Jr. is a multi-disciplinary designer based in <b>Dubai, UAE</b> with:\n\n• <b>5+ years</b> of professional experience\n• <b>50+ projects</b> completed\n• <b>20+ happy clients</b>\n\nHe specializes in UI/UX design, photography, video editing, graphic design, social media, and AI-powered creative workflows.\n\nLearn more on the " + L('/about/') + "About Me page" + E + "!"
           ]
         },
         {
@@ -430,7 +430,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'location',
           keys: ['location','where','based','city','country','office','address','dubai','uae','emirates','meet','in person','visit'],
           replies: [
-            "Ronnie is based in <b>Dubai, UAE</b>.\n\nHe works with local clients in-person and also collaborates with clients worldwide remotely.\n\nWant to schedule a meeting? " + L('contact.html') + "Get in touch here" + E + "!"
+            "Ronnie is based in <b>Dubai, UAE</b>.\n\nHe works with local clients in-person and also collaborates with clients worldwide remotely.\n\nWant to schedule a meeting? " + L('/contact/') + "Get in touch here" + E + "!"
           ]
         },
         {
@@ -444,7 +444,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'process',
           keys: ['process','how do you work','workflow','step','steps','method','approach','how does it work','start a project','get started','onboard','onboarding','kick off','begin'],
           replies: [
-            "Ronnie's process is simple:\n\n<b>1. Discovery</b> — Understand your goals & vision\n<b>2. Proposal</b> — Scope, timeline & quote\n<b>3. Design</b> — Create, review & refine\n<b>4. Delivery</b> — Final files & handoff\n<b>5. Support</b> — Revisions & ongoing help\n\nReady to start? " + L('contact.html') + "Send a brief" + E + "!"
+            "Ronnie's process is simple:\n\n<b>1. Discovery</b> — Understand your goals & vision\n<b>2. Proposal</b> — Scope, timeline & quote\n<b>3. Design</b> — Create, review & refine\n<b>4. Delivery</b> — Final files & handoff\n<b>5. Support</b> — Revisions & ongoing help\n\nReady to start? " + L('/contact/') + "Send a brief" + E + "!"
           ]
         },
         {
@@ -474,7 +474,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'negative',
           keys: ['bad','ugly','terrible','hate','worst','horrible','awful','suck','poor','disappointing','boring','meh'],
           replies: [
-            "I'm sorry to hear that! Ronnie is always open to feedback and improvement. If you'd like to discuss anything specific, feel free to " + L('contact.html') + "reach out directly" + E + ".",
+            "I'm sorry to hear that! Ronnie is always open to feedback and improvement. If you'd like to discuss anything specific, feel free to " + L('/contact/') + "reach out directly" + E + ".",
             "Sorry you feel that way. Ronnie would love to understand your perspective better. " + La('https://wa.me/971543763091') + "Send him a message" + E + "!"
           ]
         },
