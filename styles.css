@@ -226,13 +226,6 @@
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; position: relative; }
     .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
-    .nav-logo-icon {
-      width: 2.5rem; height: 2.5rem; border-radius: 0.5rem;
-      background: hsl(var(--primary));
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-size: 1.125rem; font-weight: 800;
-      color: hsl(var(--primary-foreground));
-    }
     .nav-logo-text { font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; }
     .nav-links {
       display: flex; align-items: center; gap: 2rem;

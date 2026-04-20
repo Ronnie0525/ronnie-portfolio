@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Windows/OneDrive/Desktop/**)",
+      "Read(//c/Users/Windows/OneDrive/Desktop/My Files/**)"
+    ]
+  }
+}
