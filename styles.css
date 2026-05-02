@@ -1262,9 +1262,9 @@
       background-position: center !important;
       background-repeat: no-repeat !important;
     }
-    /* Show more of the top of the image (e.g. AI brain) */
+    /* Subtle downward shift of background subject (e.g. AI brain) */
     .subpage-hero--image.subpage-hero--bg-top {
-      background-position: center 22% !important;
+      background-position: center 40% !important;
     }
     .subpage-hero--image::before {
       background:
