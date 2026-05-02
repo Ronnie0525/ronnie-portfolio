@@ -1313,7 +1313,7 @@
     }
     .uw-card-img {
       position: relative;
-      height: 220px;
+      height: 320px;
       background: #f5f5f8;
       overflow: hidden;
     }
@@ -1399,6 +1399,7 @@
     }
     @media (max-width: 640px) {
       .uw-grid { grid-template-columns: 1fr; }
+      .uw-card-img { height: 260px; }
     }
 
     /* ===== PORTFOLIO GRID (3-col equal) ===== */
