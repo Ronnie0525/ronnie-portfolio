@@ -614,8 +614,12 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
       }
 
       // Score an intent against user input
+      // Substring matching only kicks in when both sides are long enough,
+      // so 1–2 char noise like "lo" doesn't match "logo" / "workflow".
+      var MIN_FUZZY_LEN = 4;
       function scoreIntent(input, intent) {
-        var words = normalize(input).split(' ');
+        var normInput = normalize(input);
+        var words = normInput.split(' ');
         var score = 0;
         for (var i = 0; i < intent.keys.length; i++) {
           var key = normalize(intent.keys[i]);
@@ -624,24 +628,49 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           if (keyWords.length > 1) {
             var allFound = true;
             for (var j = 0; j < keyWords.length; j++) {
-              if (normalize(input).indexOf(keyWords[j]) === -1) { allFound = false; break; }
+              if (normInput.indexOf(keyWords[j]) === -1) { allFound = false; break; }
             }
             if (allFound) score += keyWords.length * 3;
           } else {
-            // Single word: check exact word match or substring
+            // Single word: exact match, then guarded fuzzy match
             for (var w = 0; w < words.length; w++) {
-              if (words[w] === key) { score += 3; }
-              else if (words[w].indexOf(key) !== -1 || key.indexOf(words[w]) !== -1) { score += 1; }
+              var word = words[w];
+              if (word === key) {
+                score += 3;
+              } else if (word.length >= MIN_FUZZY_LEN && key.length >= MIN_FUZZY_LEN
+                         && (word.indexOf(key) !== -1 || key.indexOf(word) !== -1)) {
+                score += 1;
+              }
             }
           }
         }
         return score;
       }
 
+      // Variety of "I don't understand" replies so it doesn't feel canned
+      var unknownReplies = [
+        "Hmm, I didn't quite catch that. Could you rephrase it? You can ask me about Ronnie's <b>services</b>, <b>portfolio</b>, <b>pricing</b>, or how to <b>contact</b> him.",
+        "Sorry, I'm not sure I understand. Try asking about Ronnie's <b>skills</b>, <b>past work</b>, <b>tools</b>, or <b>availability</b> — or " + La('https://wa.me/971543763091') + "message him directly" + E + ".",
+        "I didn't get that one. I'm best at questions about Ronnie's <b>work</b>, <b>services</b>, <b>pricing</b>, and <b>contact info</b>. Could you try again?",
+        "That one's outside what I know. Try keywords like <b>UI/UX</b>, <b>photography</b>, <b>video</b>, <b>pricing</b>, or <b>contact</b> — happy to help from there!"
+      ];
+      var tooShortReplies = [
+        "Could you tell me a bit more? I can help with services, portfolio, pricing, tools, or how to contact Ronnie.",
+        "I need a little more to go on — try asking about Ronnie's services, work, pricing, or contact details.",
+        "Hmm, that's a bit short. What would you like to know — his services, portfolio, or how to reach him?"
+      ];
+      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
       function getBotReply(text) {
+        var lower = normalize(text);
+
+        // Too short to be meaningful
+        if (lower.length < 3 || lower.split(' ').every(function(w){ return w.length < 2; })) {
+          return pick(tooShortReplies);
+        }
+
         var bestScore = 0;
         var bestIntent = null;
-
         for (var i = 0; i < intents.length; i++) {
           var s = scoreIntent(text, intents[i]);
           if (s > bestScore) {
@@ -650,17 +679,13 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           }
         }
 
-        if (bestIntent && bestScore >= 2) {
-          var replies = bestIntent.replies;
-          return replies[Math.floor(Math.random() * replies.length)];
+        // Require a confident match (exact-word hits = 3; fuzzy hits = 1).
+        // Threshold of 3 means at least one real keyword match, not just noise.
+        if (bestIntent && bestScore >= 3) {
+          return pick(bestIntent.replies);
         }
 
-        // Fallback: try to be helpful
-        var lower = normalize(text);
-        if (lower.length < 3) {
-          return "Could you tell me a bit more? I can help with services, portfolio, pricing, tools, or how to contact Ronnie.";
-        }
-        return "I'm not sure I understood that, but I'd love to help! You can ask me about:\n\n• Ronnie's <b>services</b> & skills\n• His <b>portfolio</b> & past work\n• <b>Pricing</b> & timelines\n• <b>Tools</b> he uses\n• How to <b>contact</b> or <b>hire</b> him\n\nOr feel free to " + La('https://wa.me/971543763091') + "message Ronnie directly" + E + "!";
+        return pick(unknownReplies);
       }
 
       function addMessage(text, isUser) {
