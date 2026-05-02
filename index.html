@@ -1785,6 +1785,62 @@
       border-color: hsl(220 18% 86%);
       box-shadow: 0 8px 40px rgba(0,0,0,0.08);
     }
+
+    /* ===== RECENT UI/UX WORK ===== */
+    .uw-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    .uw-card {
+      position: relative;
+      display: block;
+      aspect-ratio: 4 / 3;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: hsl(var(--card));
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+      transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s;
+    }
+    .uw-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 44px rgba(0,0,0,0.32), 0 0 0 1.5px hsl(var(--primary) / 0.45);
+    }
+    .uw-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .65s cubic-bezier(.16,1,.3,1);
+      display: block;
+    }
+    .uw-card:hover img { transform: scale(1.07); }
+    .uw-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.1rem 1.25rem;
+      background: linear-gradient(to top, rgba(4,8,28,0.92) 0%, rgba(4,8,28,0.35) 45%, transparent 75%);
+      color: #fff;
+      pointer-events: none;
+    }
+    .uw-overlay .uw-tag {
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: hsl(var(--primary));
+      margin-bottom: .35rem;
+    }
+    .uw-overlay h3 {
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+    }
+    @media (max-width: 1024px) { .uw-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .uw-grid { grid-template-columns: 1fr; } }
+
+    html.light .uw-card { background: #fff; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+    html.light .uw-card:hover { box-shadow: 0 22px 44px rgba(0,0,0,0.14), 0 0 0 1.5px hsl(var(--primary) / 0.45); }
   </style>
 </head>
 <body>
@@ -2014,12 +2070,63 @@
     </div>
   </section>
 
+  <!-- ===== RECENT UI/UX WORK ===== -->
+  <section class="py-24 skills-section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="font-display section-title">Recent <span class="gradient-text">UI/UX Work</span></h2>
+        <p class="section-subtitle">A glimpse of interfaces I've designed — clean, user-centered, and built to convert</p>
+      </div>
+      <div class="uw-grid">
+
+        <a href="/skill-uiux/" class="uw-card">
+          <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop&auto=format" alt="Dashboard Redesign" loading="lazy"/>
+          <div class="uw-overlay">
+            <span class="uw-tag">UI/UX</span>
+            <h3>Dashboard Redesign</h3>
+          </div>
+        </a>
+
+        <a href="/skill-uiux/" class="uw-card">
+          <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&h=600&fit=crop&auto=format" alt="Mobile App UI" loading="lazy"/>
+          <div class="uw-overlay">
+            <span class="uw-tag">Mobile</span>
+            <h3>Mobile App UI</h3>
+          </div>
+        </a>
+
+        <a href="/skill-uiux/" class="uw-card">
+          <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=600&fit=crop&auto=format" alt="Landing Page Concept" loading="lazy"/>
+          <div class="uw-overlay">
+            <span class="uw-tag">Web</span>
+            <h3>Landing Page</h3>
+          </div>
+        </a>
+
+        <a href="/skill-uiux/" class="uw-card">
+          <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=600&fit=crop&auto=format" alt="E-Commerce Interface" loading="lazy"/>
+          <div class="uw-overlay">
+            <span class="uw-tag">E-Commerce</span>
+            <h3>E-Commerce UI</h3>
+          </div>
+        </a>
+
+      </div>
+      <div class="text-center" style="margin-top:3rem;">
+        <a href="/skill-uiux/" class="btn btn-neon btn-lg">
+          View All UI/UX Work
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== FEATURED WORK — Immersive Bento ===== -->
   <section id="portfolio" class="py-24 fw-section">
     <div class="container">
       <div class="text-center mb-12">
-        <h2 class="font-display section-title">Featured <span class="gradient-text">Work</span></h2>
-        <p class="section-subtitle">A selection of projects that showcase my design approach</p>
+        <h2 class="font-display section-title">What I <span class="gradient-text">Offer</span></h2>
+        <p class="section-subtitle">Six creative services I bring to every project — from interface design to AI-assisted workflows</p>
       </div>
       <div class="fw-carousel-wrap">
         <!-- Prev Arrow -->
