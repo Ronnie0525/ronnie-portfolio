@@ -784,7 +784,7 @@
       display: block;
       color: inherit;
       flex: 0 0 calc(33.333% - 1rem);
-      height: 380px;
+      height: 460px;
       opacity: 1;
     }
     .fw-tilt {
@@ -798,11 +798,12 @@
     .fw-img {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center;
       background: #000;
       transition: transform .65s cubic-bezier(.25,.46,.45,.94);
     }
-    .fw-card:hover .fw-img { transform: scale(1.08); }
+    .fw-card:hover .fw-img { transform: scale(1.12); }
     .fw-scrim {
       position: absolute; inset: 0; z-index: 1;
       background: linear-gradient(160deg,
@@ -958,12 +959,12 @@
     .fw-view-btn svg { width: 14px; height: 14px; }
 
     @media (max-width: 1024px) {
-      .fw-card { flex: 0 0 calc(50% - 0.75rem); height: 340px; }
+      .fw-card { flex: 0 0 calc(50% - 0.75rem); height: 420px; }
       .fw-arrow-prev { left: -0.5rem; }
       .fw-arrow-next { right: -0.5rem; }
     }
     @media (max-width: 640px) {
-      .fw-card { flex: 0 0 100%; height: 320px; }
+      .fw-card { flex: 0 0 100%; height: 380px; }
       .fw-arrow { width: 2.5rem; height: 2.5rem; }
       .fw-arrow-prev { left: 0.5rem; }
       .fw-arrow-next { right: 0.5rem; }
