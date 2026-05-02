@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="/loader.js?v=5"></script>  <link rel="stylesheet" href="/styles.css?v=8" />
+  <script src="/loader.js?v=5"></script>  <link rel="stylesheet" href="/styles.css?v=9" />
 </head>
 <body>
   <!-- ===== NAVIGATION ===== -->
@@ -216,6 +216,42 @@
     </div>
   </section>
 
+  <!-- ===== CAMPAIGN CAROUSEL ===== -->
+  <section class="campaigns-section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="font-display section-title">Recent <span class="gradient-text">Campaigns</span></h2>
+        <p class="section-subtitle">Real client campaigns shot, edited, and published.</p>
+      </div>
+
+      <div class="campaign-card">
+        <div class="campaign-info">
+          <span class="campaign-tag">University of Khorfakkan</span>
+          <h3>Brand Promotion Campaign</h3>
+          <p>Branded promotional content created for the University of Khorfakkan — featured student &amp; staff portraits with on-brand visual styling and a bold red accent treatment.</p>
+        </div>
+        <div class="campaign-carousel" data-carousel>
+          <div class="campaign-carousel-viewport">
+            <div class="campaign-carousel-track">
+              <div class="campaign-slide"><img src="/assets/2.webp" alt="University of Khorfakkan campaign — student portrait" loading="lazy"/></div>
+              <div class="campaign-slide"><img src="/assets/3.webp" alt="University of Khorfakkan campaign — staff portrait" loading="lazy"/></div>
+            </div>
+          </div>
+          <button class="campaign-nav campaign-nav--prev" aria-label="Previous slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="campaign-nav campaign-nav--next" aria-label="Next slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div class="campaign-dots">
+            <button class="campaign-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+            <button class="campaign-dot" data-slide="1" aria-label="Go to slide 2"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== CONTACT CTA ===== -->
   <section class="portfolio-cta">
     <div class="container">
@@ -380,6 +416,38 @@
         });
         card.addEventListener('mouseleave', function() {
           tilt.style.transform = 'perspective(800px) rotateX(0) rotateY(0)';
+        });
+      });
+    })();
+
+    // Campaign carousel
+    (function() {
+      document.querySelectorAll('[data-carousel]').forEach(function(carousel) {
+        var track = carousel.querySelector('.campaign-carousel-track');
+        var slides = carousel.querySelectorAll('.campaign-slide');
+        var dots = carousel.querySelectorAll('.campaign-dot');
+        var prevBtn = carousel.querySelector('.campaign-nav--prev');
+        var nextBtn = carousel.querySelector('.campaign-nav--next');
+        var index = 0;
+        var total = slides.length;
+        if (!total) return;
+
+        function goTo(i) {
+          index = ((i % total) + total) % total;
+          track.style.transform = 'translateX(' + (-index * 100) + '%)';
+          dots.forEach(function(d, di) { d.classList.toggle('active', di === index); });
+        }
+        if (prevBtn) prevBtn.addEventListener('click', function() { goTo(index - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function() { goTo(index + 1); });
+        dots.forEach(function(dot, di) { dot.addEventListener('click', function() { goTo(di); }); });
+
+        var startX = 0, isDragging = false;
+        track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; isDragging = true; }, { passive: true });
+        track.addEventListener('touchend', function(e) {
+          if (!isDragging) return;
+          isDragging = false;
+          var diff = e.changedTouches[0].clientX - startX;
+          if (Math.abs(diff) > 50) goTo(diff > 0 ? index - 1 : index + 1);
         });
       });
     })();
