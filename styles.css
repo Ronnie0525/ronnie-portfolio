@@ -1491,6 +1491,73 @@
     html.light .specialties-section .section-subtitle { color: #444; }
     html.light .specialties-section .gradient-text { color: hsl(220 100% 40%); }
 
+    /* ===== PORTFOLIO CTA — bottom of every skill page ===== */
+    .portfolio-cta {
+      background: #000;
+      padding: 2rem 0 6rem;
+    }
+    .portfolio-cta-card {
+      position: relative;
+      max-width: 56rem;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      text-align: center;
+      background:
+        radial-gradient(ellipse 80% 60% at center, hsl(var(--primary) / 0.14) 0%, transparent 70%),
+        linear-gradient(135deg, hsl(var(--primary) / 0.06) 0%, hsl(268 82% 63% / 0.06) 100%);
+      border: 1px solid hsl(var(--primary) / 0.30);
+      border-radius: 1.25rem;
+      overflow: hidden;
+    }
+    .portfolio-cta-card::before {
+      content: "";
+      position: absolute;
+      top: -2px; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+      opacity: 0.7;
+    }
+    .portfolio-cta-card h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+      color: hsl(var(--foreground));
+    }
+    .portfolio-cta-card p {
+      color: hsl(var(--muted-foreground));
+      font-size: 1.02rem;
+      max-width: 36rem;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .portfolio-cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .portfolio-cta-actions .btn { display: inline-flex; align-items: center; gap: 0.5rem; }
+    @media (max-width: 640px) {
+      .portfolio-cta { padding: 1rem 0 4rem; }
+      .portfolio-cta-card { padding: 2.25rem 1.25rem; border-radius: 1rem; }
+      .portfolio-cta-actions { flex-direction: column; gap: 0.75rem; }
+      .portfolio-cta-actions .btn { width: 100%; justify-content: center; }
+    }
+    html.light .portfolio-cta {
+      background: linear-gradient(180deg, hsl(220 20% 97%) 0%, #fff 100%);
+    }
+    html.light .portfolio-cta-card {
+      background:
+        radial-gradient(ellipse 80% 60% at center, hsl(220 100% 50% / 0.08) 0%, transparent 70%),
+        #fff;
+      border-color: hsl(220 100% 50% / 0.20);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    html.light .portfolio-cta-card h2 { color: #111; }
+    html.light .portfolio-cta-card p { color: #555; }
+
     /* ===== LIGHTBOX (photography & gallery pages) ===== */
     .fw-card .fw-img { cursor: zoom-in; }
     .lightbox {
