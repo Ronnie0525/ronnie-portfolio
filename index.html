@@ -8,6 +8,7 @@
   <meta http-equiv="Expires" content="0" />
   <link rel="icon" type="image/svg+xml" href="/logo.svg" />
   <link rel="apple-touch-icon" href="/logo.svg" />
+  <script src="/loader.js?v=5"></script>
   <title>Ronnie Balonon Jr. | UI/UX & Web Designer in Dubai</title>
   <meta name="description" content="Dubai-based UI/UX and Web Designer crafting bold digital experiences — from responsive websites to brand visuals, photography, and social media design." />
   <meta name="author" content="Ronnie Balonon Jr." />
@@ -996,7 +997,48 @@
     }
 
     /* ===== CLIENTS MARQUEE ===== */
+    #clients { position: relative; overflow: hidden; }
+    #clients .container, #clients .cl-marquee, #clients .cl-beam { position: relative; z-index: 2; }
     .cl-marquee { overflow: hidden; position: relative; padding: 1rem 0; }
+    .cl-beam {
+      position: relative;
+      height: 1px;
+      background: hsl(var(--border) / 0.6);
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    .cl-beam::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -25%;
+      width: 25%;
+      height: 4px;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg,
+        transparent 0%,
+        hsl(var(--primary) / 0.5) 30%,
+        hsl(var(--primary)) 50%,
+        hsl(var(--primary) / 0.5) 70%,
+        transparent 100%);
+      filter: blur(1px);
+      box-shadow:
+        0 0 14px hsl(var(--primary) / 0.85),
+        0 0 32px hsl(var(--primary) / 0.55),
+        0 0 60px hsl(var(--primary) / 0.3);
+      animation: clBeamSweep 4s linear infinite;
+    }
+    @keyframes clBeamSweep {
+      0%   { left: -25%; }
+      100% { left: 125%; }
+    }
+    .cl-beam--rtl::before {
+      animation-name: clBeamSweepRtl;
+    }
+    @keyframes clBeamSweepRtl {
+      0%   { left: 125%; }
+      100% { left: -25%; }
+    }
     .cl-track {
       display: flex; gap: 1.25rem;
       width: max-content;
@@ -1329,23 +1371,20 @@
       border-bottom-right-radius: 0.25rem;
       align-self: flex-end;
     }
-    .chatbot-quick-replies {
-      display: flex; flex-wrap: wrap; gap: 0.4rem;
-      padding: 0 1.25rem 0.75rem;
+    .chat-typing {
+      display: inline-flex; gap: 4px; align-items: center;
+      padding: 0.85rem 1rem;
     }
-    .chatbot-quick-btn {
-      padding: 0.35rem 0.85rem;
-      border-radius: 100px;
-      border: 1px solid hsl(var(--primary) / 0.3);
-      background: hsl(var(--primary) / 0.08);
-      color: hsl(var(--primary));
-      font-size: 0.72rem; font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+    .chat-typing span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: hsl(var(--muted-foreground));
+      animation: chatTypingDot 1.2s ease-in-out infinite;
     }
-    .chatbot-quick-btn:hover {
-      background: hsl(var(--primary) / 0.2);
-      border-color: hsl(var(--primary) / 0.5);
+    .chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes chatTypingDot {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-4px); opacity: 1; }
     }
     .chatbot-input-wrap {
       display: flex; align-items: center; gap: 0.5rem;
@@ -1898,12 +1937,18 @@
       background: #0e0f1a;
       color: #ffffff;
       border: 1px solid #0e0f1a;
+      animation: uwBtnBlink 0.9s ease-in-out infinite;
     }
     .uw-btn-primary:hover {
       background: hsl(var(--primary));
       border-color: hsl(var(--primary));
       box-shadow: 0 6px 18px hsl(var(--primary) / 0.35);
       transform: translateY(-1px);
+      animation: none;
+    }
+    @keyframes uwBtnBlink {
+      0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
+      50%      { box-shadow: 0 0 0 3px hsl(var(--primary) / 0.55), 0 0 20px 2px hsl(var(--primary) / 0.55); }
     }
     .uw-btn-ghost {
       background: transparent;
@@ -2028,6 +2073,7 @@
       <h2 class="font-display section-title">Tools &amp; <span class="gradient-text">Resources</span></h2>
       <p class="text-muted text-sm">The design stack powering every project</p>
     </div>
+    <div class="cl-beam cl-beam--rtl" aria-hidden="true"></div>
     <div class="marquee-wrap">
       <div class="marquee-fade-l"></div>
       <div class="marquee-fade-r"></div>
@@ -2067,6 +2113,7 @@
 
       </div>
     </div>
+    <div class="cl-beam cl-beam--rtl" aria-hidden="true"></div>
   </section>
 
   <!-- ===== SKILLS HIERARCHY ===== -->
@@ -2345,12 +2392,14 @@
 
   <!-- ===== CLIENTS ===== -->
   <section id="clients" class="py-20">
+    <div class="cyber-line"></div>
     <div class="container">
       <div class="text-center mb-12">
         <span class="text-primary font-medium tracking-wider uppercase text-sm">Trusted Partners</span>
         <h2 class="font-display section-title mt-2">Clients I've Worked With</h2>
       </div>
     </div>
+    <div class="cl-beam" aria-hidden="true"></div>
     <div class="cl-marquee">
       <div class="cl-fade-l"></div>
       <div class="cl-fade-r"></div>
@@ -2409,6 +2458,7 @@
         </a>
       </div>
     </div>
+    <div class="cl-beam" aria-hidden="true"></div>
   </section>
 
   <!-- ===== CTA SECTION ===== -->
@@ -2545,14 +2595,7 @@
     <div class="chatbot-body" id="chatbotBody">
       <div class="chat-msg chat-msg-bot">Hi there! I'm Abby, Ronnie's virtual assistant. How can I help you today?</div>
     </div>
-    <div class="chatbot-quick-replies" id="chatbotQuickReplies">
-      <button class="chatbot-quick-btn" data-msg="What services do you offer?">Services</button>
-      <button class="chatbot-quick-btn" data-msg="Can I see your portfolio?">Portfolio</button>
-      <button class="chatbot-quick-btn" data-msg="How can I contact you?">Contact</button>
-      <button class="chatbot-quick-btn" data-msg="What tools do you use?">Tools</button>
-      <button class="chatbot-quick-btn" data-msg="Tell me about your experience">Experience</button>
-    </div>
-    <div class="chatbot-input-wrap">
+<div class="chatbot-input-wrap">
       <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type a message..." />
       <button class="chatbot-send" id="chatbotSend" aria-label="Send">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -2803,7 +2846,6 @@
       var body = document.getElementById('chatbotBody');
       var input = document.getElementById('chatbotInput');
       var sendBtn = document.getElementById('chatbotSend');
-      var quickReplies = document.getElementById('chatbotQuickReplies');
       var helloBubble = document.getElementById('chatbotHello');
       var helloText = document.getElementById('chatbotHelloText');
       var helloClose = document.getElementById('chatbotHelloClose');
@@ -2987,7 +3029,7 @@
           name: 'experience',
           keys: ['experience','background','about','story','bio','resume','cv','journey','career','history','who is','who are','about you','about ronnie','tell me about','yourself','introduction'],
           replies: [
-            "Ronnie Balonon Jr. is a multi-disciplinary designer based in <b>Dubai, UAE</b> with:\n\n• <b>5+ years</b> of professional experience\n• <b>50+ projects</b> completed\n• <b>20+ happy clients</b>\n\nHe specializes in UI/UX design, photography, video editing, graphic design, social media, and AI-powered creative workflows.\n\nLearn more on the " + L('/about/') + "About Me page" + E + "!"
+            "Ronnie Balonon Jr. is a multi-disciplinary designer based in <b>Dubai, UAE</b> with:\n\n• <b>1 year</b> of professional experience\n• <b>50+ projects</b> completed\n• <b>20+ happy clients</b>\n\nHe specializes in UI/UX design, photography, video editing, graphic design, social media, and AI-powered creative workflows.\n\nLearn more on the " + L('/about/') + "About Me page" + E + "!"
           ]
         },
         {
@@ -3149,31 +3191,35 @@
         body.scrollTop = body.scrollHeight;
       }
 
+      function showTyping() {
+        var t = document.createElement('div');
+        t.className = 'chat-msg chat-msg-bot chat-typing';
+        t.innerHTML = '<span></span><span></span><span></span>';
+        body.appendChild(t);
+        body.scrollTop = body.scrollHeight;
+        return t;
+      }
+
+      function botRespond(text) {
+        var typing = showTyping();
+        var delay = 2200 + Math.random() * 700;
+        setTimeout(function() {
+          typing.remove();
+          addMessage(getBotReply(text), false);
+        }, delay);
+      }
+
       function handleSend() {
         var text = input.value.trim();
         if (!text) return;
         addMessage(text, true);
         input.value = '';
-        // Simulate typing delay (longer for longer responses)
-        var delay = 400 + Math.min(text.length * 15, 800);
-        setTimeout(function() {
-          addMessage(getBotReply(text), false);
-        }, delay);
+        botRespond(text);
       }
 
       sendBtn.addEventListener('click', handleSend);
       input.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') handleSend();
-      });
-
-      quickReplies.addEventListener('click', function(e) {
-        var btn = e.target.closest('.chatbot-quick-btn');
-        if (!btn) return;
-        var msg = btn.getAttribute('data-msg');
-        addMessage(msg, true);
-        setTimeout(function() {
-          addMessage(getBotReply(msg), false);
-        }, 600);
       });
     })();
   </script>

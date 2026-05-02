@@ -158,6 +158,112 @@ html.light .chatbot-hello {
   box-shadow: 0 6px 24px rgba(0,0,0,0.1);
   color: #111;
 }
+.chatbot-panel {
+  position: fixed; bottom: 10.5rem; right: 1.5rem; z-index: 50;
+  width: 360px; max-height: 480px;
+  border-radius: 1.25rem;
+  background: hsl(var(--card) / 0.97);
+  backdrop-filter: blur(24px);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  opacity: 0; visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.3s, transform 0.3s, visibility 0s 0.3s;
+}
+.chatbot-panel.open {
+  opacity: 1; visibility: visible;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.3s, transform 0.3s, visibility 0s;
+}
+.chatbot-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--gradient-neon);
+  color: #fff;
+}
+.chatbot-avatar {
+  width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 0.8rem;
+}
+.chatbot-header-info h4 {
+  font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; line-height: 1.2;
+}
+.chatbot-header-info span {
+  font-size: 0.7rem; opacity: 0.8;
+}
+.chatbot-body {
+  flex: 1; overflow-y: auto;
+  padding: 1.25rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+  max-height: 300px;
+}
+.chat-msg {
+  max-width: 85%; padding: 0.65rem 1rem;
+  border-radius: 1rem; font-size: 0.82rem; line-height: 1.5;
+}
+.chat-msg-bot {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  border-bottom-left-radius: 0.25rem;
+  align-self: flex-start;
+}
+.chat-msg-user {
+  background: hsl(var(--primary));
+  color: #fff;
+  border-bottom-right-radius: 0.25rem;
+  align-self: flex-end;
+}
+.chat-typing {
+  display: inline-flex; gap: 4px; align-items: center;
+  padding: 0.85rem 1rem;
+}
+.chat-typing span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: hsl(var(--muted-foreground));
+  animation: chatTypingDot 1.2s ease-in-out infinite;
+}
+.chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes chatTypingDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.chatbot-input-wrap {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid hsl(var(--border));
+}
+.chatbot-input {
+  flex: 1; padding: 0.6rem 0.85rem;
+  border-radius: 100px;
+  background: hsl(var(--muted) / 0.5);
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  font-size: 0.82rem; font-family: inherit;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.chatbot-input:focus { border-color: hsl(var(--primary)); }
+.chatbot-input::placeholder { color: hsl(var(--muted-foreground)); }
+.chatbot-send {
+  width: 2.25rem; height: 2.25rem;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.chatbot-send:hover { background: hsl(var(--primary) / 0.85); transform: scale(1.05); }
+.chatbot-send svg { width: 1rem; height: 1rem; color: #fff; }
+@media (max-width: 480px) {
+  .chatbot-panel { width: calc(100vw - 2rem); right: 1rem; }
+}
 html.light .chatbot-panel {
   background: #fff;
   border-color: hsl(220 18% 88%);
@@ -168,7 +274,6 @@ html.light .chat-msg-bot { background: #f0f2f5; color: #111; }
 html.light .chatbot-input { background: #f8f9fa; color: #111; border-color: hsl(220 18% 86%); }
 html.light .chatbot-input::placeholder { color: #888; }
 html.light .chatbot-input-wrap { border-top-color: hsl(220 18% 88%); }
-html.light .chatbot-quick-btn { color: hsl(220 100% 40%); border-color: hsl(220 100% 40% / 0.3); background: hsl(220 100% 40% / 0.06); }
 html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86%); color: #555; }
   `;
   document.head.appendChild(style);
@@ -209,14 +314,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
     <div class="chatbot-body" id="chatbotBody">
       <div class="chat-msg chat-msg-bot">Hi there! I'm Abby, Ronnie's virtual assistant. How can I help you today?</div>
     </div>
-    <div class="chatbot-quick-replies" id="chatbotQuickReplies">
-      <button class="chatbot-quick-btn" data-msg="What services do you offer?">Services</button>
-      <button class="chatbot-quick-btn" data-msg="Can I see your portfolio?">Portfolio</button>
-      <button class="chatbot-quick-btn" data-msg="How can I contact you?">Contact</button>
-      <button class="chatbot-quick-btn" data-msg="What tools do you use?">Tools</button>
-      <button class="chatbot-quick-btn" data-msg="Tell me about your experience">Experience</button>
-    </div>
-    <div class="chatbot-input-wrap">
+<div class="chatbot-input-wrap">
       <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type a message..." />
       <button class="chatbot-send" id="chatbotSend" aria-label="Send">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -232,7 +330,6 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
       var body = document.getElementById('chatbotBody');
       var input = document.getElementById('chatbotInput');
       var sendBtn = document.getElementById('chatbotSend');
-      var quickReplies = document.getElementById('chatbotQuickReplies');
       var helloBubble = document.getElementById('chatbotHello');
       var helloText = document.getElementById('chatbotHelloText');
       var helloClose = document.getElementById('chatbotHelloClose');
@@ -416,7 +513,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'experience',
           keys: ['experience','background','about','story','bio','resume','cv','journey','career','history','who is','who are','about you','about ronnie','tell me about','yourself','introduction'],
           replies: [
-            "Ronnie Balonon Jr. is a multi-disciplinary designer based in <b>Dubai, UAE</b> with:\n\n• <b>5+ years</b> of professional experience\n• <b>50+ projects</b> completed\n• <b>20+ happy clients</b>\n\nHe specializes in UI/UX design, photography, video editing, graphic design, social media, and AI-powered creative workflows.\n\nLearn more on the " + L('/about/') + "About Me page" + E + "!"
+            "Ronnie Balonon Jr. is a multi-disciplinary designer based in <b>Dubai, UAE</b> with:\n\n• <b>1 year</b> of professional experience\n• <b>50+ projects</b> completed\n• <b>20+ happy clients</b>\n\nHe specializes in UI/UX design, photography, video editing, graphic design, social media, and AI-powered creative workflows.\n\nLearn more on the " + L('/about/') + "About Me page" + E + "!"
           ]
         },
         {
@@ -578,30 +675,34 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
         body.scrollTop = body.scrollHeight;
       }
 
+      function showTyping() {
+        var t = document.createElement('div');
+        t.className = 'chat-msg chat-msg-bot chat-typing';
+        t.innerHTML = '<span></span><span></span><span></span>';
+        body.appendChild(t);
+        body.scrollTop = body.scrollHeight;
+        return t;
+      }
+
+      function botRespond(text) {
+        var typing = showTyping();
+        var delay = 2200 + Math.random() * 700;
+        setTimeout(function() {
+          typing.remove();
+          addMessage(getBotReply(text), false);
+        }, delay);
+      }
+
       function handleSend() {
         var text = input.value.trim();
         if (!text) return;
         addMessage(text, true);
         input.value = '';
-        // Simulate typing delay (longer for longer responses)
-        var delay = 400 + Math.min(text.length * 15, 800);
-        setTimeout(function() {
-          addMessage(getBotReply(text), false);
-        }, delay);
+        botRespond(text);
       }
 
       sendBtn.addEventListener('click', handleSend);
       input.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') handleSend();
-      });
-
-      quickReplies.addEventListener('click', function(e) {
-        var btn = e.target.closest('.chatbot-quick-btn');
-        if (!btn) return;
-        var msg = btn.getAttribute('data-msg');
-        addMessage(msg, true);
-        setTimeout(function() {
-          addMessage(getBotReply(msg), false);
-        }, 600);
       });
 })();

@@ -21,9 +21,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=2" />
+  <script src="/loader.js?v=5"></script>  <link rel="stylesheet" href="/styles.css?v=4" />
   <style>
     /* ===== ABOUT PAGE SPECIFIC ===== */
+
+    /* -- Hero overlay: stronger dim so the title/subtitle stay readable on the photo -- */
+    .subpage-hero--image::before {
+      background:
+        radial-gradient(ellipse 60% 55% at center, hsl(var(--background) / 0.55) 0%, hsl(var(--background) / 0.85) 100%),
+        linear-gradient(180deg, hsl(var(--background) / 0.55) 0%, hsl(var(--background) / 0.45) 50%, hsl(var(--background) / 0.85) 100%) !important;
+    }
+    .subpage-hero h1,
+    .subpage-hero .hero-subtitle {
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+    }
 
     /* -- My Story -- */
     .story-grid {
@@ -329,15 +340,8 @@
   </nav>
 
   <!-- ===== HERO SECTION ===== -->
-  <section class="subpage-hero">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="subpage-hero-content">
-      <div class="breadcrumb">
-        <a href="/">Home</a>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        <span>About Me</span>
-      </div>
+  <section class="subpage-hero subpage-hero--image" style="background-image:url('/assets/my%20pic.jpg');background-position:center top !important;transform:scaleX(-1)">
+    <div class="subpage-hero-content" style="transform:scaleX(-1)">
       <h1 class="font-display gradient-text">About Me</h1>
       <p class="hero-subtitle">Get to know the person behind the pixels — my journey, my craft, and the tools I use every day.</p>
     </div>
@@ -347,12 +351,6 @@
   <section class="py-24">
     <div class="container">
       <div class="story-grid">
-        <div class="story-portrait">
-          <div class="story-portrait-glow"></div>
-          <div class="story-portrait-img">
-            <img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69de67668f687747494b545f_Untitled-1.jpg" alt="Ronnie Balonon Jr." />
-          </div>
-        </div>
         <div class="story-text">
           <span class="text-primary font-medium tracking-wider uppercase text-sm" style="margin-bottom:0.5rem;display:block;">My Story</span>
           <h2>Crafting Digital<br>Experiences from <span class="gradient-text">Dubai</span></h2>
@@ -361,8 +359,8 @@
           <p>Whether I'm wireframing a mobile app, shooting a product campaign, or crafting a brand identity, my goal is always the same: deliver work that's clean, functional, and visually powerful.</p>
           <div class="story-stats">
             <div>
-              <div class="story-stat-num">5+</div>
-              <div class="story-stat-label">Years Experience</div>
+              <div class="story-stat-num">1</div>
+              <div class="story-stat-label">Year Experience</div>
             </div>
             <div>
               <div class="story-stat-num">50+</div>
@@ -372,6 +370,12 @@
               <div class="story-stat-num">20+</div>
               <div class="story-stat-label">Happy Clients</div>
             </div>
+          </div>
+        </div>
+        <div class="story-portrait">
+          <div class="story-portrait-glow"></div>
+          <div class="story-portrait-img">
+            <img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69de67668f687747494b545f_Untitled-1.jpg" alt="Ronnie Balonon Jr." />
           </div>
         </div>
       </div>
@@ -717,6 +721,6 @@
       });
     })();
   </script>
-<script src="/chatbot.js" defer></script>
+<script src="/chatbot.js?v=5" defer></script>
 </body>
 </html>
