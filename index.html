@@ -2214,9 +2214,18 @@
     <div class="container">
       <div class="text-center mb-12">
         <h2 class="font-display section-title">What I <span class="gradient-text">Offer</span></h2>
-        <p class="section-subtitle">Creative services I bring to every project — photography, design, and AI-assisted workflows</p>
+        <p class="section-subtitle">Six creative services I bring to every project — from photography to AI-assisted workflows</p>
       </div>
       <div class="fw-carousel-wrap">
+        <!-- Prev Arrow -->
+        <button class="fw-arrow fw-arrow-prev" id="fwPrev" aria-label="Previous">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <!-- Next Arrow -->
+        <button class="fw-arrow fw-arrow-next" id="fwNext" aria-label="Next">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
         <div class="fw-grid" id="fwCarousel">
 
           <!-- Card 1 — Photography -->
@@ -2260,6 +2269,51 @@
                 <h3 class="fw-title">Graphic Design</h3>
                 <p class="fw-desc">Building bold visual identities, print materials, and brand assets that leave a lasting impression.</p>
                 <a href="/skill-graphic-design/" class="fw-view-btn">View Works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 — UI/UX & Web Design -->
+          <div class="fw-card">
+            <div class="fw-tilt">
+              <img class="fw-img" src="/assets/web%20ui%20ux.jpg" alt="UI UX & Web Design" loading="lazy"/>
+              <div class="fw-scrim"></div>
+              <span class="fw-num">04</span>
+              <span class="fw-badge">UI/UX & Web Design</span>
+              <div class="fw-content">
+                <h3 class="fw-title">UI UX & Web Design</h3>
+                <p class="fw-desc">Crafting clean, user-centered interfaces and responsive web experiences — from wireframe to polished prototype.</p>
+                <a href="/skill-uiux/" class="fw-view-btn">View Works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 — Video Editing -->
+          <div class="fw-card">
+            <div class="fw-tilt">
+              <img class="fw-img" src="/assets/web%20video.jpg" alt="Video Editing" loading="lazy"/>
+              <div class="fw-scrim"></div>
+              <span class="fw-num">05</span>
+              <span class="fw-badge">Video Editing</span>
+              <div class="fw-content">
+                <h3 class="fw-title">Video Editing</h3>
+                <p class="fw-desc">Producing polished brand reels, short-form content, and cinematic cuts with colour-graded finishes.</p>
+                <a href="/skill-video-editing/" class="fw-view-btn">View Works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 — Social Media -->
+          <div class="fw-card">
+            <div class="fw-tilt">
+              <img class="fw-img" src="/assets/web%20social%20media.jpg" alt="Social Media Management" loading="lazy"/>
+              <div class="fw-scrim"></div>
+              <span class="fw-num">06</span>
+              <span class="fw-badge">Social Media</span>
+              <div class="fw-content">
+                <h3 class="fw-title">Social Media Management</h3>
+                <p class="fw-desc">Strategising and creating scroll-stopping content that grows engagement and builds brand presence online.</p>
+                <a href="/skill-social-media/" class="fw-view-btn">View Works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
               </div>
             </div>
           </div>
@@ -2638,12 +2692,30 @@
       });
     })();
 
-    // ===== WHAT I OFFER — 3D TILT =====
+    // ===== WHAT I OFFER — CAROUSEL + 3D TILT =====
     (function() {
       var carousel = document.getElementById('fwCarousel');
       if (!carousel) return;
 
       var cards = carousel.querySelectorAll('.fw-card');
+      var prevBtn = document.getElementById('fwPrev');
+      var nextBtn = document.getElementById('fwNext');
+
+      function getScrollAmount() {
+        if (!cards.length) return 300;
+        return cards[0].offsetWidth + 24; // card width + gap
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+          carousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+      }
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+          carousel.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+      }
 
       // 3D tilt on hover
       cards.forEach(function(card) {
