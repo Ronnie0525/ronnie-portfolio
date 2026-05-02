@@ -1262,6 +1262,10 @@
       background-position: center !important;
       background-repeat: no-repeat !important;
     }
+    /* Show more of the top of the image (e.g. AI brain) */
+    .subpage-hero--image.subpage-hero--bg-top {
+      background-position: center 22% !important;
+    }
     .subpage-hero--image::before {
       background:
         radial-gradient(ellipse 70% 60% at center, transparent 0%, hsl(var(--background) / 0.55) 100%),
