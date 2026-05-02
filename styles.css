@@ -1266,6 +1266,10 @@
     .subpage-hero--image.subpage-hero--bg-top {
       background-position: center 40% !important;
     }
+    /* Push image upward so distracting top elements crop out (e.g. video icons) */
+    .subpage-hero--image.subpage-hero--bg-bottom {
+      background-position: center 85% !important;
+    }
     .subpage-hero--image::before {
       background:
         radial-gradient(ellipse 70% 60% at center, transparent 0%, hsl(var(--background) / 0.55) 100%),
