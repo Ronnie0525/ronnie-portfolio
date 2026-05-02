@@ -1787,74 +1787,6 @@
       box-shadow: 0 8px 40px rgba(0,0,0,0.08);
     }
 
-    /* ===== RECENT UI/UX WORK — tall white cards ===== */
-    .uw-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-    }
-    .uw-card {
-      display: flex;
-      flex-direction: column;
-      background: #ffffff;
-      border-radius: 1rem;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.20), 0 2px 6px rgba(0,0,0,0.08);
-      transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
-      cursor: pointer;
-    }
-    .uw-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 56px rgba(0,0,0,0.28), 0 0 0 1.5px hsl(var(--primary) / 0.55);
-    }
-    .uw-card-img {
-      position: relative;
-      height: 320px;
-      background: #f5f5f8;
-      overflow: hidden;
-    }
-    .uw-card-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .7s cubic-bezier(.16,1,.3,1);
-    }
-    .uw-card:hover .uw-card-img img { transform: scale(1.06); }
-    .uw-card-info {
-      flex: 1;
-      padding: 1.25rem 1.4rem 1.5rem;
-      background: #ffffff;
-      display: flex;
-      flex-direction: column;
-    }
-    .uw-tag {
-      display: inline-block;
-      font-size: .62rem; font-weight: 800;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: hsl(var(--primary));
-      margin-bottom: .5rem;
-    }
-    .uw-card-info h3 {
-      font-family: var(--font-display);
-      font-size: 1.05rem; font-weight: 700;
-      color: #0e0f1a;
-      line-height: 1.3;
-      margin-bottom: .4rem;
-    }
-    .uw-card-info p {
-      font-size: .82rem;
-      color: #5a5d6b;
-      line-height: 1.55;
-    }
-    @media (max-width: 1024px) {
-      .uw-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .uw-grid { grid-template-columns: 1fr; }
-      .uw-card-img { height: 260px; }
-    }
   </style>
 </head>
 <body>
@@ -2093,54 +2025,94 @@
       </div>
       <div class="uw-grid">
 
-        <a href="/skill-uiux/" class="uw-card">
+        <div class="uw-card">
           <div class="uw-card-img">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=800&fit=crop&auto=format" alt="Dashboard Redesign" loading="lazy"/>
+            <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&h=600&fit=crop&auto=format" alt="Play and Worship" loading="lazy"/>
           </div>
           <div class="uw-card-info">
-            <span class="uw-tag">UI/UX</span>
-            <h3>Dashboard Redesign</h3>
-            <p>Modern analytics dashboard with clean data visualization and intuitive navigation.</p>
+            <span class="uw-tag">Worship</span>
+            <h3>Play and Worship</h3>
+            <p>Worship platform built for musicians and ministry teams.</p>
+            <div class="uw-actions">
+              <a href="https://github.com/Ronnie0525/Play-and-Worship" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.69.08-.69 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.73-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.16 1.18.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12 24 5.65 18.85.5 12.5.5z"/></svg>
+                Visit on GitHub
+              </a>
+              <a href="https://ronnie0525.github.io/Play-and-Worship/" target="_blank" rel="noopener" class="uw-btn uw-btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a href="/skill-uiux/" class="uw-card">
+        <div class="uw-card">
           <div class="uw-card-img">
-            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=800&fit=crop&auto=format" alt="Mobile App UI" loading="lazy"/>
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=600&fit=crop&auto=format" alt="Abby's Burger" loading="lazy"/>
           </div>
           <div class="uw-card-info">
-            <span class="uw-tag">Mobile</span>
-            <h3>Mobile App UI</h3>
-            <p>Intuitive iOS interface focused on accessibility and smooth interactions.</p>
+            <span class="uw-tag">Restaurant</span>
+            <h3>Abby's Burger</h3>
+            <p>Landing page for a local burger joint — bold visuals and a sharp menu showcase.</p>
+            <div class="uw-actions">
+              <a href="https://github.com/Ronnie0525/Abbys-Burger" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.69.08-.69 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.73-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.16 1.18.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12 24 5.65 18.85.5 12.5.5z"/></svg>
+                Visit on GitHub
+              </a>
+              <a href="https://ronnie0525.github.io/Abbys-Burger/" target="_blank" rel="noopener" class="uw-btn uw-btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a href="/skill-uiux/" class="uw-card">
+        <div class="uw-card">
           <div class="uw-card-img">
-            <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&h=800&fit=crop&auto=format" alt="Landing Page Concept" loading="lazy"/>
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&h=600&fit=crop&auto=format" alt="Chammica Apparel" loading="lazy"/>
           </div>
           <div class="uw-card-info">
-            <span class="uw-tag">Web</span>
-            <h3>Landing Page</h3>
-            <p>High-converting landing page with bold typography and strategic CTAs.</p>
+            <span class="uw-tag">Apparel</span>
+            <h3>Chammica Apparel</h3>
+            <p>Brand site for an apparel label — clean product display and on-brand visuals.</p>
+            <div class="uw-actions">
+              <a href="https://github.com/Ronnie0525/Chammica-apparel" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.69.08-.69 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.73-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.16 1.18.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12 24 5.65 18.85.5 12.5.5z"/></svg>
+                Visit on GitHub
+              </a>
+              <a href="https://ronnie0525.github.io/Chammica-apparel/" target="_blank" rel="noopener" class="uw-btn uw-btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
-        <a href="/skill-uiux/" class="uw-card">
+        <div class="uw-card">
           <div class="uw-card-img">
-            <img src="https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=600&h=800&fit=crop&auto=format" alt="E-Commerce Interface" loading="lazy"/>
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=600&fit=crop&auto=format" alt="Ar-ar Coffee and Sweets" loading="lazy"/>
           </div>
           <div class="uw-card-info">
-            <span class="uw-tag">E-Commerce</span>
-            <h3>E-Commerce UI</h3>
-            <p>Streamlined shopping flow with smart filtering and seamless checkout.</p>
+            <span class="uw-tag">Cafe</span>
+            <h3>Ar-ar Coffee &amp; Sweets</h3>
+            <p>Cafe website featuring a warm visual identity, menu, and store info.</p>
+            <div class="uw-actions">
+              <a href="https://github.com/Ronnie0525/Ar-ar-Coffee-and-sweets" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.69.08-.69 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.73-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.16 1.18.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12 24 5.65 18.85.5 12.5.5z"/></svg>
+                Visit on GitHub
+              </a>
+              <a href="https://ronnie0525.github.io/Ar-ar-Coffee-and-sweets/" target="_blank" rel="noopener" class="uw-btn uw-btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
       </div>
       <div class="text-center" style="margin-top:3rem;">
-        <a href="/skill-uiux/" class="btn btn-neon btn-lg">
-          View All UI/UX Work
+        <a href="https://github.com/Ronnie0525" target="_blank" rel="noopener" class="btn btn-neon btn-lg">
+          View All on GitHub
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
