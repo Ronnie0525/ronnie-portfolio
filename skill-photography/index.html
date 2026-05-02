@@ -367,8 +367,9 @@
     (function() {
       var lightbox = document.getElementById('lightbox');
       if (!lightbox) return;
-      var images = Array.prototype.slice.call(document.querySelectorAll('.fw-card .fw-img'));
-      if (!images.length) return;
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.fw-card'))
+        .filter(function(card) { return card.querySelector('.fw-img'); });
+      if (!cards.length) return;
 
       var lbImg = lightbox.querySelector('.lightbox-img');
       var lbCaption = lightbox.querySelector('.lightbox-caption');
@@ -378,12 +379,12 @@
       var currentIndex = 0;
 
       function show(idx) {
-        currentIndex = (idx + images.length) % images.length;
-        var img = images[currentIndex];
+        currentIndex = (idx + cards.length) % cards.length;
+        var card = cards[currentIndex];
+        var img = card.querySelector('.fw-img');
+        var title = card.querySelector('.fw-title');
         lbImg.src = img.src;
         lbImg.alt = img.alt || '';
-        var card = img.closest('.fw-card');
-        var title = card ? card.querySelector('.fw-title') : null;
         lbCaption.textContent = title ? title.textContent : (img.alt || '');
         lightbox.classList.add('open');
         lightbox.setAttribute('aria-hidden', 'false');
@@ -395,9 +396,11 @@
         document.body.classList.remove('lightbox-open');
       }
 
-      images.forEach(function(img, i) {
-        img.addEventListener('click', function(e) {
-          e.preventDefault();
+      cards.forEach(function(card, i) {
+        card.style.cursor = 'zoom-in';
+        card.addEventListener('click', function(e) {
+          // Don't trigger if a link/button inside the card was clicked
+          if (e.target.closest('a, button')) return;
           show(i);
         });
       });
