@@ -9,7 +9,7 @@
   <link rel="icon" type="image/svg+xml" href="/logo.svg" />
   <link rel="apple-touch-icon" href="/logo.svg" />
   <script src="/loader.js?v=5"></script>
-  <script src="/search.js?v=3" defer></script>
+  <script src="/search.js?v=4" defer></script>
   <title>Ronnie Balonon Jr. | UI/UX & Web Designer in Dubai</title>
   <meta name="description" content="Dubai-based UI/UX and Web Designer crafting bold digital experiences — from responsive websites to brand visuals, photography, and social media design." />
   <meta name="author" content="Ronnie Balonon Jr." />
@@ -248,9 +248,9 @@
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: hsl(150 60% 62%);
-      background: hsl(150 60% 22% / 0.20);
-      border: 1px solid hsl(150 60% 50% / 0.30);
+      color: hsl(var(--primary));
+      background: hsl(var(--primary) / 0.12);
+      border: 1px solid hsl(var(--primary) / 0.35);
       border-radius: 999px;
       padding: 0.34rem 0.85rem;
       cursor: pointer;
@@ -259,16 +259,16 @@
     }
     .nav-hire-trigger:hover,
     .nav-hire.open .nav-hire-trigger {
-      background: hsl(150 60% 30% / 0.32);
-      border-color: hsl(150 60% 55% / 0.45);
+      background: hsl(var(--primary) / 0.22);
+      border-color: hsl(var(--primary) / 0.55);
     }
     .nav-hire-trigger svg { transition: transform 0.2s ease; opacity: 0.7; }
     .nav-hire.open .nav-hire-trigger svg { transform: rotate(180deg); }
     .nav-hire-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: hsl(150 70% 55%);
-      box-shadow: 0 0 8px hsl(150 70% 55%);
+      background: hsl(var(--neon-purple));
+      box-shadow: 0 0 8px hsl(var(--neon-purple));
       animation: navAvailDot 1.6s ease-in-out infinite;
       flex-shrink: 0;
     }
@@ -313,8 +313,8 @@
       transition: background 0.15s ease, color 0.15s ease;
     }
     .nav-hire-menu a:hover {
-      background: hsl(150 60% 30% / 0.18);
-      color: hsl(150 60% 65%);
+      background: hsl(var(--primary) / 0.14);
+      color: hsl(var(--primary));
     }
     .nav-hire-title { font-weight: 600; font-size: 0.875rem; }
     .nav-hire-sub {

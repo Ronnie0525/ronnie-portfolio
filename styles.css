@@ -1770,7 +1770,7 @@
     }
     html.light .ig-posts-row { box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
 
-    /* ===== NAV: Hire-Me dropdown + Search button (injected by /search.js) ===== */
+    /* ===== NAV: Hire-Me dropdown (injected by /search.js) ===== */
     .nav-hire { position: relative; }
     .nav-hire-trigger {
       display: inline-flex;
@@ -1779,9 +1779,9 @@
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: hsl(150 60% 62%);
-      background: hsl(150 60% 22% / 0.20);
-      border: 1px solid hsl(150 60% 50% / 0.30);
+      color: hsl(var(--primary));
+      background: hsl(var(--primary) / 0.12);
+      border: 1px solid hsl(var(--primary) / 0.35);
       border-radius: 999px;
       padding: 0.34rem 0.85rem;
       cursor: pointer;
@@ -1790,16 +1790,16 @@
     }
     .nav-hire-trigger:hover,
     .nav-hire.open .nav-hire-trigger {
-      background: hsl(150 60% 30% / 0.32);
-      border-color: hsl(150 60% 55% / 0.45);
+      background: hsl(var(--primary) / 0.22);
+      border-color: hsl(var(--primary) / 0.55);
     }
     .nav-hire-trigger svg { transition: transform 0.2s ease; opacity: 0.7; }
     .nav-hire.open .nav-hire-trigger svg { transform: rotate(180deg); }
     .nav-hire-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: hsl(150 70% 55%);
-      box-shadow: 0 0 8px hsl(150 70% 55%);
+      background: hsl(var(--neon-purple));
+      box-shadow: 0 0 8px hsl(var(--neon-purple));
       animation: navAvailDot 1.6s ease-in-out infinite;
       flex-shrink: 0;
     }
@@ -1845,8 +1845,8 @@
       transition: background 0.15s ease, color 0.15s ease;
     }
     .nav-hire-menu a:hover {
-      background: hsl(150 60% 30% / 0.18);
-      color: hsl(150 60% 65%);
+      background: hsl(var(--primary) / 0.14);
+      color: hsl(var(--primary));
     }
     .nav-hire-title { font-weight: 600; font-size: 0.875rem; }
     .nav-hire-sub {
@@ -1860,13 +1860,14 @@
     }
 
     html.light .nav-hire-trigger {
-      color: hsl(150 60% 30%);
-      background: hsl(150 60% 92%);
-      border-color: hsl(150 50% 65%);
+      color: hsl(220 100% 40%);
+      background: hsl(220 100% 50% / 0.10);
+      border-color: hsl(220 100% 50% / 0.32);
     }
     html.light .nav-hire-trigger:hover,
     html.light .nav-hire.open .nav-hire-trigger {
-      background: hsl(150 60% 86%);
+      background: hsl(220 100% 50% / 0.18);
+      border-color: hsl(220 100% 50% / 0.5);
     }
     html.light .nav-hire-menu {
       background: rgba(255,255,255,0.99);
@@ -1875,8 +1876,8 @@
     }
     html.light .nav-hire-menu a { color: #333; }
     html.light .nav-hire-menu a:hover {
-      background: hsl(150 60% 92%);
-      color: hsl(150 60% 30%);
+      background: hsl(220 100% 50% / 0.10);
+      color: hsl(220 100% 40%);
     }
 
     /* ===== PLATFORM — skill-uiux page (own product, not white-label) ===== */
