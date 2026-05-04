@@ -1876,18 +1876,18 @@
       overflow: hidden;
       background: #fff;
       position: relative;
+      padding-top: 40px;
     }
     .phone-frame-track {
       display: flex;
-      height: 514px;
+      height: 100%;
       transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
       will-change: transform;
     }
     .phone-slide {
       flex: 0 0 244px;
       width: 244px;
-      height: 514px;
-      padding-top: 38px;
+      height: 100%;
       cursor: zoom-in;
       user-select: none;
       overflow-y: auto;
