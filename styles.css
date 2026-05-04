@@ -1851,27 +1851,27 @@
 
     .phone-frame {
       position: relative;
-      width: 280px;
-      aspect-ratio: 9 / 19.5;
-      background: #0a0a0a;
-      border-radius: 36px;
+      width: 260px;
+      aspect-ratio: 9 / 18;
+      background: #1a1a1a;
+      border-radius: 30px;
       padding: 8px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(255,255,255,0.04) inset;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(255,255,255,0.05) inset;
       flex-shrink: 0;
     }
     .phone-frame::before {
       content: '';
       position: absolute;
-      top: 12px; left: 50%;
+      top: 14px; left: 50%;
       transform: translateX(-50%);
-      width: 92px; height: 22px;
-      background: #0a0a0a;
-      border-radius: 0 0 14px 14px;
+      width: 84px; height: 20px;
+      background: #1a1a1a;
+      border-radius: 0 0 12px 12px;
       z-index: 3;
     }
     .phone-frame-viewport {
       width: 100%; height: 100%;
-      border-radius: 28px;
+      border-radius: 24px;
       overflow: hidden;
       background: #fff;
       position: relative;
@@ -1883,7 +1883,8 @@
       will-change: transform;
     }
     .phone-slide {
-      flex: 0 0 100%;
+      flex: 0 0 244px;
+      width: 244px;
       height: 100%;
       cursor: zoom-in;
       user-select: none;
@@ -1896,9 +1897,6 @@
     .phone-slide img {
       width: 100%;
       height: auto;
-      min-height: 100%;
-      object-fit: cover;
-      object-position: top;
       display: block;
       pointer-events: none;
     }
