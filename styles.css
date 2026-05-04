@@ -1770,37 +1770,89 @@
     }
     html.light .ig-posts-row { box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
 
-    /* ===== NAV: Available badge + Search button (injected by /search.js) ===== */
-    .nav-available {
+    /* ===== NAV: Hire-Me dropdown + Search button (injected by /search.js) ===== */
+    .nav-hire { position: relative; }
+    .nav-hire-trigger {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: hsl(150 60% 60%);
+      color: hsl(150 60% 62%);
       background: hsl(150 60% 22% / 0.20);
       border: 1px solid hsl(150 60% 50% / 0.30);
       border-radius: 999px;
-      padding: 0.32rem 0.72rem;
-      text-decoration: none;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      padding: 0.34rem 0.85rem;
+      cursor: pointer;
       white-space: nowrap;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
-    .nav-available:hover {
-      background: hsl(150 60% 28% / 0.32);
-      transform: translateY(-1px);
+    .nav-hire-trigger:hover,
+    .nav-hire.open .nav-hire-trigger {
+      background: hsl(150 60% 30% / 0.32);
+      border-color: hsl(150 60% 55% / 0.45);
     }
-    .nav-available-dot {
+    .nav-hire-trigger svg { transition: transform 0.2s ease; opacity: 0.7; }
+    .nav-hire.open .nav-hire-trigger svg { transform: rotate(180deg); }
+    .nav-hire-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
       background: hsl(150 70% 55%);
       box-shadow: 0 0 8px hsl(150 70% 55%);
       animation: navAvailDot 1.6s ease-in-out infinite;
+      flex-shrink: 0;
     }
     @keyframes navAvailDot {
       0%, 100% { opacity: 1; transform: scale(1); }
       50%      { opacity: 0.55; transform: scale(0.85); }
+    }
+
+    .nav-hire-menu {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 240px;
+      background: hsl(var(--card) / 0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid hsl(var(--border));
+      border-radius: 0.75rem;
+      padding: 0.45rem;
+      box-shadow: 0 16px 40px hsl(var(--background) / 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+      z-index: 110;
+    }
+    .nav-hire.open .nav-hire-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .nav-hire-menu a {
+      display: block;
+      padding: 0.55rem 0.8rem;
+      border-radius: 0.45rem;
+      text-decoration: none;
+      color: hsl(var(--foreground) / 0.88);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .nav-hire-menu a:hover {
+      background: hsl(150 60% 30% / 0.18);
+      color: hsl(150 60% 65%);
+    }
+    .nav-hire-title { font-weight: 600; font-size: 0.875rem; }
+    .nav-hire-sub {
+      font-size: 0.7rem;
+      color: hsl(var(--muted-foreground));
+      margin-top: 0.15rem;
     }
 
     .nav-search-btn {
@@ -1820,14 +1872,28 @@
     }
 
     @media (max-width: 768px) {
-      .nav-available { display: none; }
+      .nav-hire { display: none; }
       .nav-search-btn { display: none; }
     }
 
-    html.light .nav-available {
+    html.light .nav-hire-trigger {
       color: hsl(150 60% 30%);
       background: hsl(150 60% 92%);
       border-color: hsl(150 50% 65%);
+    }
+    html.light .nav-hire-trigger:hover,
+    html.light .nav-hire.open .nav-hire-trigger {
+      background: hsl(150 60% 86%);
+    }
+    html.light .nav-hire-menu {
+      background: rgba(255,255,255,0.99);
+      border-color: hsl(220 18% 88%);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+    html.light .nav-hire-menu a { color: #333; }
+    html.light .nav-hire-menu a:hover {
+      background: hsl(150 60% 92%);
+      color: hsl(150 60% 30%);
     }
     html.light .nav-search-btn {
       border-color: hsl(220 18% 88%);

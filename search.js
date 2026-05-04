@@ -32,17 +32,26 @@
 
   function injectNavExtras() {
     var navRight = document.querySelector('.nav-right');
-    if (!navRight || navRight.querySelector('.nav-available')) return;
+    if (!navRight || navRight.querySelector('.nav-hire')) return;
 
     var contactBtn = navRight.querySelector('a.btn[href="/contact/"]') ||
                      navRight.querySelector('a[href="/contact/"].btn');
     if (!contactBtn) return;
 
-    var badge = document.createElement('a');
-    badge.href = '/contact/';
-    badge.className = 'nav-available';
-    badge.setAttribute('aria-label', 'Available for hire');
-    badge.innerHTML = '<span class="nav-available-dot" aria-hidden="true"></span>Available';
+    var hire = document.createElement('div');
+    hire.className = 'nav-hire';
+    hire.innerHTML =
+      '<button type="button" class="nav-hire-trigger" aria-haspopup="true" aria-expanded="false">' +
+        '<span class="nav-hire-dot" aria-hidden="true"></span>' +
+        'Hire Me' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+      '</button>' +
+      '<div class="nav-hire-menu" role="menu">' +
+        '<a href="/contact/?type=freelance" role="menuitem"><div class="nav-hire-title">Freelance</div><div class="nav-hire-sub">One-off projects, fixed scope</div></a>' +
+        '<a href="/contact/?type=fulltime" role="menuitem"><div class="nav-hire-title">Full-time</div><div class="nav-hire-sub">Permanent role</div></a>' +
+        '<a href="/contact/?type=retainer" role="menuitem"><div class="nav-hire-title">Retainer</div><div class="nav-hire-sub">Ongoing monthly hours</div></a>' +
+        '<a href="/contact/?type=collaboration" role="menuitem"><div class="nav-hire-title">Collaboration</div><div class="nav-hire-sub">Agency / studio partnership</div></a>' +
+      '</div>';
 
     var search = document.createElement('button');
     search.type = 'button';
@@ -53,8 +62,40 @@
       '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
       '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
 
-    contactBtn.parentNode.insertBefore(badge, contactBtn);
+    contactBtn.parentNode.insertBefore(hire, contactBtn);
     contactBtn.parentNode.insertBefore(search, contactBtn);
+
+    // Wire up the hire dropdown — hover with delay + click toggle.
+    var trigger = hire.querySelector('.nav-hire-trigger');
+    var closeTimer = null;
+    function openDropdown() {
+      clearTimeout(closeTimer);
+      hire.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+    function startCloseTimer() {
+      closeTimer = setTimeout(function () {
+        hire.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }, 500);
+    }
+    hire.addEventListener('mouseenter', openDropdown);
+    hire.addEventListener('mouseleave', startCloseTimer);
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (hire.classList.contains('open')) {
+        hire.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        openDropdown();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!hire.contains(e.target)) {
+        hire.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
 
   function injectOverlay() {
