@@ -1896,6 +1896,34 @@
       background: #fff;
     }
     .phone-slide::-webkit-scrollbar { display: none; }
+    .phone-scroll-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .phone-scroll-hint.show {
+      opacity: 1;
+      animation: phoneScrollBounce 1.6s ease-in-out infinite;
+    }
+    @keyframes phoneScrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(6px); }
+    }
     .phone-slide img {
       width: 244px;
       max-width: 244px;

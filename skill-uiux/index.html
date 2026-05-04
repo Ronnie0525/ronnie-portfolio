@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="/loader.js?v=5"></script>  <link rel="stylesheet" href="/styles.css?v=23" />
+  <script src="/loader.js?v=5"></script>  <link rel="stylesheet" href="/styles.css?v=24" />
 </head>
 <body>
   <!-- ===== NAVIGATION ===== -->
@@ -265,6 +265,9 @@
 
           <div class="phone-frame">
             <div class="phone-frame-viewport">
+              <div class="phone-scroll-hint" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
               <div class="phone-frame-track">
                 <div class="phone-slide" data-screen="Staff Identification — Login"><img src="/assets/network/page-02.png" alt="Staff Identification login screen" loading="lazy"/></div>
                 <div class="phone-slide" data-screen="Staff Identification — Supervisor Menu"><img src="/assets/network/page-03.png" alt="Staff Identification with supervisor menu" loading="lazy"/></div>
@@ -513,16 +516,34 @@
         var label = carousel.querySelector('.app-screen-label');
         var prevBtn = carousel.querySelector('.app-nav--prev');
         var nextBtn = carousel.querySelector('.app-nav--next');
+        var hint = carousel.querySelector('.phone-scroll-hint');
         var index = 0;
         var total = slides.length;
         if (!total) return;
+
+        function updateHint() {
+          if (!hint) return;
+          var s = slides[index];
+          var canScroll = s.scrollHeight > s.clientHeight + 4;
+          var nearBottom = s.scrollTop + s.clientHeight >= s.scrollHeight - 8;
+          if (canScroll && !nearBottom) hint.classList.add('show');
+          else hint.classList.remove('show');
+        }
 
         function goTo(i) {
           index = ((i % total) + total) % total;
           track.style.transform = 'translateX(' + (-index * 100) + '%)';
           dots.forEach(function(d, di) { d.classList.toggle('active', di === index); });
           if (label) label.textContent = slides[index].getAttribute('data-screen') || '';
+          slides[index].scrollTop = 0;
+          setTimeout(updateHint, 50);
         }
+
+        slides.forEach(function(slide) {
+          slide.addEventListener('scroll', updateHint, { passive: true });
+        });
+        window.addEventListener('load', updateHint);
+        setTimeout(updateHint, 200);
 
         prevBtn.addEventListener('click', function() { goTo(index - 1); });
         nextBtn.addEventListener('click', function() { goTo(index + 1); });
