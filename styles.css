@@ -1858,6 +1858,15 @@
       .nav-hire { display: none; }
     }
 
+    /* Navbar Contact button — share the same blue → purple hover as Hire Me. */
+    .nav-right a.btn[href="/contact/"] {
+      transition: background 0.2s ease, border-color 0.2s ease !important;
+    }
+    .nav-right a.btn[href="/contact/"]:hover {
+      background: hsl(var(--neon-purple)) !important;
+      border-color: hsl(var(--neon-purple)) !important;
+    }
+
     html.light .nav-hire-trigger {
       color: #fff;
       background: hsl(220 100% 45%);
