@@ -196,7 +196,7 @@
     }
     .btn-outline:hover { box-shadow: 0 0 20px hsl(var(--neon-purple) / 0.5); transform: scale(1.05); }
 
-    /* Hero buttons — keep filled colors, no glow, default rotating-stroke border */
+    /* Hero buttons — keep filled colors, no glow, double-comet stroke */
     .hero-buttons .btn-neon {
       background: hsl(220 100% 50% / 0.85);
       box-shadow: none;
@@ -210,6 +210,29 @@
     .hero-buttons .btn-outline:hover {
       box-shadow: none;
       transform: scale(1.04);
+    }
+    /* Override the default single comet with TWO bright comets that travel
+       180° apart, with thicker stroke for visibility. */
+    .hero-buttons .btn::before {
+      padding: 3px;
+      background: conic-gradient(
+        from var(--btn-angle),
+        transparent 0%,
+        hsl(var(--primary) / 0.6) 1%,
+        hsl(var(--primary)) 4%,
+        hsl(var(--neon-purple)) 8%,
+        hsl(var(--neon-purple) / 0.6) 11%,
+        transparent 15%,
+        transparent 50%,
+        hsl(var(--primary) / 0.6) 51%,
+        hsl(var(--primary)) 54%,
+        hsl(var(--neon-purple)) 58%,
+        hsl(var(--neon-purple) / 0.6) 61%,
+        transparent 65%,
+        transparent 100%
+      );
+      animation-duration: 2.5s;
+      filter: drop-shadow(0 0 4px hsl(var(--primary) / 0.5));
     }
     .btn-lg { padding: 0.75rem 2rem; font-size: 1rem; }
     .btn-sm { padding: 0.5rem 1rem; font-size: 0.75rem; }
