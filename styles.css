@@ -1770,6 +1770,202 @@
     }
     html.light .ig-posts-row { box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
 
+    /* ===== APP & UI DESIGN — skill-uiux page ===== */
+    .app-design-section { padding: 4rem 0 2rem; }
+    .app-design-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem;
+      background: hsl(var(--card));
+      border: 1px solid hsl(var(--border));
+      border-radius: 1.25rem;
+    }
+    .app-design-info { padding: 0; }
+    .app-design-tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: hsl(var(--primary));
+      background: hsl(var(--primary) / 0.10);
+      border: 1px solid hsl(var(--primary) / 0.35);
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .app-design-info h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.5vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: hsl(var(--foreground));
+    }
+    .app-design-desc {
+      color: hsl(var(--muted-foreground));
+      line-height: 1.65;
+      font-size: 0.95rem;
+      margin-bottom: 1.75rem;
+    }
+    .app-design-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .app-design-meta-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+    .app-design-meta-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .app-design-meta-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: hsl(var(--muted-foreground));
+      font-weight: 700;
+    }
+    .app-design-meta-value {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: hsl(var(--foreground));
+      font-size: 0.95rem;
+    }
+
+    .app-design-carousel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 60px;
+    }
+
+    .phone-frame {
+      position: relative;
+      width: 280px;
+      aspect-ratio: 9 / 19.5;
+      background: #0a0a0a;
+      border-radius: 36px;
+      padding: 8px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(255,255,255,0.04) inset;
+      flex-shrink: 0;
+    }
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      top: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 92px; height: 22px;
+      background: #0a0a0a;
+      border-radius: 0 0 14px 14px;
+      z-index: 3;
+    }
+    .phone-frame-viewport {
+      width: 100%; height: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #fff;
+      position: relative;
+    }
+    .phone-frame-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+      will-change: transform;
+    }
+    .phone-slide {
+      flex: 0 0 100%;
+      height: 100%;
+      cursor: zoom-in;
+      user-select: none;
+    }
+    .phone-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      pointer-events: none;
+    }
+
+    .app-nav {
+      position: absolute;
+      top: calc(50% - 40px);
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.65);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 4;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .app-nav:hover {
+      background: hsl(var(--primary));
+      border-color: hsl(var(--primary));
+      transform: translateY(-50%) scale(1.06);
+    }
+    .app-nav--prev { left: 0; }
+    .app-nav--next { right: 0; }
+
+    .app-screen-label {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: hsl(var(--foreground));
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+    .app-dots {
+      display: flex;
+      gap: 0.4rem;
+      justify-content: center;
+      margin-top: 0.75rem;
+    }
+    .app-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: hsl(var(--muted-foreground) / 0.4);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.25s ease;
+    }
+    .app-dot.active {
+      background: hsl(var(--primary));
+      width: 22px;
+      border-radius: 999px;
+    }
+    .app-dot:hover { background: hsl(var(--primary) / 0.7); }
+
+    @media (max-width: 880px) {
+      .app-design-card {
+        grid-template-columns: 1fr;
+        padding: 1.75rem;
+        gap: 2rem;
+      }
+      .app-design-carousel { padding: 0 50px; }
+    }
+
+    html.light .app-design-card { background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    html.light .app-design-info h3 { color: #111; }
+    html.light .app-design-desc { color: #555; }
+    html.light .app-design-meta-value { color: #111; }
+    html.light .app-design-meta-label { color: #666; }
+
     /* ===== LIGHTBOX (photography & gallery pages) ===== */
     .fw-card .fw-img { cursor: zoom-in; }
     .lightbox {
