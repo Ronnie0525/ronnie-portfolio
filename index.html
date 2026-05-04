@@ -196,14 +196,14 @@
     }
     .btn-outline:hover { box-shadow: 0 0 20px hsl(var(--neon-purple) / 0.5); transform: scale(1.05); }
 
-    /* Hero buttons — match the Hire Me / Contact pill style:
-       compact size, solid fill, hover swaps blue <-> purple, no stroke. */
+    /* Hero buttons — pill size matching Hire Me, blue/purple swap on hover,
+       with the double-white-comet stroke animation on top. */
     .hero-buttons .btn {
       font-size: 0.8rem;
       padding: 0.4rem 1rem;
       border-radius: 0.5rem;
+      line-height: 1;
     }
-    .hero-buttons .btn::before { display: none; }
     .hero-buttons .btn-neon {
       background: hsl(var(--primary));
       border: 1px solid hsl(var(--primary));
@@ -230,15 +230,44 @@
       box-shadow: none;
       transform: none;
     }
+    .hero-buttons .btn::before {
+      padding: 2px;
+      background: conic-gradient(
+        from var(--btn-angle),
+        transparent 0%,
+        rgba(255,255,255,0.35) 1%,
+        rgba(255,255,255,0.95) 4%,
+        rgba(255,255,255,1)    7%,
+        rgba(255,255,255,0.95) 10%,
+        rgba(255,255,255,0.35) 13%,
+        transparent 17%,
+        transparent 50%,
+        rgba(255,255,255,0.35) 51%,
+        rgba(255,255,255,0.95) 54%,
+        rgba(255,255,255,1)    57%,
+        rgba(255,255,255,0.95) 60%,
+        rgba(255,255,255,0.35) 63%,
+        transparent 67%,
+        transparent 100%
+      );
+      animation-duration: 2.5s;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
+    }
 
-    /* Navbar Contact button — share the same blue → purple hover. */
+    /* Navbar Contact button — strip the .btn rotating stroke, match Hire Me
+       dimensions exactly, and apply the same blue → purple hover. */
     .nav-right a.btn[href="/contact/"] {
+      font-size: 0.8rem !important;
+      padding: 0.4rem 1rem !important;
+      line-height: 1 !important;
       transition: background 0.2s ease, border-color 0.2s ease !important;
     }
+    .nav-right a.btn[href="/contact/"]::before { display: none; }
     .nav-right a.btn[href="/contact/"]:hover {
       background: hsl(var(--neon-purple)) !important;
       border-color: hsl(var(--neon-purple)) !important;
     }
+    .nav-hire-trigger { line-height: 1; }
     .btn-lg { padding: 0.75rem 2rem; font-size: 1rem; }
     .btn-sm { padding: 0.5rem 1rem; font-size: 0.75rem; }
 
@@ -255,6 +284,7 @@
       border: 1px solid hsl(var(--primary));
       border-radius: 0.5rem;
       padding: 0.4rem 1rem;
+      line-height: 1;
       cursor: pointer;
       white-space: nowrap;
       transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
