@@ -1862,7 +1862,7 @@
     .phone-frame::before {
       content: '';
       position: absolute;
-      top: 14px; left: 50%;
+      top: 16px; left: 50%;
       transform: translateX(-50%);
       width: 88px; height: 22px;
       background: #1a1a1a;
@@ -1887,6 +1887,7 @@
       flex: 0 0 244px;
       width: 244px;
       height: 514px;
+      padding-top: 38px;
       cursor: zoom-in;
       user-select: none;
       overflow-y: auto;
