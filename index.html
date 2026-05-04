@@ -1881,9 +1881,8 @@
       width: 100%; height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform .7s cubic-bezier(.16,1,.3,1);
+      will-change: transform;
     }
-    .uw-card:hover .uw-card-img img { transform: scale(1.06); }
     .uw-card-info {
       flex: 1;
       padding: 1.25rem 1.4rem 1.4rem;
@@ -3221,6 +3220,38 @@
       input.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') handleSend();
       });
+    })();
+
+    // Scroll-zoom: Website Design Works card images shrink from 1.1 → 1.0 as they enter view
+    (function() {
+      var images = document.querySelectorAll('.uw-card-img img');
+      if (!images.length) return;
+      var ticking = false;
+
+      function update() {
+        ticking = false;
+        var vh = window.innerHeight;
+        images.forEach(function(img) {
+          var rect = img.getBoundingClientRect();
+          // 0 when card is below viewport, 1 when its center is at the top of viewport
+          var progress = 1 - (rect.top + rect.height / 2) / vh;
+          progress = Math.max(0, Math.min(1, progress));
+          // Scale 1.1 (zoomed in) → 1.0 (settled) as progress goes 0 → 1
+          var scale = 1.1 - progress * 0.1;
+          img.style.transform = 'scale(' + scale.toFixed(4) + ')';
+        });
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      update();
     })();
   </script>
 </body>
