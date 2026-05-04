@@ -211,28 +211,30 @@
       box-shadow: none;
       transform: scale(1.04);
     }
-    /* Override the default single comet with TWO bright comets that travel
-       180° apart, with thicker stroke for visibility. */
+    /* Override the default single comet with TWO bright WHITE comets
+       (white pops against both the blue and purple button fills). */
     .hero-buttons .btn::before {
       padding: 3px;
       background: conic-gradient(
         from var(--btn-angle),
         transparent 0%,
-        hsl(var(--primary) / 0.6) 1%,
-        hsl(var(--primary)) 4%,
-        hsl(var(--neon-purple)) 8%,
-        hsl(var(--neon-purple) / 0.6) 11%,
-        transparent 15%,
+        rgba(255,255,255,0.35) 1%,
+        rgba(255,255,255,0.95) 4%,
+        rgba(255,255,255,1)    7%,
+        rgba(255,255,255,0.95) 10%,
+        rgba(255,255,255,0.35) 13%,
+        transparent 17%,
         transparent 50%,
-        hsl(var(--primary) / 0.6) 51%,
-        hsl(var(--primary)) 54%,
-        hsl(var(--neon-purple)) 58%,
-        hsl(var(--neon-purple) / 0.6) 61%,
-        transparent 65%,
+        rgba(255,255,255,0.35) 51%,
+        rgba(255,255,255,0.95) 54%,
+        rgba(255,255,255,1)    57%,
+        rgba(255,255,255,0.95) 60%,
+        rgba(255,255,255,0.35) 63%,
+        transparent 67%,
         transparent 100%
       );
       animation-duration: 2.5s;
-      filter: drop-shadow(0 0 4px hsl(var(--primary) / 0.5));
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
     }
     .btn-lg { padding: 0.75rem 2rem; font-size: 1rem; }
     .btn-sm { padding: 0.5rem 1rem; font-size: 0.75rem; }
