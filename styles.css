@@ -1855,25 +1855,8 @@
       margin-top: 0.15rem;
     }
 
-    .nav-search-btn {
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 0.5rem;
-      background: transparent;
-      color: hsl(var(--foreground) / 0.7);
-      border: 1px solid hsl(var(--border));
-      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      flex-shrink: 0;
-    }
-    .nav-search-btn:hover {
-      color: hsl(var(--primary));
-      border-color: hsl(var(--primary) / 0.5);
-      background: hsl(var(--primary) / 0.06);
-    }
-
     @media (max-width: 768px) {
       .nav-hire { display: none; }
-      .nav-search-btn { display: none; }
     }
 
     html.light .nav-hire-trigger {
@@ -1895,121 +1878,6 @@
       background: hsl(150 60% 92%);
       color: hsl(150 60% 30%);
     }
-    html.light .nav-search-btn {
-      border-color: hsl(220 18% 88%);
-      color: #555;
-    }
-    html.light .nav-search-btn:hover {
-      color: hsl(220 100% 40%);
-      border-color: hsl(220 100% 40% / 0.4);
-      background: hsl(220 100% 40% / 0.06);
-    }
-
-    /* Search overlay */
-    .nav-search-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.72);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      display: none;
-      z-index: 200;
-      padding-top: 12vh;
-      align-items: flex-start;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    .nav-search-overlay.open {
-      display: flex;
-      opacity: 1;
-    }
-    .nav-search-modal {
-      width: 100%;
-      max-width: 580px;
-      margin: 0 1rem;
-      background: hsl(var(--card));
-      border: 1px solid hsl(var(--border));
-      border-radius: 0.875rem;
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.55);
-    }
-    .nav-search-input-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.95rem 1.15rem;
-      border-bottom: 1px solid hsl(var(--border));
-      color: hsl(var(--muted-foreground));
-    }
-    .nav-search-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      font-family: inherit;
-      font-size: 0.95rem;
-      color: hsl(var(--foreground));
-      min-width: 0;
-    }
-    .nav-search-input::placeholder { color: hsl(var(--muted-foreground)); }
-    .nav-search-close {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 0.3rem 0.55rem;
-      border-radius: 0.35rem;
-      background: hsl(var(--muted) / 0.45);
-      color: hsl(var(--muted-foreground));
-      border: 1px solid hsl(var(--border));
-      flex-shrink: 0;
-    }
-    .nav-search-results {
-      max-height: 60vh;
-      overflow-y: auto;
-      padding: 0.5rem;
-    }
-    .nav-search-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      color: hsl(var(--foreground));
-      transition: background 0.15s ease;
-    }
-    .nav-search-item:hover {
-      background: hsl(var(--primary) / 0.10);
-      color: hsl(var(--primary));
-    }
-    .nav-search-item-title {
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .nav-search-item-cat {
-      font-size: 0.72rem;
-      color: hsl(var(--muted-foreground));
-      margin-top: 0.15rem;
-      letter-spacing: 0.03em;
-    }
-    .nav-search-empty {
-      padding: 2rem 1rem;
-      text-align: center;
-      color: hsl(var(--muted-foreground));
-      font-size: 0.9rem;
-    }
-
-    html.light .nav-search-modal {
-      background: #fff;
-      border-color: hsl(220 18% 88%);
-    }
-    html.light .nav-search-item:hover { background: hsl(220 100% 50% / 0.08); color: hsl(220 100% 40%); }
-    html.light .nav-search-item { color: #111; }
-    html.light .nav-search-item-cat { color: #666; }
-    html.light .nav-search-input { color: #111; }
-    html.light .nav-search-close { background: hsl(220 18% 92%); color: #555; }
 
     /* ===== PLATFORM — skill-uiux page (own product, not white-label) ===== */
     .platform-section { padding: 4rem 0 2rem; }
