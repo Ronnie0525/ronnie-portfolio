@@ -1890,6 +1890,7 @@
       overflow-y: auto;
       overscroll-behavior: contain;
       scrollbar-width: none;
+      background: #fff;
     }
     .phone-slide::-webkit-scrollbar { display: none; }
     .phone-slide img {
