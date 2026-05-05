@@ -2306,13 +2306,27 @@
     /* ===== PORTFOLIO GRID (3-col equal) ===== */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 300px;
-      gap: 1.125rem;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: auto;
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    /* Override bento spans + tilt entrance from .fw-grid for these cards */
+    .portfolio-grid .fw-card {
+      grid-column: auto !important;
+      grid-row: auto !important;
+      transform: none !important;
+      opacity: 1 !important;
+      aspect-ratio: 4 / 5;
+      text-decoration: none;
     }
     @media (max-width: 1024px) {
-      .portfolio-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 260px; }
+      .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
     }
-    @media (max-width: 640px) {
-      .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 300px; }
+    @media (max-width: 720px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
     }
