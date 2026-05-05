@@ -128,7 +128,12 @@
     .bg-card { background: hsl(var(--card)); }
     
     .gradient-text {
-      color: white;
+      background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--neon-purple)) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      display: inline-block;
     }
     
     .glass-card {
@@ -692,7 +697,7 @@
 
 /* ===== SECTIONS ===== */
     section { position: relative; }
-    .section-title { font-size: clamp(1.875rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
+    .section-title { font-size: clamp(1.875rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem; }
     .section-subtitle { color: hsl(var(--muted-foreground)); font-size: 1.125rem; max-width: 42rem; margin: 0 auto; }
     
     /* ===== TOOLS SECTION — Cyber Rain BG ===== */
@@ -1658,7 +1663,13 @@
     html.light .text-muted { color: #444; }
     html.light .section-title { color: #111; }
     html.light .section-subtitle { color: #444; }
-    html.light .gradient-text { color: hsl(220 100% 40%); }
+    html.light .gradient-text {
+      background: linear-gradient(135deg, hsl(220 100% 45%) 0%, hsl(268 82% 55%) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
     html.light .hero h1, html.light .hero-tag { color: #111; }
     html.light .hero-subtitle { color: #333; }
     html.light .hero-tag { background: hsl(220 100% 40% / 0.08); border-color: hsl(220 100% 40% / 0.25); color: hsl(220 100% 35%); }
