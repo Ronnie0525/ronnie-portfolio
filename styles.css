@@ -1716,7 +1716,7 @@
     .ig-posts-section { padding: 4rem 0 2rem; }
     .ig-posts-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 4px;
       max-width: 1100px;
       margin: 0 auto;
@@ -1724,6 +1724,9 @@
       overflow: hidden;
       box-shadow: 0 18px 50px rgba(0,0,0,0.4);
       background: hsl(var(--background));
+    }
+    @media (max-width: 640px) {
+      .ig-posts-row { grid-template-columns: 1fr; }
     }
     .ig-post {
       display: block;
