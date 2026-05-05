@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script src="/loader.js?v=5"></script>
   <script src="/search.js?v=3" defer></script>
-  <link rel="stylesheet" href="/styles.css?v=34" />
+  <link rel="stylesheet" href="/styles.css?v=35" />
 </head>
 <body>
   <!-- ===== NAVIGATION ===== -->
@@ -425,7 +425,7 @@
     (function() {
       var lightbox = document.getElementById('lightbox');
       if (!lightbox) return;
-      var posts = Array.prototype.slice.call(document.querySelectorAll('.ig-post'));
+      var posts = Array.prototype.slice.call(document.querySelectorAll('.ig-post, .portfolio-grid .fw-card'));
       if (!posts.length) return;
 
       var lbImg = lightbox.querySelector('.lightbox-img');

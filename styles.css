@@ -2320,7 +2320,31 @@
       opacity: 1 !important;
       aspect-ratio: 4 / 5;
       text-decoration: none;
+      cursor: zoom-in;
     }
+    /* Light scrim — images stay clearly visible, dark only at the bottom
+       so the title stays readable. Stronger gradient on hover. */
+    .portfolio-grid .fw-scrim {
+      background: linear-gradient(180deg,
+        transparent 0%,
+        transparent 55%,
+        rgba(0,0,0,0.55) 90%,
+        rgba(0,0,0,0.75) 100%) !important;
+      transition: background 0.3s ease;
+    }
+    .portfolio-grid .fw-card:hover .fw-scrim {
+      background: linear-gradient(180deg,
+        rgba(0,0,0,0.05) 0%,
+        rgba(0,0,0,0.20) 40%,
+        rgba(0,0,0,0.75) 90%,
+        rgba(0,0,0,0.85) 100%) !important;
+    }
+    /* Tame the giant 01/02/03 number so it doesn't compete with the image */
+    .portfolio-grid .fw-num {
+      font-size: 3rem;
+      color: rgba(255,255,255,0.18);
+    }
+    .portfolio-grid .fw-card:hover .fw-num { color: rgba(255,255,255,0.30); }
     @media (max-width: 1024px) {
       .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
     }
