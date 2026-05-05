@@ -60,9 +60,43 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectNavExtras);
-  } else {
+  // ---- See-more toggle for .portfolio-grid sections ----
+  // Any grid with more than 8 .fw-card items shows only the first 8 + a
+  // "See more (N)" button that expands the rest. Works automatically when
+  // new images are added to a section.
+  function setupSeeMore() {
+    document.querySelectorAll('.portfolio-grid').forEach(function (grid) {
+      if (grid.dataset.seeMoreInited === 'true') return;
+      var cards = grid.querySelectorAll('.fw-card');
+      if (cards.length <= 8) return;
+      grid.dataset.seeMoreInited = 'true';
+
+      var hidden = cards.length - 8;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'portfolio-see-more';
+      btn.textContent = 'See more (' + hidden + ')';
+
+      btn.addEventListener('click', function () {
+        var nowExpanded = grid.classList.toggle('expanded');
+        btn.textContent = nowExpanded ? 'See less' : 'See more (' + hidden + ')';
+        if (!nowExpanded) {
+          grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      grid.parentNode.insertBefore(btn, grid.nextSibling);
+    });
+  }
+
+  function init() {
     injectNavExtras();
+    setupSeeMore();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

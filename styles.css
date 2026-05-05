@@ -2330,6 +2330,34 @@
     .portfolio-grid .fw-content,
     .portfolio-grid .fw-num { display: none !important; }
 
+    /* Collapse to first 8 cards (2 rows of 4) until "See more" is clicked. */
+    .portfolio-grid:not(.expanded) .fw-card:nth-child(n+9) { display: none; }
+    .portfolio-see-more {
+      display: block;
+      margin: 2.5rem auto 0;
+      padding: 0.5rem 1.5rem;
+      background: hsl(var(--primary));
+      color: #fff;
+      border: 1px solid hsl(var(--primary));
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .portfolio-see-more:hover {
+      background: hsl(var(--neon-purple));
+      border-color: hsl(var(--neon-purple));
+    }
+    html.light .portfolio-see-more {
+      background: hsl(220 100% 45%);
+      border-color: hsl(220 100% 45%);
+    }
+    html.light .portfolio-see-more:hover {
+      background: hsl(268 75% 55%);
+      border-color: hsl(268 75% 55%);
+    }
+
     /* Play-icon overlay for video cards in Featured Projects */
     .fw-card-play {
       position: absolute;
