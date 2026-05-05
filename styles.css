@@ -2345,6 +2345,30 @@
       color: rgba(255,255,255,0.18);
     }
     .portfolio-grid .fw-card:hover .fw-num { color: rgba(255,255,255,0.30); }
+
+    /* Play-icon overlay for video cards in Featured Projects */
+    .fw-card-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .fw-card-play svg { margin-left: 3px; }
+    .fw-card--video:hover .fw-card-play {
+      background: hsl(var(--primary));
+      transform: translate(-50%, -50%) scale(1.06);
+    }
     @media (max-width: 1024px) {
       .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
     }
