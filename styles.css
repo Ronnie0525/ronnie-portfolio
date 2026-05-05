@@ -1770,6 +1770,11 @@
     }
     html.light .ig-posts-row { box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
 
+    /* Square (1:1) variant — used for the Sample Content row above the
+       Featured Work section on the social media page. */
+    .sample-content-section { padding: 4rem 0 2rem; }
+    .ig-posts-row--square .ig-post { aspect-ratio: 1 / 1; }
+
     /* ===== NAV: Hire-Me dropdown (injected by /search.js) ===== */
     .nav-hire { position: relative; }
     .nav-hire-trigger {
