@@ -442,7 +442,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'services',
           keys: ['service','services','what do you do','what you do','offer','offering','what can you do','skill','skills','specializ','expertise','capable','ability','abilities','speciali'],
           replies: [
-            "Ronnie offers a wide range of creative services:\n\n• <b>UI/UX & Web Design</b> — Wireframes, prototypes, responsive websites\n• <b>Photography</b> — Product, portrait, lifestyle, events\n• <b>Video Editing</b> — Brand reels, social content, cinematic edits\n• <b>Social Media Management</b> — Strategy, content creation, analytics\n• <b>Graphic Design</b> — Branding, logos, print materials\n• <b>AI Workflows</b> — AI image generation, prompt engineering, automation\n\nWhich one interests you most?"
+            "Ronnie offers a wide range of creative services:\n\n• <b>UI/UX & Web Design</b> — Wireframes, prototypes, responsive websites\n• <b>Photography</b> — Product, portrait, lifestyle, events\n• <b>Video Editing</b> — Promo reels, social content, cinematic edits\n• <b>Social Media Management</b> — Strategy, content creation, analytics\n• <b>Graphic Design</b> — Print, packaging, marketing collateral\n• <b>AI Workflows</b> — AI image generation, prompt engineering, automation\n\nWhich one interests you most?"
           ]
         },
         {
@@ -475,23 +475,23 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
         },
         {
           name: 'graphic_design',
-          keys: ['graphic','design','logo','brand','branding','identity','poster','flyer','brochure','print','business card','packaging','illustrat','vector','adobe','layout','visual identity','banner','signage'],
+          keys: ['graphic','design','poster','flyer','brochure','print','business card','packaging','illustrat','vector','adobe','layout','banner','signage','collateral','editorial','typography'],
           replies: [
-            "Ronnie creates bold visual designs:\n\n• Brand identity systems & logo design\n• Poster & print design\n• Business cards & stationery\n• Social media graphics & templates\n• Packaging design\n• Marketing collateral (brochures, flyers, banners)\n\nBrowse the " + L('/skill-graphic-design/') + "Graphic Design Portfolio" + E + "!"
+            "Ronnie's graphic design work focuses on print and marketing collateral:\n\n• Posters & print design\n• Brochures & editorial layouts\n• Packaging design\n• Marketing collateral (flyers, banners, pitch decks)\n• Social media graphics & templates\n• Typography & layout work\n\n<i>Note: Ronnie doesn't take on logo or brand-identity-system projects.</i>\n\nBrowse the " + L('/skill-graphic-design/') + "Graphic Design Portfolio" + E + "!"
           ]
         },
         {
           name: 'ai',
           keys: ['ai','artificial intelligence','midjourney','chatgpt','claude','kling','generative','prompt engineer','ai image','ai video','ai tool','machine learning','automation','gpt','dall-e','stable diffusion','ai art','ai design','ai assist'],
           replies: [
-            "Ronnie leverages cutting-edge AI tools:\n\n• <b>Midjourney</b> — AI image generation for branding\n• <b>ChatGPT & Claude</b> — AI-assisted copywriting & strategy\n• <b>Kling AI</b> — AI video generation\n• <b>Prompt Engineering</b> — Crafting production-ready outputs\n• <b>AI Workflows</b> — End-to-end creative automation\n\nSee AI work in the " + L('/skill-artificial-intelligence/') + "AI Portfolio" + E + "!"
+            "Ronnie leverages cutting-edge AI tools:\n\n• <b>Midjourney</b> — AI image generation\n• <b>ChatGPT & Claude</b> — AI-assisted copywriting & strategy\n• <b>Kling AI</b> — AI video generation\n• <b>Prompt Engineering</b> — Crafting production-ready outputs\n• <b>AI Workflows</b> — End-to-end creative automation\n\nSee AI work in the " + L('/skill-artificial-intelligence/') + "AI Portfolio" + E + "!"
           ]
         },
         {
           name: 'portfolio',
           keys: ['portfolio','work','project','projects','sample','samples','example','examples','showcase','case study','previous work','past work','show me','see your'],
           replies: [
-            "Here are all of Ronnie's portfolio pages:\n\n• " + L('/skill-uiux/') + "UIUX" + E + " — Web & app interfaces\n• " + L('/skill-photography/') + "Photography" + E + " — Shoots & sessions\n• " + L('/skill-video-editing/') + "Video" + E + " — Reels & edits\n• " + L('/skill-artificial-intelligence/') + "AI" + E + " — Generative & AI work\n• " + L('/skill-social-media/') + "SocialMedia" + E + " — Campaigns & strategy\n• " + L('/skill-graphic-design/') + "Graphic" + E + " — Branding & print\n\nWhich one would you like to explore?"
+            "Here are all of Ronnie's portfolio pages:\n\n• " + L('/skill-uiux/') + "UIUX" + E + " — Web & app interfaces\n• " + L('/skill-photography/') + "Photography" + E + " — Shoots & sessions\n• " + L('/skill-video-editing/') + "Video" + E + " — Reels & edits\n• " + L('/skill-artificial-intelligence/') + "AI" + E + " — Generative & AI work\n• " + L('/skill-social-media/') + "SocialMedia" + E + " — Campaigns & strategy\n• " + L('/skill-graphic-design/') + "Graphic" + E + " — Print & marketing collateral\n\nWhich one would you like to explore?"
           ]
         },
         {
@@ -547,7 +547,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'timeline',
           keys: ['timeline','how long','turnaround','deadline','delivery','when','duration','time frame','timeframe','rush','urgent','fast','quick delivery','eta'],
           replies: [
-            "Typical turnaround times:\n\n• <b>Logo / Brand Identity:</b> 3–7 days\n• <b>Website Design:</b> 1–3 weeks\n• <b>Photography Session:</b> Same-day to 3 days editing\n• <b>Video Editing:</b> 3–7 days\n• <b>Social Media Package:</b> Weekly/monthly delivery\n\nRush projects are possible! Discuss your timeline via " + La('https://wa.me/971543763091') + "WhatsApp" + E + "."
+            "Typical turnaround times:\n\n• <b>Website Design:</b> 1–3 weeks\n• <b>Photography Session:</b> Same-day to 3 days editing\n• <b>Video Editing:</b> 3–7 days\n• <b>Print / Marketing Collateral:</b> 3–7 days\n• <b>Social Media Package:</b> Weekly/monthly delivery\n\nRush projects are possible! Discuss your timeline via " + La('https://wa.me/971543763091') + "WhatsApp" + E + "."
           ]
         },
         {
@@ -600,7 +600,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           keys: ['joke','funny','laugh','humor','fun fact','tell me something','bored','entertain','surprise'],
           replies: [
             "Fun fact: Ronnie can go from designing a website wireframe to shooting a product photo to editing a reel — all in the same day! That's the power of being multi-disciplinary.",
-            "Here's one: Ronnie once redesigned an entire brand identity during a coffee break. The client loved it!",
+            "Here's one: Ronnie once turned a single-day shoot into a full month's worth of social content for a Dubai cafe.",
             "Did you know? Ronnie uses AI tools like Midjourney and Claude to speed up his creative process by 3x!"
           ]
         },
