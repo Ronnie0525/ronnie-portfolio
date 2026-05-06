@@ -1389,21 +1389,17 @@
     .hero-eyebrow::after {
       content: '';
       position: absolute;
-      inset: -1px;
+      inset: 0;
       border-radius: 999px;
-      padding: 1.5px;
+      padding: 1px;
       background: conic-gradient(
         from var(--pillAngle),
         transparent 0deg,
-        #c084fc 6deg,
-        #e9d5ff 10deg,
-        #c084fc 14deg,
-        transparent 24deg,
+        #c084fc 8deg,
+        transparent 16deg,
         transparent 180deg,
-        #c084fc 186deg,
-        #e9d5ff 190deg,
-        #c084fc 194deg,
-        transparent 204deg,
+        #c084fc 188deg,
+        transparent 196deg,
         transparent 360deg
       );
       -webkit-mask:
@@ -1414,7 +1410,6 @@
         linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
               mask-composite: exclude;
-      filter: drop-shadow(0 0 4px #c084fc);
       pointer-events: none;
       z-index: -1;
       animation: pillSpin 3.2s linear infinite;
