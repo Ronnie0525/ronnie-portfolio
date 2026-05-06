@@ -209,54 +209,54 @@
       border-radius: 0.5rem;
       line-height: 1;
     }
-    .hero-buttons .btn-neon {
-      background: hsl(var(--primary));
-      border: 1px solid hsl(var(--primary));
-      color: #fff;
-      box-shadow: none;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
+    .hero-buttons .btn-neon,
     .hero-buttons .btn-outline {
-      background: hsl(var(--neon-purple));
-      border: 1px solid hsl(var(--neon-purple));
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       color: #fff;
       box-shadow: none;
-      transition: background 0.2s ease, border-color 0.2s ease;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
+    .hero-buttons .btn-neon  { border: 1px solid hsl(var(--primary) / 0.45); }
+    .hero-buttons .btn-outline { border: 1px solid hsl(var(--neon-purple) / 0.45); }
     .hero-buttons .btn-neon:hover {
-      background: hsl(var(--neon-purple));
-      border-color: hsl(var(--neon-purple));
-      box-shadow: none;
+      border-color: hsl(var(--primary) / 0.85);
+      box-shadow: 0 0 24px hsl(var(--primary) / 0.35);
       transform: none;
     }
     .hero-buttons .btn-outline:hover {
-      background: hsl(var(--primary));
-      border-color: hsl(var(--primary));
-      box-shadow: none;
+      border-color: hsl(var(--neon-purple) / 0.85);
+      box-shadow: 0 0 24px hsl(var(--neon-purple) / 0.35);
       transform: none;
     }
-    .hero-buttons .btn::before {
-      padding: 2px;
+    .hero-buttons .btn-neon::before {
+      padding: 1.5px;
       background: conic-gradient(
         from var(--btn-angle),
-        transparent 0%,
-        rgba(255,255,255,0.35) 1%,
-        rgba(255,255,255,0.95) 4%,
-        rgba(255,255,255,1)    7%,
-        rgba(255,255,255,0.95) 10%,
-        rgba(255,255,255,0.35) 13%,
-        transparent 17%,
-        transparent 50%,
-        rgba(255,255,255,0.35) 51%,
-        rgba(255,255,255,0.95) 54%,
-        rgba(255,255,255,1)    57%,
-        rgba(255,255,255,0.95) 60%,
-        rgba(255,255,255,0.35) 63%,
-        transparent 67%,
-        transparent 100%
+        transparent 0deg,
+        hsl(var(--primary)) 8deg,
+        transparent 22deg,
+        transparent 180deg,
+        hsl(var(--primary)) 188deg,
+        transparent 202deg,
+        transparent 360deg
       );
       animation-duration: 2.5s;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
+    }
+    .hero-buttons .btn-outline::before {
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--btn-angle),
+        transparent 0deg,
+        hsl(var(--neon-purple)) 8deg,
+        transparent 22deg,
+        transparent 180deg,
+        hsl(var(--neon-purple)) 188deg,
+        transparent 202deg,
+        transparent 360deg
+      );
+      animation-duration: 2.5s;
     }
 
     /* Navbar Contact button — strip the .btn rotating stroke, match Hire Me
