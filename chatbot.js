@@ -7,97 +7,54 @@
   // ── Inject CSS ──
   var style = document.createElement('style');
   style.textContent = `
-/* ===== CHATBOT WIDGET — Robot Head ===== */
+/* ===== CHATBOT WIDGET — Clean Glass ===== */
 .chatbot-btn {
   position: fixed; bottom: 6rem; right: 1.5rem; z-index: 50;
-  width: 3.8rem; height: 3.8rem; border-radius: 0.85rem;
-  background: var(--gradient-neon); border: none;
+  width: 3.5rem; height: 3.5rem; border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 25%, hsl(var(--primary) / 0.35), transparent 65%),
+    rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--primary) / 0.5);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px hsl(var(--primary) / 0.4);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 8px 28px hsl(var(--primary) / 0.3);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
   padding: 0;
+  color: #fff;
 }
 .chatbot-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 30px hsl(var(--primary) / 0.6);
+  transform: scale(1.08);
+  border-color: hsl(var(--neon-purple) / 0.85);
+  box-shadow: 0 12px 36px hsl(var(--primary) / 0.45);
 }
-/* Robot face drawn with CSS */
-.robot-face {
-  width: 100%; height: 100%;
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-}
-/* Antenna */
-.robot-face::before {
-  content: '';
-  position: absolute;
-  top: -7px; left: 50%;
-  transform: translateX(-50%);
-  width: 4px; height: 8px;
-  background: #fff;
-  border-radius: 2px 2px 0 0;
-}
-.robot-face::after {
-  content: '';
-  position: absolute;
-  top: -12px; left: 50%;
-  transform: translateX(-50%);
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: hsl(var(--primary));
-  border: 2px solid #fff;
-  animation: antennaPulse 2s ease-in-out infinite;
-}
-@keyframes antennaPulse {
-  0%, 100% { box-shadow: 0 0 4px hsl(var(--primary) / 0.4); }
-  50% { box-shadow: 0 0 12px hsl(var(--primary) / 0.9), 0 0 20px hsl(var(--primary) / 0.3); }
-}
-/* Eyes */
-.robot-eyes {
-  display: flex; gap: 0.55rem;
-  position: relative; z-index: 1;
-}
-.robot-eye {
-  width: 10px; height: 10px;
-  border-radius: 3px;
-  background: #fff;
-  animation: robotBlink 3s ease-in-out infinite;
-  box-shadow: 0 0 6px rgba(255,255,255,0.5);
-}
-.robot-eye:nth-child(2) { animation-delay: 0.1s; }
-@keyframes robotBlink {
-  0%, 42%, 48%, 100% { transform: scaleY(1); }
-  45% { transform: scaleY(0.1); }
-}
-/* Mouth */
-.robot-mouth {
-  position: absolute;
-  bottom: 0.6rem; left: 50%;
-  transform: translateX(-50%);
-  width: 16px; height: 4px;
-  border-radius: 0 0 4px 4px;
-  background: rgba(255,255,255,0.7);
-}
-/* Ear bolts */
-.robot-ear {
-  position: absolute;
-  top: 50%; width: 5px; height: 5px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  transform: translateY(-50%);
-}
-.robot-ear-l { left: 3px; }
-.robot-ear-r { right: 3px; }
-
-/* Active state — show X close */
+.chatbot-btn svg { width: 1.4rem; height: 1.4rem; display: block; }
+.chatbot-btn .icon-chat,
+.chatbot-btn .icon-close-wrap { display: flex; align-items: center; justify-content: center; }
 .chatbot-btn .icon-close-wrap { display: none; }
-.chatbot-btn.active .robot-face { display: none; }
-.chatbot-btn.active .icon-close-wrap {
-  display: flex; align-items: center; justify-content: center;
+.chatbot-btn.active .icon-chat { display: none; }
+.chatbot-btn.active .icon-close-wrap { display: flex; }
+.chatbot-btn.active { border-color: hsl(var(--neon-purple) / 0.7); }
+/* Soft pulse ring — radiates outward to draw attention */
+.chatbot-btn::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1.5px solid hsl(var(--primary) / 0.55);
+  animation: chatbotPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  pointer-events: none;
 }
-.chatbot-btn.active { border-radius: 9999px; }
-.icon-close-wrap svg { width: 1.5rem; height: 1.5rem; stroke: #fff; stroke-width: 2; fill: none; }
+@keyframes chatbotPulse {
+  0%   { transform: scale(0.96); opacity: 0.7; }
+  80%  { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+.chatbot-btn.active::after { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .chatbot-btn::after { animation: none; }
+}
 
 /* Hello bubble */
 .chatbot-hello {
@@ -179,21 +136,40 @@ html.light .chatbot-hello {
 }
 .chatbot-header {
   display: flex; align-items: center; gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  background: var(--gradient-neon);
-  color: #fff;
+  padding: 0.95rem 1.15rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid hsl(var(--primary) / 0.18);
+  color: hsl(var(--foreground));
 }
 .chatbot-avatar {
   width: 2.25rem; height: 2.25rem; border-radius: 50%;
-  background: rgba(255,255,255,0.2);
+  background:
+    radial-gradient(circle at 30% 25%, hsl(var(--primary) / 0.4), transparent 65%),
+    rgba(0, 0, 0, 0.6);
+  border: 1px solid hsl(var(--primary) / 0.5);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-weight: 800; font-size: 0.8rem;
+  color: #fff;
+  flex-shrink: 0;
 }
+.chatbot-avatar svg { width: 1rem; height: 1rem; display: block; }
+.chatbot-header-info { flex: 1; min-width: 0; }
 .chatbot-header-info h4 {
   font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; line-height: 1.2;
 }
 .chatbot-header-info span {
-  font-size: 0.7rem; opacity: 0.8;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.7rem; color: hsl(var(--muted-foreground));
+}
+.chatbot-header-info span::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: chatbotStatusPulse 2s ease-in-out infinite;
+}
+@keyframes chatbotStatusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 .chatbot-body {
   flex: 1; overflow-y: auto;
@@ -269,6 +245,28 @@ html.light .chatbot-panel {
   border-color: hsl(220 18% 88%);
   box-shadow: 0 16px 50px rgba(0,0,0,0.12);
 }
+html.light .chatbot-header {
+  background: rgba(0, 0, 0, 0.025);
+  border-bottom-color: hsl(220 18% 92%);
+  color: #111;
+}
+html.light .chatbot-avatar {
+  background:
+    radial-gradient(circle at 30% 25%, hsl(220 100% 40% / 0.22), transparent 65%),
+    #fff;
+  border-color: hsl(220 100% 40% / 0.4);
+  color: hsl(220 100% 40%);
+}
+html.light .chatbot-header-info span { color: #555; }
+html.light .chatbot-btn {
+  background:
+    radial-gradient(circle at 30% 25%, hsl(220 100% 40% / 0.22), transparent 65%),
+    rgba(255, 255, 255, 0.92);
+  border-color: hsl(220 100% 40% / 0.5);
+  color: hsl(220 100% 40%);
+  box-shadow: 0 8px 24px hsl(220 100% 40% / 0.18);
+}
+html.light .chatbot-btn::after { border-color: hsl(220 100% 40% / 0.45); }
 html.light .chatbot-body { color: #111; }
 html.light .chat-msg-bot { background: #f0f2f5; color: #111; }
 html.light .chatbot-input { background: #f8f9fa; color: #111; border-color: hsl(220 18% 86%); }
@@ -289,26 +287,28 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
 
   <!-- ===== CHATBOT WIDGET ===== -->
   <button class="chatbot-btn" id="chatbotToggle" aria-label="Chat with Abby">
-    <div class="robot-face">
-      <span class="robot-ear robot-ear-l"></span>
-      <span class="robot-ear robot-ear-r"></span>
-      <div class="robot-eyes">
-        <span class="robot-eye"></span>
-        <span class="robot-eye"></span>
-      </div>
-      <span class="robot-mouth"></span>
-    </div>
-    <div class="icon-close-wrap">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </div>
+    <span class="icon-chat">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        <path d="M12 7.5l1.1 2.4 2.4 1.1-2.4 1.1L12 14.5l-1.1-2.4-2.4-1.1 2.4-1.1z" fill="currentColor" stroke="none"/>
+      </svg>
+    </span>
+    <span class="icon-close-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </span>
   </button>
 
   <div class="chatbot-panel" id="chatbotPanel">
     <div class="chatbot-header">
-      <div class="chatbot-avatar">AB</div>
+      <div class="chatbot-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <path d="M12 7.5l1.1 2.4 2.4 1.1-2.4 1.1L12 14.5l-1.1-2.4-2.4-1.1 2.4-1.1z" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
       <div class="chatbot-header-info">
         <h4>Abby</h4>
-        <span>Usually replies instantly</span>
+        <span>Online · Replies instantly</span>
       </div>
     </div>
     <div class="chatbot-body" id="chatbotBody">
