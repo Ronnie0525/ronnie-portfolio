@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 508.12 481.6">
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
   <defs>
     <style>
       .cls-1 {
-        fill: url(#linear-gradient);
-        stroke: url(#linear-gradient-2);
-        stroke-miterlimit: 10;
-        stroke-width: 25.51px;
+        fill: url(#linear-gradient-2);
       }
 
       .cls-2 {
-        fill: url(#linear-gradient-3);
+        fill: none;
+        stroke: url(#linear-gradient);
+        stroke-miterlimit: 10;
+        stroke-width: 25.51px;
       }
     </style>
-    <linearGradient id="linear-gradient" x1="-384.24" y1="240.8" x2="-383.74" y2="240.8" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#8ccdeb"/>
-      <stop offset="1" stop-color="#8ccdeb"/>
-    </linearGradient>
-    <linearGradient id="linear-gradient-2" x1="0" y1="240.8" x2="508.12" y2="240.8" gradientUnits="userSpaceOnUse">
+    <linearGradient id="linear-gradient" x1="1.94" y1="256" x2="510.06" y2="256" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#0b1d51"/>
       <stop offset=".18" stop-color="#152359"/>
       <stop offset=".49" stop-color="#303370"/>
       <stop offset=".88" stop-color="#5d4f94"/>
       <stop offset="1" stop-color="#6c58a1"/>
     </linearGradient>
-    <linearGradient id="linear-gradient-3" x1="152.83" y1="243.23" x2="415.67" y2="243.23" gradientUnits="userSpaceOnUse">
+    <linearGradient id="linear-gradient-2" x1="154.77" y1="258.43" x2="417.61" y2="258.43" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#0b1d51"/>
       <stop offset=".45" stop-color="#0c1e52"/>
       <stop offset=".62" stop-color="#132258"/>
@@ -35,6 +31,6 @@
       <stop offset="1" stop-color="#6c58a1"/>
     </linearGradient>
   </defs>
-  <ellipse class="cls-1" cx="254.06" cy="240.8" rx="241.3" ry="228.04"/>
-  <path class="cls-2" d="M209.9,212.78c34.66,3.3,69.35,6.48,99.22-9.14,13.85-7.24,22.81-19.32,23.97-35.12,1.09-14.97-4.24-30.41-15.54-40.76-12.94-11.85-30.03-16.36-47.54-16.43l-83.22-.33v264.53s126.07-.51,126.07-.51c32.23-.13,58.83-24.56,66.31-54.06,8.03-31.68-5.99-64.29-34.75-80.61,9.87-6.94,18.02-14.85,24.88-25.04,37.8,26.08,54.59,71.97,42.51,116.58-11.13,40.76-46.41,71.73-90.5,77.44l-168.47.1V77.02s126.21.35,126.21.35c10.23.03,19.57,3.38,28.95,5.81,26.41,8.41,46.25,28.13,54.88,54.38,8.95,27.23,4.98,60.11-15.33,80.2-15.29,15.12-35.16,23.62-56.12,27.87l15.1,14.87,49.17,49.22,8.4,8.6c-3.06,8.93-7.15,18.6-14.59,24.93l-4.97,4.23-134.63-134.71Z"/>
+  <ellipse class="cls-2" cx="256" cy="256" rx="241.3" ry="228.04"/>
+  <path class="cls-1" d="M211.84,227.98c34.66,3.3,69.35,6.48,99.22-9.14,13.85-7.24,22.81-19.32,23.97-35.12,1.09-14.97-4.24-30.41-15.54-40.76-12.94-11.85-30.03-16.36-47.54-16.43l-83.22-.33v264.53s126.07-.51,126.07-.51c32.23-.13,58.83-24.56,66.31-54.06,8.03-31.68-5.99-64.29-34.75-80.61,9.87-6.94,18.02-14.85,24.88-25.04,37.8,26.08,54.59,71.97,42.51,116.58-11.13,40.76-46.41,71.73-90.5,77.44l-168.47.1V92.22s126.21.35,126.21.35c10.23.03,19.57,3.38,28.95,5.81,26.41,8.41,46.25,28.13,54.88,54.38,8.95,27.23,4.98,60.11-15.33,80.2-15.29,15.12-35.16,23.62-56.12,27.87l15.1,14.87,49.17,49.22,8.4,8.6c-3.06,8.93-7.15,18.6-14.59,24.93l-4.97,4.23-134.63-134.71Z"/>
 </svg>
