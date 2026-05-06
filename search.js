@@ -10,6 +10,7 @@
     var contactBtn = navRight.querySelector('a.btn[href="/contact/"]') ||
                      navRight.querySelector('a[href="/contact/"].btn');
     if (!contactBtn) return;
+    var navLinks = navRight.querySelector('.nav-links');
 
     var hire = document.createElement('div');
     hire.className = 'nav-hire';
@@ -26,7 +27,13 @@
         '<a href="/contact/?type=collaboration" role="menuitem"><div class="nav-hire-title">Collaboration</div><div class="nav-hire-sub">Agency / studio partnership</div></a>' +
       '</div>';
 
-    contactBtn.parentNode.insertBefore(hire, contactBtn);
+    // Insert Hire Me ahead of the nav links so the order reads:
+    // [Logo] [Hire Me ▾] Home Portfolio About Me [Contact] [theme] [☰]
+    if (navLinks) {
+      navLinks.parentNode.insertBefore(hire, navLinks);
+    } else {
+      contactBtn.parentNode.insertBefore(hire, contactBtn);
+    }
 
     var trigger = hire.querySelector('.nav-hire-trigger');
     var closeTimer = null;
