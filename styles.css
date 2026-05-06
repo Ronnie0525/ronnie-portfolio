@@ -1669,11 +1669,32 @@
       background: hsl(var(--primary) / 0.14);
       color: hsl(var(--primary));
       margin-bottom: 1.5rem;
-      transition: background .35s, transform .35s;
+      transition: background .35s, transform .35s, box-shadow .35s;
+      animation: specialtyIconFloat 3.6s ease-in-out infinite;
     }
+    @keyframes specialtyIconFloat {
+      0%, 100% {
+        transform: translateY(0);
+        box-shadow: 0 4px 12px hsl(var(--primary) / 0.10);
+      }
+      50% {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 24px hsl(var(--primary) / 0.35);
+      }
+    }
+    .specialty-card:nth-child(2) .specialty-icon { animation-delay: 0.3s; }
+    .specialty-card:nth-child(3) .specialty-icon { animation-delay: 0.6s; }
+    .specialty-card:nth-child(4) .specialty-icon { animation-delay: 0.9s; }
+    .specialty-card:nth-child(5) .specialty-icon { animation-delay: 1.2s; }
+    .specialty-card:nth-child(6) .specialty-icon { animation-delay: 1.5s; }
     .specialty-card:hover .specialty-icon {
+      animation-play-state: paused;
       background: hsl(var(--primary) / 0.22);
-      transform: scale(1.06);
+      transform: scale(1.08) translateY(-3px);
+      box-shadow: 0 12px 32px hsl(var(--primary) / 0.45);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .specialty-icon { animation: none; }
     }
     .specialty-icon svg { width: 22px; height: 22px; }
     .specialty-card h3 {
