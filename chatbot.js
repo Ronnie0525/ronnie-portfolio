@@ -29,7 +29,17 @@
   border-color: hsl(var(--neon-purple) / 0.85);
   box-shadow: 0 12px 36px hsl(var(--primary) / 0.45);
 }
-.chatbot-btn svg { width: 1.4rem; height: 1.4rem; display: block; }
+.chatbot-btn svg { width: 1.7rem; height: 1.7rem; display: block; }
+.chatbot-btn .icon-chat svg .robot-antenna-ball { animation: robotAntennaPulse 2.2s ease-in-out infinite; transform-origin: 16px 3.2px; transform-box: fill-box; }
+.chatbot-btn .icon-chat svg .robot-eye { animation: robotBlink 4.5s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes robotAntennaPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes robotBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
 .chatbot-btn .icon-chat,
 .chatbot-btn .icon-close-wrap { display: flex; align-items: center; justify-content: center; }
 .chatbot-btn .icon-close-wrap { display: none; }
@@ -151,7 +161,7 @@ html.light .chatbot-hello {
   color: #fff;
   flex-shrink: 0;
 }
-.chatbot-avatar svg { width: 1rem; height: 1rem; display: block; }
+.chatbot-avatar svg { width: 1.35rem; height: 1.35rem; display: block; }
 .chatbot-header-info { flex: 1; min-width: 0; }
 .chatbot-header-info h4 {
   font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; line-height: 1.2;
@@ -288,9 +298,13 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
   <!-- ===== CHATBOT WIDGET ===== -->
   <button class="chatbot-btn" id="chatbotToggle" aria-label="Chat with Abby">
     <span class="icon-chat">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        <path d="M12 7.5l1.1 2.4 2.4 1.1-2.4 1.1L12 14.5l-1.1-2.4-2.4-1.1 2.4-1.1z" fill="currentColor" stroke="none"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+        <line x1="16" y1="4.5" x2="16" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <circle class="robot-antenna-ball" cx="16" cy="3.2" r="1.9" fill="currentColor"/>
+        <rect x="5" y="8" width="22" height="19" rx="6" fill="currentColor"/>
+        <circle class="robot-eye" cx="11.8" cy="16" r="1.55" fill="#0b1d51"/>
+        <circle class="robot-eye" cx="20.2" cy="16" r="1.55" fill="#0b1d51"/>
+        <path d="M12 20.5c1.4 1.7 5.2 1.7 6.6 0" stroke="#0b1d51" stroke-width="1.7" stroke-linecap="round" fill="none"/>
       </svg>
     </span>
     <span class="icon-close-wrap">
@@ -301,9 +315,13 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
   <div class="chatbot-panel" id="chatbotPanel">
     <div class="chatbot-header">
       <div class="chatbot-avatar">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          <path d="M12 7.5l1.1 2.4 2.4 1.1-2.4 1.1L12 14.5l-1.1-2.4-2.4-1.1 2.4-1.1z" fill="currentColor" stroke="none"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+          <line x1="16" y1="4.5" x2="16" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="16" cy="3.2" r="1.9" fill="currentColor"/>
+          <rect x="5" y="8" width="22" height="19" rx="6" fill="currentColor"/>
+          <circle cx="11.8" cy="16" r="1.55" fill="#0b1d51"/>
+          <circle cx="20.2" cy="16" r="1.55" fill="#0b1d51"/>
+          <path d="M12 20.5c1.4 1.7 5.2 1.7 6.6 0" stroke="#0b1d51" stroke-width="1.7" stroke-linecap="round" fill="none"/>
         </svg>
       </div>
       <div class="chatbot-header-info">
