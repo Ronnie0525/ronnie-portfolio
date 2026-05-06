@@ -1349,7 +1349,14 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    @property --pillAngle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
     .hero-eyebrow {
+      position: relative;
+      isolation: isolate;
       display: inline-flex;
       align-items: center;
       gap: 0.55rem;
@@ -1378,6 +1385,45 @@
     @keyframes dotPulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50%      { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero-eyebrow::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 999px;
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--pillAngle),
+        transparent 0deg,
+        #c084fc 6deg,
+        #e9d5ff 10deg,
+        #c084fc 14deg,
+        transparent 24deg,
+        transparent 180deg,
+        #c084fc 186deg,
+        #e9d5ff 190deg,
+        #c084fc 194deg,
+        transparent 204deg,
+        transparent 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+              mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      filter: drop-shadow(0 0 4px #c084fc);
+      pointer-events: none;
+      z-index: -1;
+      animation: pillSpin 3.2s linear infinite;
+    }
+    @keyframes pillSpin {
+      to { --pillAngle: 360deg; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow::after { animation: none; }
     }
     html.light .hero-eyebrow {
       color: hsl(220 100% 40%);
