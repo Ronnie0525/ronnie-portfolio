@@ -415,9 +415,9 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'greeting',
           keys: ['hi','hello','hey','good morning','good afternoon','good evening','sup','yo','howdy','greetings','whats up','what\'s up','wassup','hola','how are you','how r u','how do you do'],
           replies: [
-            "Hey there! Welcome! I'm Abby, Ronnie's virtual assistant. How can I help you today?",
-            "Hi! Great to have you here. I'm Abby! Want to know about Ronnie's services, portfolio, or how to get in touch?",
-            "Hello! I'm Abby, here to help. Feel free to ask me anything about Ronnie's work!"
+            "Hey there! Welcome! I'm Abby, Ronnie's virtual assistant — Ronnie is an AI-Powered UI/UX Designer in Dubai. How can I help?",
+            "Hi! Great to have you here. I'm Abby! Want to know about Ronnie's AI-powered UI/UX work, portfolio, or how to get in touch?",
+            "Hello! I'm Abby, here to help. Ask me anything about Ronnie's AI-powered design work!"
           ]
         },
         {
@@ -442,7 +442,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'services',
           keys: ['service','services','what do you do','what you do','offer','offering','what can you do','skill','skills','specializ','expertise','capable','ability','abilities','speciali'],
           replies: [
-            "Ronnie offers a wide range of creative services:\n\n• <b>UI/UX & Web Design</b> — Wireframes, prototypes, responsive websites\n• <b>Photography</b> — Product, portrait, lifestyle, events\n• <b>Video Editing</b> — Promo reels, social content, cinematic edits\n• <b>Social Media Management</b> — Strategy, content creation, analytics\n• <b>Graphic Design</b> — Print, packaging, marketing collateral\n• <b>AI Workflows</b> — AI image generation, prompt engineering, automation\n\nWhich one interests you most?"
+            "Ronnie is an <b>AI-Powered UI/UX Designer</b> — his primary focus:\n\n• <b>UI/UX & Web Design</b> — Wireframes, prototypes, responsive websites\n• <b>AI Workflows</b> — Midjourney, ChatGPT, Claude, Kling AI — generation, prompt engineering, automation\n\nSupporting services when projects need them:\n\n• <b>Photography</b> — Product, portrait, lifestyle, events\n• <b>Video Editing</b> — Promo reels, social content, cinematic edits\n• <b>Social Media Management</b> — Strategy, content creation, analytics\n• <b>Graphic Design</b> — Print, packaging, marketing collateral\n\nWhich one interests you most?"
           ]
         },
         {
@@ -526,7 +526,7 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
           name: 'experience',
           keys: ['experience','background','about','story','bio','resume','cv','journey','career','history','who is','who are','about you','about ronnie','tell me about','yourself','introduction'],
           replies: [
-            "Ronnie Balonon Jr. is a multi-disciplinary designer based in <b>Dubai, UAE</b> with:\n\n• <b>1 year</b> of professional experience\n• <b>50+ projects</b> completed\n• <b>20+ happy clients</b>\n\nHe specializes in UI/UX design, photography, video editing, graphic design, social media, and AI-powered creative workflows.\n\nLearn more on the " + L('/about/') + "About Me page" + E + "!"
+            "Ronnie Balonon Jr. is an <b>AI-Powered UI/UX Designer</b> based in <b>Dubai, UAE</b> with:\n\n• <b>1 year</b> of professional experience\n• <b>50+ projects</b> completed\n• <b>20+ happy clients</b>\n\nHis primary work is UI/UX & Web Design powered by AI workflows (Midjourney, ChatGPT, Claude, Kling AI). He also brings photography, video editing, social media, and graphic design to the toolkit when projects need them.\n\nLearn more on the " + L('/about/') + "About Me page" + E + "!"
           ]
         },
         {
