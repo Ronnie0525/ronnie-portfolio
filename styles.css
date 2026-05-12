@@ -235,8 +235,7 @@
     html.light .nav-logo img { filter: none; }
     .nav-logo-text { font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; }
     .nav-links {
-      display: flex; align-items: center; gap: 2rem;
-      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 1.75rem;
     }
     .nav-links a {
       font-size: 0.875rem; font-weight: 500;
