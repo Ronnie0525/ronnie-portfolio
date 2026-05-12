@@ -27,10 +27,10 @@
         '<a href="/contact/?type=collaboration" role="menuitem"><div class="nav-hire-title">Collaboration</div><div class="nav-hire-sub">Agency / studio partnership</div></a>' +
       '</div>';
 
-    // Place Hire Me as the first item inside .nav-links so the navbar reads:
-    // [Logo] ... [Hire Me ▾  Home  Portfolio ▾  About Me]  [Contact]  [theme]  [☰]
+    // Append Hire Me as the last item inside .nav-links so the navbar reads:
+    // [Logo] ... [Home  About Me  Portfolio ▾  Hire Me ▾]  [Contact]  [theme]  [☰]
     if (navLinks) {
-      navLinks.insertBefore(hire, navLinks.firstChild);
+      navLinks.appendChild(hire);
     } else {
       contactBtn.parentNode.insertBefore(hire, contactBtn);
     }
