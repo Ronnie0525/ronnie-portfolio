@@ -280,40 +280,26 @@
     /* ===== NAV: Hire-Me dropdown + Search button (injected by /search.js) ===== */
     .nav-hire { position: relative; }
     .nav-hire-trigger {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #fff;
-      background: hsl(var(--primary));
-      border: 1px solid hsl(var(--primary));
-      border-radius: 0.5rem;
-      padding: 0.4rem 1rem;
-      line-height: 1;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.875rem; font-weight: 500;
+      color: hsl(var(--foreground) / 0.7);
+      background: none; border: none; padding: 0;
+      line-height: 1; cursor: pointer;
+      white-space: nowrap; font-family: inherit;
+      outline: none; -webkit-tap-highlight-color: transparent;
+      transition: color 0.3s;
     }
     .nav-hire-trigger:hover,
     .nav-hire.open .nav-hire-trigger {
-      background: hsl(var(--neon-purple));
-      border-color: hsl(var(--neon-purple));
+      background: none;
+      color: hsl(var(--primary));
     }
-    .nav-hire-trigger svg { transition: transform 0.2s ease; opacity: 0.7; }
+    .nav-hire-trigger:focus,
+    .nav-hire-trigger:focus-visible,
+    .nav-hire-trigger:active { outline: none; box-shadow: none; }
+    .nav-hire-trigger svg { transition: transform 0.25s ease; }
     .nav-hire.open .nav-hire-trigger svg { transform: rotate(180deg); }
-    .nav-hire-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: hsl(var(--neon-purple));
-      box-shadow: 0 0 8px hsl(var(--neon-purple));
-      animation: navAvailDot 1.6s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-    @keyframes navAvailDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: 0.55; transform: scale(0.85); }
-    }
+    .nav-hire-dot { display: none; }
     .nav-hire-menu {
       position: absolute;
       top: calc(100% + 0.5rem);
