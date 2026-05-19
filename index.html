@@ -640,12 +640,426 @@
       gap: 2.25rem;
     }
     .hero-right {
-      min-height: 360px;
-      /* Reserved for future content — keep visually empty */
+      min-height: 700px;
+      position: relative;
     }
     @media (max-width: 900px) {
       .hero-content { grid-template-columns: 1fr; }
       .hero-right { display: none; }
+    }
+
+    /* ===== LANYARD ID — verlet rope + draggable 3D ID card ===== */
+    .lanyard-stage {
+      position: absolute;
+      inset: 0;
+      perspective: 1400px;
+      pointer-events: none; /* SVG + non-card area lets clicks pass; card re-enables */
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .lanyard-rope {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+    /* Blue piping — drawn first, wider than the white strand, so the brand blue shows on both edges. */
+    .rope-edge {
+      fill: none;
+      stroke: hsl(218 90% 45%);
+      stroke-width: 38;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,0.55))
+              drop-shadow(0 3px 4px rgba(0,0,0,0.45));
+    }
+    /* Main white lace — drawn on top, narrower so the blue piping reads as edges.
+       Subtle gradient (off-white → pure white → off-white) keeps it from looking flat. */
+    .rope-strand {
+      fill: none;
+      stroke: url(#ropeGrad);
+      stroke-width: 26;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* Branded text printed along the lanyard ribbon — white on the black fabric center */
+    .rope-text {
+      fill: rgba(255, 255, 255, 0.92);
+      font-family: var(--font-display);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    /* Drop-from-above entrance — fires after the My Resume button (1.8s + 0.7s = 2.5s) lands.
+       The fall easing uses a gravity-like curve so it feels weighted, not floaty. */
+    .lanyard-drop {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      transform: translateY(-130vh);
+      opacity: 0;
+      animation: lanyardDrop 0.85s cubic-bezier(0.55, 0, 0.45, 1) 2.6s both;
+    }
+    @keyframes lanyardDrop {
+      0%   { transform: translateY(-130vh); opacity: 0; }
+      14%  { opacity: 1; }
+      100% { transform: translateY(0);      opacity: 1; }
+    }
+    /* Pause the drop while the splash screen is up — same pattern as hero entrance */
+    html.splash-active .lanyard-drop { animation-play-state: paused; }
+    .lanyard-pin {
+      position: absolute;
+      top: 0; left: 0;
+      width: 0;
+      height: 0;
+      transform-origin: 0 0;
+      transform-style: preserve-3d;
+      will-change: transform;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    .lanyard-pin.is-ready { visibility: visible; }
+    /* ===== Drag hint — floating "DRAG" pill that appears once the ID has landed ===== */
+    .lanyard-hint {
+      position: absolute;
+      top: 234px;       /* about the level of the photo on the card */
+      left: 158px;      /* offset to the right edge of the card */
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px 7px 10px;
+      background: rgba(8, 10, 16, 0.92);
+      color: #fff;
+      border: 1px solid hsl(220 100% 50% / 0.55);
+      border-radius: 99px;
+      font-family: var(--font-display);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(8px) scale(0.92);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.34, 1.56, .64, 1);
+      pointer-events: none;
+      z-index: 6;
+      box-shadow:
+        0 4px 14px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.06) inset,
+        0 0 22px hsl(220 100% 50% / 0.22);
+    }
+    .lanyard-hint svg {
+      width: 13px;
+      height: 13px;
+      color: hsl(220 100% 60%);
+    }
+    /* Tiny blue dot pointing at the card */
+    .lanyard-hint::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      margin-top: -4px;
+      background: hsl(220 100% 55%);
+      border-radius: 50%;
+      box-shadow: 0 0 10px hsl(220 100% 55% / 0.9);
+    }
+    /* Shown once the drop animation ends */
+    .lanyard-hint.is-visible {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      animation: dragHintPulse 1.8s ease-in-out 0.6s infinite;
+    }
+    @keyframes dragHintPulse {
+      0%, 100% { transform: translateX(0) scale(1); }
+      50%      { transform: translateX(0) scale(1.06); }
+    }
+    /* Vanish permanently once the user starts dragging */
+    .lanyard-hint.has-dragged {
+      opacity: 0 !important;
+      transform: translateX(0) scale(0.7) !important;
+      animation: none !important;
+    }
+
+    /* ===== Plastic buckle — black clip mechanism at lace bottom ===== */
+    .lanyard-buckle {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 34px;
+      background:
+        linear-gradient(180deg, #2a2c33 0%, #0a0b10 100%);
+      border-radius: 5px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 1px 0 rgba(255,255,255,0.18) inset,
+        0 -1px 0 rgba(0,0,0,0.4) inset,
+        0 6px 14px rgba(0,0,0,0.6),
+        0 12px 24px rgba(0,0,0,0.5);
+      z-index: 5;
+      pointer-events: none;
+    }
+    /* Horizontal slot in the buckle where the lace exits */
+    .lanyard-buckle::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 50%;
+      transform: translateX(-50%);
+      width: 28px; height: 4px;
+      background: #050608;
+      border-radius: 99px;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.8);
+    }
+    /* Hook/wire dropping from buckle into the card slot */
+    .lanyard-buckle::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 14px;
+      background: linear-gradient(180deg, #1e2027 0%, #0a0b10 100%);
+      border-radius: 0 0 5px 5px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* ===== The ID card itself ===== */
+    .lanyard-card {
+      position: relative;
+      width: 280px;
+      height: 470px;
+      margin-left: -140px; /* center horizontally on pin (half of width) */
+      margin-top: 36px;    /* push card below the buckle/hook so the lace appears to clip into the buckle */
+      background:
+        radial-gradient(ellipse at top, rgba(56, 110, 255, 0.10) 0%, transparent 60%),
+        linear-gradient(165deg, #1a1d27 0%, #0a0b10 60%, #050609 100%);
+      border-radius: 16px;
+      padding: 36px 22px 0;
+      box-sizing: border-box;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 1px 0 rgba(255,255,255,0.20) inset,
+        0 -2px 0 rgba(0,0,0,0.4) inset,
+        0 8px 18px rgba(0,0,0,0.55),
+        0 28px 56px rgba(0,0,0,0.65),
+        0 48px 100px rgba(0,0,0,0.55);
+      overflow: hidden;
+      cursor: grab;
+      pointer-events: auto;
+      transform-style: preserve-3d;
+      transition: box-shadow 0.3s ease;
+    }
+    .lanyard-card:hover {
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.12) inset,
+        0 1px 0 rgba(255,255,255,0.22) inset,
+        0 -2px 0 rgba(0,0,0,0.4) inset,
+        0 10px 22px rgba(0,0,0,0.6),
+        0 34px 70px rgba(0,0,0,0.75),
+        0 60px 120px rgba(0,0,0,0.65),
+        0 0 0 2px hsl(var(--btn-blue) / 0.55);
+    }
+    .lanyard-card.is-dragging { cursor: grabbing; }
+
+    /* Slot cut into the top of the card — where the buckle hook bites in */
+    .lanyard-slot {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 52px;
+      height: 5px;
+      background: #000;
+      border-radius: 99px;
+      box-shadow:
+        inset 0 1px 2px rgba(0,0,0,0.9),
+        0 1px 0 rgba(255,255,255,0.12);
+      z-index: 2;
+    }
+
+    /* Header brand label — small uppercase text near the top */
+    .lanyard-header {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      color: #f3f4f7;
+      text-transform: uppercase;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Angled photo frame — wide trapezoid acting as the dominant element of the card */
+    .lanyard-photo-frame {
+      width: 232px;
+      height: 212px;
+      margin: 18px auto 0;
+      background: linear-gradient(165deg, #1c1f29 0%, #0a0c12 100%);
+      clip-path: polygon(
+        12% 0%,
+        88% 0%,
+        100% 16%,
+        100% 100%,
+        0% 100%,
+        0% 16%
+      );
+      display: grid;
+      place-items: center;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.6);
+    }
+    /* Photo block sits inside the frame — bright border so it pops off the dark card */
+    .lanyard-photo {
+      width: 200px;
+      height: 188px;
+      border-radius: 12px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 35% 25%, rgba(120, 160, 255, 0.18) 0%, transparent 60%),
+        linear-gradient(135deg, #2a2e3a 0%, #0a0b10 100%);
+      border: 2px solid rgba(255,255,255,0.32);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.22) inset,
+        0 -1px 0 rgba(0,0,0,0.5) inset,
+        0 8px 18px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(0,0,0,0.4),
+        0 0 28px hsl(220 100% 50% / 0.30);
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+    /* Fallback monogram — visible only when the photo file is missing/removed */
+    .lanyard-monogram {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 3rem;
+      letter-spacing: -0.04em;
+      color: #fff;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+    }
+    /* Photo, when present, fully covers the monogram */
+    .lanyard-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 22%; /* keep the face centered in the upper portion of the frame */
+      display: block;
+    }
+
+    /* Name */
+    .lanyard-name {
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.24rem;
+      color: #f3f4f7;
+      margin-top: 22px;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Info rows — ROLE : UI/UX format */
+    .lanyard-info {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 0 26px;
+      position: relative;
+      z-index: 1;
+    }
+    .info-row {
+      display: grid;
+      grid-template-columns: 62px 12px 1fr;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+    .info-key { color: hsl(220 18% 55%); }
+    .info-sep { color: hsl(220 18% 55%); text-align: center; }
+    .info-val { color: #e6e8ec; }
+
+    /* Bottom blue brand bar — pinned to the bottom of the card */
+    .lanyard-bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 42px;
+      background: linear-gradient(180deg, hsl(220 100% 58%) 0%, hsl(220 100% 45%) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.38em;
+      color: #fff;
+      text-transform: uppercase;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.25) inset,
+        0 -1px 0 rgba(0,0,0,0.3) inset,
+        0 -10px 22px rgba(56, 110, 255, 0.18);
+      z-index: 2;
+    }
+
+    /* Glossy sheen sweeping across the card — gives the 3D plastic feel */
+    .lanyard-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          112deg,
+          rgba(255,255,255,0) 30%,
+          rgba(255,255,255,0.06) 48%,
+          rgba(255,255,255,0.14) 52%,
+          rgba(255,255,255,0) 70%
+        );
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 3;
+    }
+    /* Faint grid texture — adds the "digital ID" feel */
+    .lanyard-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(56, 110, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 110, 255, 0.04) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 0;
+      opacity: 0.45;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lanyard-stage { display: none; }
     }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -1887,6 +2301,65 @@
       background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
     }
 
+    /* ===== CTA — staggered entrance choreography ===== */
+    @keyframes ctaFadeUp {
+      0%   { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes ctaPop {
+      0%   { opacity: 0; transform: translateY(20px) scale(0.9); }
+      70%  { opacity: 1; transform: translateY(-4px) scale(1.04); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .cta-section .cta-tag,
+    .cta-section .cta-title,
+    .cta-section .cta-subtitle,
+    .cta-section .cta-buttons .btn,
+    .cta-section .cta-divider {
+      opacity: 0;
+    }
+    .cta-section.is-visible .cta-tag {
+      animation: ctaFadeUp 0.75s cubic-bezier(.16,1,.3,1) 0ms both;
+    }
+    .cta-section.is-visible .cta-title {
+      animation: ctaFadeUp 0.95s cubic-bezier(.16,1,.3,1) 180ms both;
+    }
+    .cta-section.is-visible .cta-subtitle {
+      animation: ctaFadeUp 0.8s cubic-bezier(.16,1,.3,1) 360ms both;
+    }
+    .cta-section.is-visible .cta-buttons .btn:nth-child(1) {
+      animation: ctaPop 0.7s cubic-bezier(.34,1.56,.64,1) 540ms both;
+    }
+    .cta-section.is-visible .cta-buttons .btn:nth-child(2) {
+      animation: ctaPop 0.7s cubic-bezier(.34,1.56,.64,1) 720ms both;
+    }
+    .cta-section.is-visible .cta-divider {
+      animation: ctaFadeUp 0.7s cubic-bezier(.16,1,.3,1) 900ms both;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cta-section .cta-tag,
+      .cta-section .cta-title,
+      .cta-section .cta-subtitle,
+      .cta-section .cta-buttons .btn,
+      .cta-section .cta-divider { opacity: 1 !important; animation: none !important; }
+    }
+
+    /* ===== Generic scroll-reveal — for marquees, blocks, etc. ===== */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition:
+        opacity 0.9s cubic-bezier(.16,1,.3,1),
+        transform 0.9s cubic-bezier(.16,1,.3,1);
+    }
+    .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
     /* Light mode CTA */
     html.light .cta-inner {
       background:
@@ -1912,11 +2385,29 @@
       text-decoration: none;
       color: inherit;
       box-shadow: 0 10px 30px rgba(0,0,0,0.20), 0 2px 6px rgba(0,0,0,0.08);
-      transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+      opacity: 0;
+      transform: translateY(80px) scale(0.92);
+      transition:
+        opacity 0.9s cubic-bezier(.16,1,.3,1),
+        transform 0.9s cubic-bezier(.16,1,.3,1),
+        box-shadow .4s;
     }
-    .uw-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 56px rgba(0,0,0,0.28), 0 0 0 1.5px hsl(var(--primary) / 0.55);
+    .uw-card.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    /* Stagger each card by ~140ms */
+    .uw-grid .uw-card:nth-child(1) { transition-delay: 0ms, 0ms, 0ms; }
+    .uw-grid .uw-card:nth-child(2) { transition-delay: 140ms, 140ms, 0ms; }
+    .uw-grid .uw-card:nth-child(3) { transition-delay: 280ms, 280ms, 0ms; }
+    .uw-grid .uw-card:nth-child(4) { transition-delay: 420ms, 420ms, 0ms; }
+    .uw-card.is-visible:hover {
+      transform: translateY(-8px) scale(1);
+      box-shadow: 0 28px 56px rgba(0,0,0,0.28), 0 0 0 1.5px hsl(var(--btn-blue) / 0.55);
+      transition-delay: 0s;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .uw-card { opacity: 1 !important; transform: none !important; transition: none !important; }
     }
     .uw-card-img {
       position: relative;
@@ -2185,19 +2676,34 @@
     .overlay-inner {
       flex: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
       gap: clamp(2rem, 5vw, 5rem);
-      align-items: center;
+      align-items: stretch;
       max-width: 1400px;
       width: 100%;
       margin: 0 auto;
+    }
+    /* Left slot — sized so the hero lanyard lands here cleanly */
+    .overlay-id {
+      position: relative;
+      min-height: 700px;
+    }
+    /* Right column — nav band on top, then the skills+connect grid */
+    .overlay-right {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      justify-content: center;
     }
     .overlay-primary {
       list-style: none;
       padding: 0;
       margin: 0;
-      display: flex; flex-direction: column;
-      gap: 0.4rem;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: clamp(1rem, 2.4vw, 2.4rem) clamp(1.25rem, 2.6vw, 2.6rem);
     }
     .overlay-primary li {
       opacity: 0;
@@ -2216,10 +2722,10 @@
 
     .overlay-link {
       font-family: var(--font-display);
-      font-size: clamp(1.75rem, 3.6vw, 2.85rem);
+      font-size: clamp(1.25rem, 2.4vw, 1.85rem);
       font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
       color: hsl(var(--foreground) / 0.85);
       transition: color 0.25s ease, transform 0.25s ease;
       display: inline-block;
@@ -2227,7 +2733,7 @@
     }
     .overlay-link:hover {
       color: hsl(var(--btn-blue));
-      transform: translateX(6px);
+      transform: translateY(-3px);
     }
     .overlay-link.active { color: hsl(var(--btn-blue)); }
 
@@ -2652,31 +3158,36 @@
     </button>
 
     <div class="overlay-inner">
-      <ul class="overlay-primary">
-        <li><a href="/" class="overlay-link active" data-overlay-link>Home</a></li>
-        <li><a href="/about/" class="overlay-link" data-overlay-link>About Me</a></li>
-        <li><a href="/my-skills/" class="overlay-link" data-overlay-link>My Skills</a></li>
-        <li><a href="#portfolio" class="overlay-link" data-overlay-link>Portfolio</a></li>
-        <li><a href="/contact/" class="overlay-link" data-overlay-link>Contact</a></li>
-      </ul>
+      <!-- Left slot — the hero lanyard physically transitions here when the menu opens -->
+      <div class="overlay-id" id="overlayIdSlot" aria-hidden="true"></div>
 
-      <div class="overlay-secondary">
-        <div class="overlay-col">
-          <h3 class="overlay-col-title">Skills</h3>
-          <a href="/skill-uiux/" data-overlay-link>UI/UX &amp; Web Design</a>
-          <a href="/skill-photography/" data-overlay-link>Photography</a>
-          <a href="/skill-video-editing/" data-overlay-link>Video Editing</a>
-          <a href="/skill-artificial-intelligence/" data-overlay-link>Artificial Intelligence</a>
-          <a href="/skill-social-media/" data-overlay-link>Social Media</a>
-          <a href="/skill-graphic-design/" data-overlay-link>Graphic Design</a>
-        </div>
-        <div class="overlay-col">
-          <h3 class="overlay-col-title">Connect</h3>
-          <a href="mailto:ronniebalonon1996@gmail.com" data-overlay-link>Email</a>
-          <a href="https://wa.me/971543763091" target="_blank" rel="noopener" data-overlay-link>WhatsApp</a>
-          <a href="https://www.instagram.com/ronnieeee25/" target="_blank" rel="noopener" data-overlay-link>Instagram</a>
-          <a href="https://www.facebook.com/ronnieeee25" target="_blank" rel="noopener" data-overlay-link>Facebook</a>
-          <a href="https://www.tiktok.com/@ronnie.balonon" target="_blank" rel="noopener" data-overlay-link>TikTok</a>
+      <div class="overlay-right">
+        <ul class="overlay-primary">
+          <li><a href="/" class="overlay-link active" data-overlay-link>Home</a></li>
+          <li><a href="/about/" class="overlay-link" data-overlay-link>About Me</a></li>
+          <li><a href="/my-skills/" class="overlay-link" data-overlay-link>My Skills</a></li>
+          <li><a href="#portfolio" class="overlay-link" data-overlay-link>Portfolio</a></li>
+          <li><a href="/contact/" class="overlay-link" data-overlay-link>Contact</a></li>
+        </ul>
+
+        <div class="overlay-secondary">
+          <div class="overlay-col">
+            <h3 class="overlay-col-title">Skills</h3>
+            <a href="/skill-uiux/" data-overlay-link>UI/UX &amp; Web Design</a>
+            <a href="/skill-photography/" data-overlay-link>Photography</a>
+            <a href="/skill-video-editing/" data-overlay-link>Video Editing</a>
+            <a href="/skill-artificial-intelligence/" data-overlay-link>Artificial Intelligence</a>
+            <a href="/skill-social-media/" data-overlay-link>Social Media</a>
+            <a href="/skill-graphic-design/" data-overlay-link>Graphic Design</a>
+          </div>
+          <div class="overlay-col">
+            <h3 class="overlay-col-title">Connect</h3>
+            <a href="mailto:ronniebalonon1996@gmail.com" data-overlay-link>Email</a>
+            <a href="https://wa.me/971543763091" target="_blank" rel="noopener" data-overlay-link>WhatsApp</a>
+            <a href="https://www.instagram.com/ronnieeee25/" target="_blank" rel="noopener" data-overlay-link>Instagram</a>
+            <a href="https://www.facebook.com/ronnieeee25" target="_blank" rel="noopener" data-overlay-link>Facebook</a>
+            <a href="https://www.tiktok.com/@ronnie.balonon" target="_blank" rel="noopener" data-overlay-link>TikTok</a>
+          </div>
         </div>
       </div>
     </div>
@@ -2738,7 +3249,64 @@
           </a>
         </div>
       </div>
-      <div class="hero-right" aria-hidden="true"></div>
+      <div class="hero-right" aria-hidden="true">
+        <div class="lanyard-stage" id="lanyardStage">
+          <div class="lanyard-drop" id="lanyardDrop">
+            <svg class="lanyard-rope" preserveAspectRatio="none">
+              <defs>
+                <!-- Black fabric center with subtle dark edges — sits inside the blue piping. -->
+                <linearGradient id="ropeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"   stop-color="hsl(0 0% 14%)"/>
+                  <stop offset="22%"  stop-color="hsl(0 0% 6%)"/>
+                  <stop offset="50%"  stop-color="hsl(0 0% 2%)"/>
+                  <stop offset="78%"  stop-color="hsl(0 0% 6%)"/>
+                  <stop offset="100%" stop-color="hsl(0 0% 14%)"/>
+                </linearGradient>
+              </defs>
+              <!-- LEFT strand: dark edge drawn first, then the gradient strand, then printed text -->
+              <path class="rope-edge"   id="ropeEdgeL"   d=""/>
+              <path class="rope-strand" id="ropeStrandL" d=""/>
+              <text class="rope-text">
+                <textPath href="#ropeStrandL" startOffset="40">RONNIE&#160;BALONON&#160;&#160;·&#160;&#160;UI/UX&#160;DESIGN&#160;&#160;·&#160;&#160;RONNIE&#160;BALONON&#160;&#160;·&#160;&#160;UI/UX&#160;DESIGN&#160;&#160;·&#160;&#160;</textPath>
+              </text>
+              <!-- RIGHT strand: same layering -->
+              <path class="rope-edge"   id="ropeEdgeR"   d=""/>
+              <path class="rope-strand" id="ropeStrandR" d=""/>
+              <text class="rope-text">
+                <textPath href="#ropeStrandR" startOffset="40">UI/UX&#160;DESIGN&#160;&#160;·&#160;&#160;RONNIE&#160;BALONON&#160;&#160;·&#160;&#160;UI/UX&#160;DESIGN&#160;&#160;·&#160;&#160;RONNIE&#160;BALONON&#160;&#160;·&#160;&#160;</textPath>
+              </text>
+            </svg>
+            <div class="lanyard-pin" id="lanyardPin">
+              <div class="lanyard-buckle"><span class="buckle-slot"></span></div>
+              <div class="lanyard-hint" id="lanyardHint" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 11V6a2 2 0 0 1 4 0v5"/>
+                  <path d="M13 9V4.5a2 2 0 0 1 4 0V13"/>
+                  <path d="M17 8V6a2 2 0 0 1 4 0v10a6 6 0 0 1-6 6h-3a6 6 0 0 1-5.2-3l-3.4-5.7a2 2 0 0 1 .8-2.8 2 2 0 0 1 2.4.4L9 14"/>
+                </svg>
+                <span>DRAG</span>
+              </div>
+              <div class="lanyard-card" id="lanyardCard">
+                <div class="lanyard-slot"></div>
+                <div class="lanyard-header">DESIGNER&nbsp;·&nbsp;ID</div>
+                <div class="lanyard-photo-frame">
+                  <div class="lanyard-photo">
+                    <span class="lanyard-monogram" aria-hidden="true">RB</span>
+                    <img src="/assets/hero/ID.png" alt="" onerror="this.remove();"/>
+                  </div>
+                </div>
+                <div class="lanyard-name">Ronnie Balonon Jr.</div>
+                <div class="lanyard-info">
+                  <div class="info-row"><span class="info-key">ROLE</span><span class="info-sep">:</span><span class="info-val">UI/UX</span></div>
+                  <div class="info-row"><span class="info-key">LOC</span><span class="info-sep">:</span><span class="info-val">DUBAI</span></div>
+                  <div class="info-row"><span class="info-key">YEAR</span><span class="info-sep">:</span><span class="info-val">2026</span></div>
+                </div>
+                <div class="lanyard-bottom-bar">PORTFOLIO</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Scroll-down indicator — lives inside the hero, scrolls away with it. -->
@@ -2818,7 +3386,7 @@
       <p class="text-muted text-sm">The design stack powering every project</p>
     </div>
     <div class="cl-beam cl-beam--rtl" aria-hidden="true"></div>
-    <div class="marquee-wrap">
+    <div class="marquee-wrap scroll-reveal">
       <div class="marquee-fade-l"></div>
       <div class="marquee-fade-r"></div>
       <div class="marquee-track">
@@ -3061,7 +3629,7 @@
       </div>
     </div>
     <div class="cl-beam" aria-hidden="true"></div>
-    <div class="cl-marquee">
+    <div class="cl-marquee scroll-reveal">
       <div class="cl-fade-l"></div>
       <div class="cl-fade-r"></div>
       <div class="cl-track">
@@ -3404,12 +3972,37 @@
       if (!trigger || !overlay) return;
       var closeBtn = overlay.querySelector('.overlay-close');
       var body = document.body;
+      var heroSlot = document.querySelector('.hero-right');
+      var overlaySlot = document.getElementById('overlayIdSlot');
+
+      // FLIP transition: physically move the lanyard between hero-right and the overlay slot,
+      // animating its position with a single smooth transform so it feels like the same object.
+      function moveLanyard(target) {
+        var stage = document.getElementById('lanyardStage');
+        if (!stage || !target || stage.parentElement === target) return;
+        var first = stage.getBoundingClientRect();
+        target.appendChild(stage);
+        var last = stage.getBoundingClientRect();
+        var dx = first.left - last.left;
+        var dy = first.top - last.top;
+        stage.style.transition = 'none';
+        stage.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+        // Force the inverse-positioned state to flush before animating
+        // eslint-disable-next-line no-unused-expressions
+        stage.offsetHeight;
+        requestAnimationFrame(function() {
+          stage.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+          stage.style.transform = '';
+        });
+      }
 
       function openMenu() {
         body.classList.add('overlay-open');
         overlay.setAttribute('aria-hidden', 'false');
         trigger.setAttribute('aria-expanded', 'true');
         trigger.setAttribute('aria-label', 'Close menu');
+        // Slide the lanyard from the hero into the overlay's left slot
+        if (overlaySlot) moveLanyard(overlaySlot);
         // Move focus into the overlay so keyboard users can navigate
         setTimeout(function() {
           var firstLink = overlay.querySelector('.overlay-link');
@@ -3421,6 +4014,8 @@
         overlay.setAttribute('aria-hidden', 'true');
         trigger.setAttribute('aria-expanded', 'false');
         trigger.setAttribute('aria-label', 'Open menu');
+        // Slide the lanyard back to its hero position
+        if (heroSlot) moveLanyard(heroSlot);
         trigger.focus();
       }
       function toggleMenu() {
@@ -3583,13 +4178,83 @@
           }
         });
       }, { threshold: 0.1 });
-      
-      document.querySelectorAll("section > .container > *:not(.fw-carousel-wrap):not(.sk-grid)").forEach(function(el) {
+
+      // Exclude wrappers that have their own dedicated entrance choreography
+      document.querySelectorAll("section > .container > *:not(.fw-carousel-wrap):not(.sk-grid):not(.uw-grid):not(.cta-inner)").forEach(function(el) {
         el.style.opacity = "0";
         el.style.transform = "translateY(30px)";
         el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
         observer.observe(el);
       });
+    })();
+
+    // ===== uw-card stagger entrance (Website Design Works) =====
+    (function() {
+      var cards = document.querySelectorAll('.uw-card');
+      if (!cards.length) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        cards.forEach(function(c) { c.classList.add('is-visible'); });
+        return;
+      }
+      if (!('IntersectionObserver' in window)) {
+        cards.forEach(function(c) { c.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+      cards.forEach(function(c) { io.observe(c); });
+    })();
+
+    // ===== CTA section staggered entrance =====
+    (function() {
+      var section = document.querySelector('.cta-section');
+      if (!section) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        section.classList.add('is-visible');
+        return;
+      }
+      if (!('IntersectionObserver' in window)) {
+        section.classList.add('is-visible');
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+            section.classList.add('is-visible');
+            io.unobserve(section);
+          }
+        });
+      }, { threshold: [0.25, 0.3] });
+      io.observe(section);
+    })();
+
+    // ===== Generic .scroll-reveal observer (marquees, etc.) =====
+    (function() {
+      var els = document.querySelectorAll('.scroll-reveal');
+      if (!els.length) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(function(el) { el.classList.add('is-visible'); });
+        return;
+      }
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function(el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function(el) { io.observe(el); });
     })();
 
 
@@ -3623,6 +4288,267 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
       update();
+    })();
+
+    // ===== LANYARD ID — V-shape verlet rope physics + draggable card =====
+    (function() {
+      var stage = document.getElementById('lanyardStage');
+      if (!stage) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var pin = document.getElementById('lanyardPin');
+      var card = document.getElementById('lanyardCard');
+      var dropEl = document.getElementById('lanyardDrop');
+
+      var ropeLeftEl   = document.getElementById('ropeStrandL');
+      var edgeLeftEl   = document.getElementById('ropeEdgeL');
+      var ropeRightEl  = document.getElementById('ropeStrandR');
+      var edgeRightEl  = document.getElementById('ropeEdgeR');
+
+      // Verlet parameters
+      var N = 12;             // points per strand
+      var GRAVITY = 0.42;
+      var DAMPING = 0.992;
+      var ITERATIONS = 32;
+      var idleAmp = 0.12;
+
+      var leftChain = [];
+      var rightChain = [];
+      var leftSegLen = 26, rightSegLen = 26;
+      var dragging = false;
+      var dragEnabled = false; // becomes true after the drop animation lands
+      var grabDX = 0, grabDY = 0;
+      var stageRect = null;
+      // Smoothed rotation values — low-pass-filtered so the card doesn't jerk on fast direction changes
+      var smoothAngleDeg = 0;
+      var smoothTiltY    = 0;
+
+      function recalcStage() {
+        stageRect = stage.getBoundingClientRect();
+      }
+
+      function setup() {
+        recalcStage();
+        var W = stage.clientWidth;
+        var H = stage.clientHeight;
+
+        // Two anchor points spread apart at the top — creates the V shape.
+        // anchorY sits well above the visible stage so the lace appears to come from far above.
+        var leftAnchorX  = W * 0.34;
+        var rightAnchorX = W * 0.76;
+        var anchorY      = -360;
+
+        // Shared tip — sits below, ~middle horizontally, vertically centered with the card
+        var tipX = (leftAnchorX + rightAnchorX) / 2;
+        var tipY = Math.max(60, Math.min(220, H / 2 - 230));
+
+        var leftLen  = Math.sqrt((tipX - leftAnchorX)  * (tipX - leftAnchorX)  + (tipY - anchorY) * (tipY - anchorY));
+        var rightLen = Math.sqrt((tipX - rightAnchorX) * (tipX - rightAnchorX) + (tipY - anchorY) * (tipY - anchorY));
+        leftSegLen  = leftLen  / (N - 1);
+        rightSegLen = rightLen / (N - 1);
+
+        // Build the shared tip point first
+        var tipPt = { x: tipX, y: tipY, ox: tipX, oy: tipY, pinned: false };
+
+        // Build left chain — last point is the shared tip
+        leftChain.length = 0;
+        for (var i = 0; i < N; i++) {
+          if (i === N - 1) { leftChain.push(tipPt); continue; }
+          var t = i / (N - 1);
+          var x = leftAnchorX + (tipX - leftAnchorX) * t;
+          var y = anchorY + (tipY - anchorY) * t;
+          leftChain.push({ x: x, y: y, ox: x, oy: y, pinned: i === 0 });
+        }
+        // Build right chain — last point is the same shared tip object
+        rightChain.length = 0;
+        for (var j = 0; j < N; j++) {
+          if (j === N - 1) { rightChain.push(tipPt); continue; }
+          var t2 = j / (N - 1);
+          var x2 = rightAnchorX + (tipX - rightAnchorX) * t2;
+          var y2 = anchorY + (tipY - anchorY) * t2;
+          rightChain.push({ x: x2, y: y2, ox: x2, oy: y2, pinned: j === 0 });
+        }
+      }
+      setup();
+
+      function tipPoint() { return leftChain[N - 1]; } // shared with rightChain[N-1]
+
+      function getStageCoords(clientX, clientY) {
+        return { x: clientX - stageRect.left, y: clientY - stageRect.top };
+      }
+
+      function onPointerDown(e) {
+        if (!dragEnabled) return;
+        e.preventDefault();
+        recalcStage();
+        var pt = (e.touches && e.touches[0]) || e;
+        var local = getStageCoords(pt.clientX, pt.clientY);
+        var tip = tipPoint();
+        grabDX = local.x - tip.x;
+        grabDY = local.y - tip.y;
+        dragging = true;
+        card.classList.add('is-dragging');
+        // Permanently hide the DRAG hint — user has discovered the interaction
+        var hint = document.getElementById('lanyardHint');
+        if (hint) hint.classList.add('has-dragged');
+      }
+      function onPointerMove(e) {
+        if (!dragging) return;
+        e.preventDefault();
+        var pt = (e.touches && e.touches[0]) || e;
+        var local = getStageCoords(pt.clientX, pt.clientY);
+        var tip = tipPoint();
+        tip.ox = tip.x;
+        tip.oy = tip.y;
+        tip.x = local.x - grabDX;
+        tip.y = local.y - grabDY;
+      }
+      function onPointerUp() {
+        if (!dragging) return;
+        dragging = false;
+        card.classList.remove('is-dragging');
+        // Cap release velocity so a fast flick doesn't catapult the chain into instability.
+        // Real lanyards have mass + air resistance — they can only swing so fast.
+        var tip = tipPoint();
+        var vx = tip.x - tip.ox;
+        var vy = tip.y - tip.oy;
+        var v  = Math.sqrt(vx * vx + vy * vy);
+        var MAX_RELEASE_V = 14;
+        if (v > MAX_RELEASE_V) {
+          var s = MAX_RELEASE_V / v;
+          tip.ox = tip.x - vx * s;
+          tip.oy = tip.y - vy * s;
+        }
+      }
+
+      card.addEventListener('mousedown', onPointerDown);
+      card.addEventListener('touchstart', onPointerDown, { passive: false });
+      window.addEventListener('mousemove', onPointerMove);
+      window.addEventListener('touchmove', onPointerMove, { passive: false });
+      window.addEventListener('mouseup', onPointerUp);
+      window.addEventListener('touchend', onPointerUp);
+      window.addEventListener('touchcancel', onPointerUp);
+
+      window.addEventListener('resize', setup);
+      window.addEventListener('scroll', recalcStage, { passive: true });
+
+      // After the CSS drop animation lands, enable dragging and inject a real-feeling settle swing:
+      // the tip carries some downward + lateral velocity, so the chain whips, the card overshoots,
+      // and damping pulls it back — looks like the ID just fell off a table and is catching itself.
+      if (dropEl) {
+        dropEl.addEventListener('animationend', function(e) {
+          if (e.animationName !== 'lanyardDrop') return;
+          dragEnabled = true;
+          var tip = tipPoint();
+          // Velocity = (current - previous); set previous so the tip has motion as physics resumes
+          tip.ox = tip.x - 26; // ~26px/frame rightward swing
+          tip.oy = tip.y - 14; // ~14px/frame residual downward fall — gravity blends in smoothly
+          // Reveal the drag hint after the swing has had a moment to start
+          var hint = document.getElementById('lanyardHint');
+          if (hint) {
+            setTimeout(function() { hint.classList.add('is-visible'); }, 350);
+          }
+        });
+      }
+
+      function integratePoint(p, isLockedTip) {
+        if (p.pinned || isLockedTip) return;
+        var vx = (p.x - p.ox) * DAMPING;
+        var vy = (p.y - p.oy) * DAMPING;
+        p.ox = p.x;
+        p.oy = p.y;
+        p.x += vx;
+        p.y += vy + GRAVITY;
+      }
+
+      function solveConstraint(a, b, segLen, bLock) {
+        var dx = b.x - a.x;
+        var dy = b.y - a.y;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+        var diff = (dist - segLen) / dist;
+        var mx = dx * 0.5 * diff;
+        var my = dy * 0.5 * diff;
+        var aLock = a.pinned;
+        if (aLock && bLock) return;
+        if (aLock)      { b.x -= mx * 2; b.y -= my * 2; }
+        else if (bLock) { a.x += mx * 2; a.y += my * 2; }
+        else            { a.x += mx; a.y += my; b.x -= mx; b.y -= my; }
+      }
+
+      function step() {
+        var tip = tipPoint();
+        var tipVX = tip.x - tip.ox;
+
+        // Integrate every non-pinned point. The tip is shared — integrate ONCE.
+        for (var i = 1; i < N - 1; i++) integratePoint(leftChain[i], false);
+        for (var i = 1; i < N - 1; i++) integratePoint(rightChain[i], false);
+        integratePoint(tip, dragging);
+
+        // Idle sway on the tip when not dragged
+        if (!dragging && dragEnabled) {
+          var t = performance.now();
+          tip.x += Math.sin(t / 1300) * idleAmp;
+        }
+
+        // Constraints — solve both chains. The shared tip is locked while dragging.
+        for (var iter = 0; iter < ITERATIONS; iter++) {
+          for (var j = 0; j < N - 1; j++) {
+            solveConstraint(leftChain[j], leftChain[j + 1], leftSegLen,
+              leftChain[j + 1].pinned || (j + 1 === N - 1 && dragging));
+          }
+          for (var k = 0; k < N - 1; k++) {
+            solveConstraint(rightChain[k], rightChain[k + 1], rightSegLen,
+              rightChain[k + 1].pinned || (k + 1 === N - 1 && dragging));
+          }
+        }
+
+        // Render strand paths with smooth quadratics through the points
+        function buildPath(chain) {
+          var d = 'M ' + chain[0].x.toFixed(1) + ' ' + chain[0].y.toFixed(1);
+          for (var i = 1; i < N - 1; i++) {
+            var midX = (chain[i].x + chain[i + 1].x) / 2;
+            var midY = (chain[i].y + chain[i + 1].y) / 2;
+            d += ' Q ' + chain[i].x.toFixed(1) + ' ' + chain[i].y.toFixed(1) + ' ' + midX.toFixed(1) + ' ' + midY.toFixed(1);
+          }
+          d += ' L ' + chain[N - 1].x.toFixed(1) + ' ' + chain[N - 1].y.toFixed(1);
+          return d;
+        }
+        var dL = buildPath(leftChain);
+        var dR = buildPath(rightChain);
+        if (edgeLeftEl)  edgeLeftEl.setAttribute('d',  dL);
+        ropeLeftEl.setAttribute('d', dL);
+        if (edgeRightEl) edgeRightEl.setAttribute('d', dR);
+        ropeRightEl.setAttribute('d', dR);
+
+        // Card sits at the tip, rotated to match the average angle of the two strands' last segments.
+        // Gravity pulls the card straight down regardless of where the rope is — so we ignore the
+        // rope's vertical component (avgDY) and derive a side-tilt only from the horizontal lean.
+        // This prevents the card from flipping upside-down when the user drags the tip above the anchors.
+        var lPrev = leftChain[N - 2];
+        var rPrev = rightChain[N - 2];
+        var avgDX = (tip.x - lPrev.x) + (tip.x - rPrev.x);
+        var avgDY = (tip.y - lPrev.y) + (tip.y - rPrev.y);
+        // Use |avgDY| so the angle stays in the "hanging down" hemisphere even if the rope inverts.
+        var targetAngleDeg = Math.atan2(avgDX, Math.max(1, Math.abs(avgDY))) * 180 / Math.PI;
+        // Hard cap so the card never tips past 80° in either direction
+        targetAngleDeg = Math.max(-80, Math.min(80, targetAngleDeg));
+        var targetTiltY  = Math.max(-22, Math.min(22, -tipVX * 1.8));
+
+        // Low-pass smoothing — rotation and tilt ease toward target over a few frames
+        // so quick chain shape changes don't translate into card jitter.
+        smoothAngleDeg += (targetAngleDeg - smoothAngleDeg) * 0.18;
+        smoothTiltY    += (targetTiltY    - smoothTiltY)    * 0.20;
+
+        pin.style.transform =
+          'translate3d(' + tip.x.toFixed(1) + 'px, ' + tip.y.toFixed(1) + 'px, 0) ' +
+          'rotate(' + smoothAngleDeg.toFixed(2) + 'deg) ' +
+          'rotateY(' + smoothTiltY.toFixed(2) + 'deg)';
+
+        if (!pin.classList.contains('is-ready')) pin.classList.add('is-ready');
+
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
     })();
   </script>
 </body>
