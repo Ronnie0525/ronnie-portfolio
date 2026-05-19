@@ -8,6 +8,7 @@
   <meta http-equiv="Expires" content="0" />
   <link rel="icon" type="image/svg+xml" href="/logo.svg?v=2" />
   <link rel="apple-touch-icon" href="/logo.svg?v=2" />
+  <link rel="preload" as="image" href="/assets/hero/WEB%20hero%20section.jpg" fetchpriority="high" />
   <script src="/loader.js?v=5"></script>
   <script src="/search.js?v=9" defer></script>
   <script src="/chatbot.js?v=7" defer></script>
@@ -37,7 +38,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <!-- JSON-LD -->
@@ -56,32 +57,36 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
     :root {
-      --background: 227 55% 8%;
+      /* Monochrome scheme — black/white only. Blue reserved for buttons. */
+      --background: 0 0% 0%;
       --foreground: 0 0% 100%;
-      --card: 227 45% 12%;
+      --card: 0 0% 6%;
       --card-foreground: 0 0% 100%;
-      --popover: 227 45% 10%;
+      --popover: 0 0% 4%;
       --popover-foreground: 0 0% 100%;
-      --primary: 220 100% 50%;
-      --primary-foreground: 0 0% 100%;
-      --secondary: 227 30% 18%;
+      --primary: 0 0% 100%;
+      --primary-foreground: 0 0% 0%;
+      --secondary: 0 0% 12%;
       --secondary-foreground: 0 0% 100%;
-      --muted: 227 30% 15%;
-      --muted-foreground: 0 0% 100%;
-      --accent: 268 82% 63%;
-      --accent-foreground: 0 0% 100%;
+      --muted: 0 0% 8%;
+      --muted-foreground: 0 0% 65%;
+      --accent: 0 0% 100%;
+      --accent-foreground: 0 0% 0%;
       --destructive: 0 84% 60%;
-      --border: 227 30% 18%;
-      --input: 227 30% 18%;
-      --ring: 220 100% 50%;
+      --border: 0 0% 14%;
+      --input: 0 0% 14%;
+      --ring: 0 0% 100%;
       --radius: 0.75rem;
-      --neon-purple: 268 82% 63%;
-      --gold: 268 82% 63%;
-      --dark-surface: 227 45% 12%;
-      --darker-surface: 227 55% 6%;
-      --gradient-neon: linear-gradient(135deg, hsl(220 100% 50%) 0%, hsl(244 90% 58%) 50%, hsl(268 82% 63%) 100%);
-      --font-display: 'Plus Jakarta Sans', sans-serif;
-      --font-body: 'Inter', sans-serif;
+      --neon-purple: 0 0% 100%;
+      --gold: 0 0% 100%;
+      --dark-surface: 0 0% 6%;
+      --darker-surface: 0 0% 2%;
+      --gradient-neon: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(0 0% 100%) 100%);
+      /* Button-only blue accent (the only color allowed outside black/white) */
+      --btn-blue: 220 100% 50%;
+      --btn-blue-hover: 220 100% 58%;
+      --font-display: 'DM Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
     }
     
     html { scroll-behavior: smooth; }
@@ -175,10 +180,10 @@
       background: conic-gradient(
         from var(--btn-angle),
         transparent 0%,
-        hsl(var(--primary) / 0.3) 3%,
-        hsl(var(--primary)) 5%,
-        hsl(var(--neon-purple)) 7%,
-        hsl(var(--neon-purple) / 0.3) 9%,
+        hsl(var(--btn-blue) / 0.3) 3%,
+        hsl(var(--btn-blue)) 5%,
+        hsl(var(--btn-blue-hover)) 7%,
+        hsl(var(--btn-blue) / 0.3) 9%,
         transparent 12%,
         transparent 100%
       );
@@ -190,74 +195,114 @@
       pointer-events: none;
     }
     .btn-neon {
-      background: hsl(var(--primary));
-      color: hsl(var(--primary-foreground));
-      box-shadow: 0 0 30px hsl(220 100% 50% / 0.6);
+      background: hsl(var(--btn-blue));
+      color: #fff;
+      box-shadow: 0 0 30px hsl(var(--btn-blue) / 0.6);
     }
-    .btn-neon:hover { box-shadow: 0 0 30px hsl(220 100% 50% / 0.6); opacity: 0.9; transform: scale(1.05); }
+    .btn-neon:hover { box-shadow: 0 0 40px hsl(var(--btn-blue) / 0.7); opacity: 0.95; transform: scale(1.04); }
     .btn-outline {
       background: transparent;
       color: hsl(var(--foreground));
-      box-shadow: 0 0 20px hsl(var(--neon-purple) / 0.6);
+      border: 1px solid hsl(var(--btn-blue) / 0.5);
+      box-shadow: 0 0 20px hsl(var(--btn-blue) / 0.25);
     }
-    .btn-outline:hover { box-shadow: 0 0 20px hsl(var(--neon-purple) / 0.5); transform: scale(1.05); }
+    .btn-outline:hover {
+      border-color: hsl(var(--btn-blue));
+      color: hsl(var(--btn-blue));
+      box-shadow: 0 0 30px hsl(var(--btn-blue) / 0.5);
+      transform: scale(1.04);
+    }
 
-    /* Hero buttons — pill size matching Hire Me, blue/purple swap on hover,
-       with the double-white-comet stroke animation on top. */
+    /* ===== Hero buttons — vibrant blue, micro-animations =====
+       Primary (btn-neon): solid blue with a soft pulse glow.
+       Secondary (btn-outline): transparent with sliding blue fill on hover. */
     .hero-buttons .btn {
-      font-size: 0.8rem;
-      padding: 0.4rem 1rem;
-      border-radius: 0.5rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.85rem 1.6rem;
+      border-radius: 0.65rem;
       line-height: 1;
+      letter-spacing: 0.01em;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(.16,1,.3,1),
+                  box-shadow 0.35s ease,
+                  border-color 0.35s ease,
+                  color 0.35s ease,
+                  background-color 0.35s ease;
     }
-    .hero-buttons .btn-neon,
-    .hero-buttons .btn-outline {
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .hero-buttons .btn .btn-label,
+    .hero-buttons .btn svg {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Primary — solid blue, baseline pulse glow, lift on hover */
+    .hero-buttons .btn-neon {
+      background: hsl(var(--btn-blue));
+      border: 1px solid hsl(var(--btn-blue));
       color: #fff;
-      box-shadow: none;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 0 0 0 hsl(var(--btn-blue) / 0.45),
+                  0 8px 24px hsl(var(--btn-blue) / 0.25);
+      animation: btnPulse 2.6s ease-in-out infinite;
     }
-    .hero-buttons .btn-neon  { border: 1px solid hsl(var(--primary) / 0.45); }
-    .hero-buttons .btn-outline { border: 1px solid hsl(var(--neon-purple) / 0.45); }
     .hero-buttons .btn-neon:hover {
-      border-color: hsl(var(--primary) / 0.85);
-      box-shadow: 0 0 24px hsl(var(--primary) / 0.35);
-      transform: none;
+      background: hsl(var(--btn-blue-hover));
+      border-color: hsl(var(--btn-blue-hover));
+      transform: translateY(-3px);
+      box-shadow: 0 0 0 6px hsl(var(--btn-blue) / 0.15),
+                  0 16px 40px hsl(var(--btn-blue) / 0.5);
+      animation-play-state: paused;
+    }
+    @keyframes btnPulse {
+      0%, 100% { box-shadow: 0 0 0 0 hsl(var(--btn-blue) / 0.55),
+                             0 8px 24px hsl(var(--btn-blue) / 0.25); }
+      50%      { box-shadow: 0 0 0 10px hsl(var(--btn-blue) / 0),
+                             0 8px 24px hsl(var(--btn-blue) / 0.25); }
+    }
+
+    /* Secondary — transparent, blue border, fill slides in from left on hover */
+    .hero-buttons .btn-outline {
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid hsl(var(--btn-blue) / 0.65);
+      color: #fff;
+    }
+    .hero-buttons .btn-outline::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: hsl(var(--btn-blue));
+      transform: translateX(-101%);
+      transition: transform 0.45s cubic-bezier(.16,1,.3,1);
+      z-index: 1;
     }
     .hero-buttons .btn-outline:hover {
-      border-color: hsl(var(--neon-purple) / 0.85);
-      box-shadow: 0 0 24px hsl(var(--neon-purple) / 0.35);
-      transform: none;
+      border-color: hsl(var(--btn-blue));
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px hsl(var(--btn-blue) / 0.4);
     }
-    .hero-buttons .btn-neon::before {
-      padding: 1.5px;
-      background: conic-gradient(
-        from var(--btn-angle),
-        transparent 0deg,
-        hsl(var(--primary)) 8deg,
-        transparent 22deg,
-        transparent 180deg,
-        hsl(var(--primary)) 188deg,
-        transparent 202deg,
-        transparent 360deg
-      );
-      animation-duration: 2.5s;
+    .hero-buttons .btn-outline:hover::after {
+      transform: translateX(0);
     }
+
+    /* Both keep the rotating comet stroke from .btn::before — tint it blue */
+    .hero-buttons .btn-neon::before,
     .hero-buttons .btn-outline::before {
       padding: 1.5px;
       background: conic-gradient(
         from var(--btn-angle),
         transparent 0deg,
-        hsl(var(--neon-purple)) 8deg,
+        hsl(0 0% 100% / 0.9) 8deg,
         transparent 22deg,
         transparent 180deg,
-        hsl(var(--neon-purple)) 188deg,
+        hsl(0 0% 100% / 0.9) 188deg,
         transparent 202deg,
         transparent 360deg
       );
       animation-duration: 2.5s;
+      z-index: 3;
     }
 
     /* Navbar Contact button — strip the .btn rotating stroke, match Hire Me
@@ -270,8 +315,8 @@
     }
     .nav-right a.btn[href="/contact/"]::before { display: none; }
     .nav-right a.btn[href="/contact/"]:hover {
-      background: hsl(var(--neon-purple)) !important;
-      border-color: hsl(var(--neon-purple)) !important;
+      background: hsl(var(--btn-blue)) !important;
+      border-color: hsl(var(--btn-blue)) !important;
     }
     .nav-hire-trigger { line-height: 1; }
     .btn-lg { padding: 0.75rem 2rem; font-size: 1rem; }
@@ -577,25 +622,37 @@
         hsl(var(--background) / 0.75));
     }
     .hero-overlay2 { position: absolute; inset: 0; z-index: 2; background: hsl(var(--background) / 0.08); }
+    /* Hero: 2-column grid — text on left, right reserved for future content */
     .hero-content {
       display: grid;
-      grid-template-columns: 1fr auto;
-      grid-template-areas:
-        "text   avatar"
-        "buttons avatar";
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 5rem);
       align-items: center;
-      column-gap: 4rem;
-      row-gap: 1.75rem;
-      position: relative; z-index: 5; max-width: 1100px; margin: 0 auto; padding: 0 1rem;
+      position: relative; z-index: 5;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 5rem);
     }
-    .hero-text { grid-area: text; }
-    .hero-avatar { grid-area: avatar; }
-    .hero-buttons { grid-area: buttons; }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2.25rem;
+    }
+    .hero-right {
+      min-height: 360px;
+      /* Reserved for future content — keep visually empty */
+    }
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+    }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.5rem 1rem; border-radius: 9999px;
-      background: hsl(227 55% 8% / 0.7);
-      border: 1px solid hsl(var(--primary) / 0.5);
+      background: hsl(0 0% 0% / 0.7);
+      border: 1px solid hsl(var(--foreground) / 0.25);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       margin-bottom: 1.5rem;
@@ -603,9 +660,115 @@
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     }
     .hero h1 {
-      font-size: clamp(2.25rem, 5vw, 4.5rem);
+      font-size: clamp(2.5rem, 6vw, 5.25rem);
       font-weight: 800; margin-bottom: 1.5rem;
-      line-height: 1.05; letter-spacing: -0.025em;
+      line-height: 1.02; letter-spacing: -0.035em;
+    }
+    /* Mixed-weight typographic treatment for hero headline */
+    .hero-h1 .h1-heavy  { font-weight: 800; }
+    .hero-h1 .h1-light  { font-weight: 200; opacity: 0.9; }
+    .hero-h1 .h1-italic {
+      font-weight: 300;
+      font-style: italic;
+      opacity: 0.85;
+      letter-spacing: 0;
+    }
+
+    /* Each headline line is a block so we can slide them independently */
+    .hero-h1 .hero-line {
+      display: block;
+      will-change: transform, opacity;
+    }
+
+    /* ===== HERO ENTRANCE CHOREOGRAPHY =====
+       Plays once on page load:
+         t=0.0s  tag + "Designing Digital"   slide down from top
+         t=0.2s  "Experiences that"          slides in from right
+         t=0.4s  "Actually Work."            slides in from left
+         t=0.6s  subtitle paragraph          slides up from below
+         t=0.8s  buttons                     pop from small to full size */
+    /* Start each element FULLY off-screen so they truly slide in
+       (no half-fade). Hero section has overflow:hidden so the off-screen
+       transforms are clipped and don't create scroll. */
+    @keyframes heroFromTop {
+      0%   { transform: translateY(-110vh); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes heroFromRight {
+      0%   { transform: translateX(110vw); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes heroFromLeft {
+      0%   { transform: translateX(-110vw); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes heroFromBottom {
+      0%   { transform: translateY(110vh); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes heroBtnPop {
+      0%   { opacity: 0; transform: scale(0.2); }
+      65%  { opacity: 1; transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Apply animations (fill-mode: both = element starts hidden, no flash) */
+    .hero-tag,
+    .hero-line-1 {
+      animation: heroFromTop 1.4s cubic-bezier(.16, 1, .3, 1) both;
+    }
+    .hero-tag     { animation-delay: 0s; }
+    .hero-line-1  { animation-delay: 0.15s; }
+
+    .hero-line-2 {
+      animation: heroFromRight 1.4s cubic-bezier(.16, 1, .3, 1) both;
+      animation-delay: 0.4s;
+    }
+    .hero-line-3 {
+      animation: heroFromLeft 1.4s cubic-bezier(.16, 1, .3, 1) both;
+      animation-delay: 0.7s;
+    }
+    .hero-subtitle {
+      animation: heroFromBottom 1.2s cubic-bezier(.16, 1, .3, 1) both;
+      animation-delay: 1s;
+    }
+    /* Buttons enter one at a time — Download CV first, My Resume 0.5s later.
+       btn-neon keeps its baseline pulse after the entrance pop. */
+    .hero-buttons .btn-neon {
+      animation:
+        heroBtnPop 0.95s cubic-bezier(.34, 1.56, .64, 1) 1.3s both,
+        btnPulse 2.6s ease-in-out 2.25s infinite;
+    }
+    .hero-buttons .btn-outline {
+      animation: heroBtnPop 0.95s cubic-bezier(.34, 1.56, .64, 1) 1.8s both;
+    }
+
+    /* Hold the choreography paused while the splash screen is up
+       (loader.js adds .splash-active to <html>). When the splash
+       hides and removes the class, the animations begin from frame 0. */
+    html.splash-active .hero-tag,
+    html.splash-active .hero-line-1,
+    html.splash-active .hero-line-2,
+    html.splash-active .hero-line-3,
+    html.splash-active .hero-subtitle,
+    html.splash-active .hero-buttons .btn-neon,
+    html.splash-active .hero-buttons .btn-outline {
+      animation-play-state: paused;
+    }
+
+    /* Honour reduced-motion — skip the choreography, show everything at rest */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-tag,
+      .hero-line-1,
+      .hero-line-2,
+      .hero-line-3,
+      .hero-subtitle,
+      .hero-buttons .btn-neon,
+      .hero-buttons .btn-outline {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
     .hero-subtitle {
       font-size: 1.125rem; color: hsl(var(--muted-foreground));
@@ -693,7 +856,7 @@
     .tools-section {
       position: relative;
       overflow: hidden;
-      background: hsl(227 55% 6%);
+      background: hsl(0 0% 3%);
     }
     .cyber-line {
       position: absolute; left: 0; right: 0;
@@ -704,17 +867,13 @@
     }
     @keyframes lineSweep {
       0%   { top: -2px; opacity: 0;
-             background: linear-gradient(90deg, transparent 10%, hsl(220,100%,60%) 50%, transparent 90%);
-             box-shadow: 0 0 12px hsl(220,100%,60%), 0 0 4px hsl(210,100%,65%); }
+             background: linear-gradient(90deg, transparent 10%, hsl(0,0%,100%) 50%, transparent 90%);
+             box-shadow: 0 0 12px hsl(0,0%,100% / 0.6), 0 0 4px hsl(0,0%,100% / 0.4); }
       5%   { opacity: 1; }
-      45%  { background: linear-gradient(90deg, transparent 10%, hsl(220,100%,60%) 50%, transparent 90%);
-             box-shadow: 0 0 12px hsl(220,100%,60%), 0 0 4px hsl(210,100%,65%); }
-      55%  { background: linear-gradient(90deg, transparent 10%, hsl(268,82%,63%) 50%, transparent 90%);
-             box-shadow: 0 0 12px hsl(268,82%,63%), 0 0 4px hsl(258,80%,58%); }
       90%  { opacity: 0.7; }
       100% { top: 100%; opacity: 0;
-             background: linear-gradient(90deg, transparent 10%, hsl(268,82%,63%) 50%, transparent 90%);
-             box-shadow: 0 0 12px hsl(268,82%,63%), 0 0 4px hsl(258,80%,58%); }
+             background: linear-gradient(90deg, transparent 10%, hsl(0,0%,100%) 50%, transparent 90%);
+             box-shadow: 0 0 12px hsl(0,0%,100% / 0.6), 0 0 4px hsl(0,0%,100% / 0.4); }
     }
     .tools-section .container,
     .tools-section .marquee-wrap { position: relative; z-index: 2; }
@@ -732,8 +891,8 @@
     .marquee-fade-l, .marquee-fade-r {
       position: absolute; top: 0; bottom: 0; width: 8rem; z-index: 10; pointer-events: none;
     }
-    .marquee-fade-l { left: 0; background: linear-gradient(to right, hsl(227 55% 6%), transparent); }
-    .marquee-fade-r { right: 0; background: linear-gradient(to left, hsl(227 55% 6%), transparent); }
+    .marquee-fade-l { left: 0; background: linear-gradient(to right, hsl(0 0% 3%), transparent); }
+    .marquee-fade-r { right: 0; background: linear-gradient(to left, hsl(0 0% 3%), transparent); }
     .tool-card {
       flex-shrink: 0; display: flex; align-items: center; gap: 1rem;
       padding: 1rem 1.5rem; min-width: 220px;
@@ -748,7 +907,37 @@
     
     /* ===== SKILLS — Animated Progress Cards ===== */
     .skills-section { background: #000; backdrop-filter: blur(12px); position: relative; overflow: hidden; }
-    .fw-section { background: #000; }
+
+    /* "What I Offer" / Featured Work section — WHITE background.
+       Card images are dark + have their own scrim, so card content stays readable. */
+    .fw-section {
+      background: #ffffff;
+      color: #0a0a0a;
+      position: relative;
+    }
+    .fw-section .section-title { color: #0a0a0a; }
+    .fw-section .section-subtitle { color: #555; }
+    /* Kill gradient-text (white-on-white in monochrome scheme); use solid blue accent */
+    .fw-section .gradient-text {
+      background: none;
+      -webkit-background-clip: initial;
+      background-clip: initial;
+      -webkit-text-fill-color: hsl(var(--btn-blue));
+      color: hsl(var(--btn-blue));
+    }
+    /* Carousel arrows — restyle for white bg */
+    .fw-section .fw-arrow {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #0a0a0a;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+    .fw-section .fw-arrow:hover {
+      background: hsl(var(--btn-blue));
+      border-color: hsl(var(--btn-blue));
+      color: #ffffff;
+      box-shadow: 0 6px 20px hsl(var(--btn-blue) / 0.4);
+    }
     .skills-section::after {
       content: ''; position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
@@ -775,10 +964,11 @@
                   box-shadow .4s, border-color .4s;
     }
     /* Accent colors */
-    .sk-card[data-accent="blue"]   { --sk-a: 220 100% 50%; }
-    .sk-card[data-accent="purple"] { --sk-a: 268 82% 63%; }
-    .sk-card[data-accent="teal"]   { --sk-a: 168 100% 39%; }
-    .sk-card[data-accent="amber"]  { --sk-a: 33 100% 64%; }
+    /* Monochrome scheme: all skill card accents are white */
+    .sk-card[data-accent="blue"]   { --sk-a: 0 0% 100%; }
+    .sk-card[data-accent="purple"] { --sk-a: 0 0% 100%; }
+    .sk-card[data-accent="teal"]   { --sk-a: 0 0% 100%; }
+    .sk-card[data-accent="amber"]  { --sk-a: 0 0% 100%; }
     /* Cursor-follow glow */
     .sk-card::before {
       content: ''; position: absolute; inset: 0;
@@ -1048,37 +1238,46 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
     .fw-arrow:hover {
-      background: hsl(var(--primary));
+      background: hsl(var(--btn-blue));
       color: #fff;
-      box-shadow: 0 0 25px hsl(var(--primary) / 0.5);
-      border-color: hsl(var(--primary));
+      box-shadow: 0 0 25px hsl(var(--btn-blue) / 0.55);
+      border-color: hsl(var(--btn-blue));
     }
     .fw-arrow svg { width: 1.25rem; height: 1.25rem; }
     .fw-arrow-prev { left: -1.5rem; }
     .fw-arrow-next { right: -1.5rem; }
 
-    /* View Works button on each card */
+    /* View Works button on each card — solid blue + pulse animation */
     .fw-view-btn {
       display: inline-flex; align-items: center; gap: 0.4rem;
       margin-top: 0.75rem;
-      padding: 0.4rem 1rem;
+      padding: 0.45rem 1.1rem;
       border-radius: 100px;
-      background: hsl(var(--primary) / 0.85);
+      background: hsl(var(--btn-blue));
       color: #fff;
       font-size: 0.75rem; font-weight: 600;
       letter-spacing: 0.02em;
-      transition: all 0.3s;
+      transition: background 0.25s, box-shadow 0.25s, transform 0.25s, opacity 0.35s;
       opacity: 0;
       transform: translateY(8px);
+      box-shadow: 0 4px 14px hsl(var(--btn-blue) / 0.35);
     }
     .fw-card:hover .fw-view-btn {
       opacity: 1;
       transform: translateY(0);
-      transition: opacity .35s .1s, transform .4s .1s cubic-bezier(.16,1,.3,1), background .25s;
+      animation: fwViewBtnPulse 1.6s ease-in-out infinite;
     }
     .fw-view-btn:hover {
-      background: hsl(var(--primary));
-      box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+      background: hsl(var(--btn-blue-hover));
+      box-shadow: 0 6px 22px hsl(var(--btn-blue) / 0.6);
+      transform: translateY(-2px);
+      animation-play-state: paused;
+    }
+    @keyframes fwViewBtnPulse {
+      0%, 100% { box-shadow: 0 0 0 0 hsl(var(--btn-blue) / 0.55),
+                             0 4px 14px hsl(var(--btn-blue) / 0.35); }
+      50%      { box-shadow: 0 0 0 8px hsl(var(--btn-blue) / 0),
+                             0 4px 14px hsl(var(--btn-blue) / 0.35); }
     }
     .fw-view-btn svg { width: 14px; height: 14px; }
 
@@ -1449,9 +1648,8 @@
       border-color: hsl(220 18% 88%);
     }
 
-    /* ── Skills & Featured Work sections stay dark ── */
-    html.light .skills-section,
-    html.light .fw-section { background: #000; }
+    /* ── Skills section stays dark in light mode; "What I Offer" stays white in both ── */
+    html.light .skills-section { background: #000; }
 
     /* ── Hero overlays ── */
     html.light .hero-overlay {
@@ -1783,31 +1981,38 @@
     }
     .uw-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
     .uw-btn-primary {
-      background: #0e0f1a;
+      background: hsl(var(--btn-blue));
       color: #ffffff;
-      border: 1px solid #0e0f1a;
-      animation: uwBtnBlink 0.9s ease-in-out infinite;
+      border: 1px solid hsl(var(--btn-blue));
+      animation: uwBtnBlink 1.6s ease-in-out infinite;
+      box-shadow: 0 4px 14px hsl(var(--btn-blue) / 0.3);
     }
     .uw-btn-primary:hover {
-      background: hsl(var(--primary));
-      border-color: hsl(var(--primary));
-      box-shadow: 0 6px 18px hsl(var(--primary) / 0.35);
-      transform: translateY(-1px);
-      animation: none;
+      background: hsl(var(--btn-blue-hover));
+      border-color: hsl(var(--btn-blue-hover));
+      box-shadow: 0 8px 24px hsl(var(--btn-blue) / 0.55);
+      transform: translateY(-2px);
+      animation-play-state: paused;
     }
     @keyframes uwBtnBlink {
-      0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
-      50%      { box-shadow: 0 0 0 3px hsl(var(--primary) / 0.55), 0 0 20px 2px hsl(var(--primary) / 0.55); }
+      0%, 100% {
+        box-shadow: 0 0 0 0 hsl(var(--btn-blue) / 0.5),
+                    0 4px 14px hsl(var(--btn-blue) / 0.3);
+      }
+      50% {
+        box-shadow: 0 0 0 8px hsl(var(--btn-blue) / 0),
+                    0 4px 14px hsl(var(--btn-blue) / 0.3);
+      }
     }
     .uw-btn-ghost {
       background: transparent;
-      color: #0e0f1a;
-      border: 1px solid #d8d8df;
+      color: hsl(var(--btn-blue));
+      border: 1px solid hsl(var(--btn-blue) / 0.45);
     }
     .uw-btn-ghost:hover {
-      border-color: hsl(var(--primary));
-      color: hsl(var(--primary));
-      background: hsl(var(--primary) / 0.06);
+      border-color: hsl(var(--btn-blue));
+      color: hsl(var(--btn-blue-hover));
+      background: hsl(var(--btn-blue) / 0.08);
     }
     @media (max-width: 1024px) {
       .uw-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1817,63 +2022,684 @@
       .uw-card-img { height: 260px; }
     }
 
+    /* ===== A11Y: Skip link (visible on focus) ===== */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0.75rem;
+      z-index: 1000;
+      padding: 0.625rem 1rem;
+      background: hsl(var(--btn-blue));
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px hsl(var(--btn-blue));
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus,
+    .skip-link:focus-visible {
+      top: 0.75rem;
+      outline: none;
+    }
+
+    /* ===== A11Y: Global keyboard focus ring =====
+       Only visible for keyboard nav (:focus-visible), never on mouse click. */
+    :focus { outline: none; }
+    :focus-visible {
+      outline: 2px solid hsl(var(--primary));
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    a:focus-visible,
+    button:focus-visible,
+    [role="button"]:focus-visible,
+    .btn:focus-visible {
+      outline: 2px solid hsl(var(--primary));
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px hsl(var(--primary) / 0.25);
+    }
+
+    /* ===== A11Y: Respect prefers-reduced-motion =====
+       Stops all infinite animations and shortens transitions for users
+       who request reduced motion (motion sickness, vestibular disorders). */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .hero-bg video,
+      .hero-bg img,
+      .hero-particles,
+      .marquee-track,
+      .cyber-line,
+      .hero-badge-dot,
+      .sk-card::after,
+      .sk-icon::after,
+      .btn::before { animation: none !important; }
+      .hero-particles span { display: none !important; }
+    }
+
+    /* ===== TOP BAR — no chrome, edge-to-edge, responsive padding =====
+       padding scales from 1.5rem (small screens) up to 5rem (large screens). */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(1.25rem, 4vw, 2.5rem) clamp(1.5rem, 5vw, 5rem);
+      background: transparent;
+      pointer-events: none; /* let scroll/hover through the empty space */
+    }
+    .topbar > * { pointer-events: auto; } /* re-enable for actual controls */
+
+    /* Hamburger trigger — two stacked bars */
+    .menu-toggle {
+      position: relative;
+      width: 44px; height: 44px;
+      background: transparent;
+      border: 1px solid hsl(var(--foreground) / 0.18);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .menu-toggle:hover {
+      border-color: hsl(var(--primary) / 0.7);
+      background: hsl(var(--primary) / 0.08);
+    }
+    .menu-toggle-bar {
+      position: absolute; left: 10px; right: 10px;
+      height: 2.5px;
+      background: hsl(var(--foreground));
+      border-radius: 2px;
+      transition: transform 0.3s ease, top 0.3s ease, opacity 0.3s ease;
+    }
+    .menu-toggle-bar:nth-child(1) { top: 13px; }
+    .menu-toggle-bar:nth-child(2) { top: 21px; }
+    .menu-toggle-bar:nth-child(3) { top: 29px; }
+    /* Animate to X when overlay is open — top + bottom cross, middle fades */
+    body.overlay-open .menu-toggle-bar:nth-child(1) { top: 21px; transform: rotate(45deg); }
+    body.overlay-open .menu-toggle-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    body.overlay-open .menu-toggle-bar:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+    /* Invert topbar to black when scrolled over a light-bg section */
+    .topbar .nav-logo-text,
+    .topbar .menu-toggle,
+    .topbar .menu-toggle-bar {
+      transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+    .topbar--on-light .nav-logo-text { color: #0a0a0a; }
+    .topbar--on-light .nav-logo img { filter: none !important; }
+    .topbar--on-light .menu-toggle { border-color: rgba(0, 0, 0, 0.18); }
+    .topbar--on-light .menu-toggle:hover {
+      border-color: hsl(var(--btn-blue) / 0.7);
+      background: hsl(var(--btn-blue) / 0.08);
+    }
+    .topbar--on-light .menu-toggle-bar { background: #0a0a0a; }
+
+    /* ===== OVERLAY MENU ===== */
+    .overlay-menu {
+      position: fixed; inset: 0;
+      z-index: 200;
+      background: hsl(var(--background));
+      background-image:
+        radial-gradient(circle at 80% 10%, hsl(var(--primary) / 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 10% 90%, hsl(var(--neon-purple) / 0.10) 0%, transparent 50%);
+      display: flex;
+      flex-direction: column;
+      padding: clamp(5rem, 9vw, 7rem) clamp(1.5rem, 5vw, 5rem) clamp(1.5rem, 3vw, 2.5rem);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.45s cubic-bezier(.16,1,.3,1), visibility 0s 0.45s;
+    }
+    body.overlay-open .overlay-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 0.45s cubic-bezier(.16,1,.3,1), visibility 0s;
+    }
+    .overlay-close {
+      position: absolute;
+      top: clamp(1.25rem, 4vw, 2.5rem);
+      right: clamp(1.5rem, 5vw, 5rem);
+      width: 44px; height: 44px;
+      background: transparent;
+      color: hsl(var(--foreground));
+      border: 1px solid hsl(var(--foreground) / 0.18);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+    .overlay-close:hover {
+      border-color: hsl(var(--primary));
+      color: hsl(var(--primary));
+      transform: rotate(90deg);
+    }
+    .overlay-inner {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: clamp(2rem, 6vw, 6rem);
+      align-items: center;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .overlay-primary {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex; flex-direction: column;
+      gap: 0.5rem;
+    }
+    .overlay-primary li {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s cubic-bezier(.16,1,.3,1), transform 0.5s cubic-bezier(.16,1,.3,1);
+    }
+    body.overlay-open .overlay-primary li {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    body.overlay-open .overlay-primary li:nth-child(1) { transition-delay: 0.08s; }
+    body.overlay-open .overlay-primary li:nth-child(2) { transition-delay: 0.14s; }
+    body.overlay-open .overlay-primary li:nth-child(3) { transition-delay: 0.20s; }
+    body.overlay-open .overlay-primary li:nth-child(4) { transition-delay: 0.26s; }
+    body.overlay-open .overlay-primary li:nth-child(5) { transition-delay: 0.32s; }
+
+    .overlay-link {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.2vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: hsl(var(--foreground) / 0.85);
+      transition: color 0.25s ease, transform 0.25s ease;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .overlay-link:hover {
+      color: hsl(var(--primary));
+      transform: translateX(6px);
+    }
+    .overlay-link.active {
+      color: hsl(var(--primary));
+      background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--neon-purple)) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .overlay-secondary {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    .overlay-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s cubic-bezier(.16,1,.3,1) 0.32s, transform 0.5s cubic-bezier(.16,1,.3,1) 0.32s;
+    }
+    body.overlay-open .overlay-col {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    body.overlay-open .overlay-col:nth-child(2) { transition-delay: 0.40s; }
+    .overlay-col-title {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: hsl(var(--foreground) / 0.35);
+      margin-bottom: 0.4rem;
+    }
+    .overlay-col a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: hsl(var(--foreground) / 0.78);
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .overlay-col a:hover {
+      color: hsl(var(--primary));
+      transform: translateX(4px);
+    }
+
+    .overlay-footer {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid hsl(var(--foreground) / 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(.16,1,.3,1) 0.5s;
+    }
+    body.overlay-open .overlay-footer { opacity: 1; }
+    .overlay-location {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: hsl(var(--foreground) / 0.55);
+    }
+    .overlay-location h4 {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: hsl(var(--foreground) / 0.85);
+      margin: 0;
+    }
+    .overlay-location-sep {
+      color: hsl(var(--foreground) / 0.25);
+    }
+    .overlay-copyright {
+      font-size: 0.75rem;
+      color: hsl(var(--foreground) / 0.35);
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+    .overlay-footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    /* Smaller, subtler theme toggle inside the overlay */
+    .overlay-footer-right .theme-toggle {
+      width: 34px; height: 34px;
+    }
+
+    /* Lock body scroll when menu open */
+    body.overlay-open { overflow: hidden; }
+
+    /* ===== FEATURED CAPABILITIES — white sub-hero =====
+       Inner pair (cards 2 & 3) animates in first.
+       Outer pair (cards 1 & 4) follows ~500ms later.
+       Triggered when section is ~45-50% into the viewport. */
+    .featured-cap {
+      background: #ffffff;
+      color: #0a0a0a;
+      padding: clamp(4rem, 9vw, 7rem) 0 clamp(5rem, 10vw, 8rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-cap .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 5rem);
+    }
+    .fc-head {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto clamp(3rem, 6vw, 5rem);
+    }
+    .fc-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 1.15rem;
+      background: hsl(var(--btn-blue) / 0.08);
+      border: 1px solid hsl(var(--btn-blue) / 0.18);
+      border-radius: 100px;
+      color: hsl(var(--btn-blue));
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .fc-eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: hsl(var(--btn-blue));
+    }
+    .fc-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.4vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #0a0a0a;
+      margin-bottom: 1.25rem;
+    }
+    .fc-accent { color: hsl(var(--btn-blue)); }
+    .fc-subtitle {
+      color: #555;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .fc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .fc-card {
+      /* Subtle gradient suggests light from the top */
+      background: linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
+      border: 1px solid #eceef3;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      opacity: 0;
+      /* Stacked shadows: inset highlight on top edge + inset hairline on bottom
+         + 3 progressively softer drop shadows = floating-off-the-page feel */
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 0 rgba(15, 23, 42, 0.04),
+        0 1px 2px rgba(15, 23, 42, 0.05),
+        0 8px 20px rgba(15, 23, 42, 0.06),
+        0 24px 48px rgba(15, 23, 42, 0.05);
+      transition: opacity 0.9s cubic-bezier(.16,1,.3,1),
+                  transform 0.4s cubic-bezier(.16,1,.3,1),
+                  box-shadow 0.4s ease,
+                  border-color 0.4s ease;
+    }
+    .fc-card:hover {
+      border-color: #d8dbe3;
+      transform: translateY(-8px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 0 rgba(15, 23, 42, 0.04),
+        0 4px 10px rgba(15, 23, 42, 0.06),
+        0 18px 36px rgba(15, 23, 42, 0.09),
+        0 44px 88px rgba(15, 23, 42, 0.10),
+        0 0 0 1px hsl(var(--btn-blue) / 0.08);
+    }
+    /* Initial off-screen positions — left pair (1,2) start LEFT of viewport,
+       right pair (3,4) start RIGHT of viewport. They slide IN toward center. */
+    .fc-card[data-position="1"],
+    .fc-card[data-position="2"] {
+      transform: translateX(-100vw);
+    }
+    .fc-card[data-position="3"],
+    .fc-card[data-position="4"] {
+      transform: translateX(100vw);
+    }
+    /* Scroll-triggered staggered entrance — fires at 45-50% viewport intersection.
+       Inner pair (2 & 3) lands first; outer pair (1 & 4) follows ~500ms later. */
+    .featured-cap.is-visible .fc-card[data-position="2"],
+    .featured-cap.is-visible .fc-card[data-position="3"] {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0ms;
+    }
+    .featured-cap.is-visible .fc-card[data-position="1"],
+    .featured-cap.is-visible .fc-card[data-position="4"] {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 500ms;
+    }
+    .fc-card-img {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+    .fc-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(.16,1,.3,1);
+    }
+    .fc-card:hover .fc-card-img img {
+      transform: scale(1.05);
+    }
+    /* Card 3 (Graphic) — mirror the image so the robot sits on the right,
+       then nudge the visible crop so the robot reads more centered. */
+    .fc-card[data-position="3"] .fc-card-img img {
+      transform: scaleX(-1);
+      object-position: 30% center;
+    }
+    .fc-card[data-position="3"]:hover .fc-card-img img {
+      transform: scaleX(-1) scale(1.05);
+    }
+    .fc-badge {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      z-index: 2;
+      background: hsl(var(--btn-blue));
+      color: #fff;
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 14px hsl(var(--btn-blue) / 0.35);
+    }
+    .fc-card-body { padding: 1.5rem; }
+    .fc-card-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem; font-weight: 700;
+      color: #0a0a0a;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .fc-card-body p {
+      font-size: 0.92rem;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Process-step variant — no image, big blue number, taller comfy card */
+    .fc-card--step {
+      min-height: 260px;
+      display: flex;
+      align-items: flex-start;
+    }
+    .fc-card--step .fc-card-body {
+      padding: 2rem 1.75rem;
+      width: 100%;
+    }
+    .fc-step-num {
+      font-family: var(--font-display);
+      font-size: 3.25rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: hsl(var(--btn-blue));
+      margin-bottom: 1.5rem;
+      /* Subtle dimension — soft blue glow behind the digit */
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9),
+        0 6px 16px hsl(var(--btn-blue) / 0.18);
+    }
+    .fc-card--step h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.65rem;
+    }
+    .fc-card--step p {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+    .fc-learn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: hsl(var(--btn-blue));
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: gap 0.25s ease, color 0.25s;
+    }
+    .fc-learn:hover {
+      color: hsl(var(--btn-blue-hover));
+      gap: 0.85rem;
+    }
+    .fc-learn svg { transition: transform 0.25s; }
+    .fc-learn:hover svg { transform: translateX(3px); }
+
+    @media (max-width: 1024px) { .fc-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .fc-grid { grid-template-columns: 1fr; } }
+
+    /* Reduced-motion: show cards immediately, no entrance animation */
+    @media (prefers-reduced-motion: reduce) {
+      .fc-card { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    /* ===== SCROLL DOWN INDICATOR =====
+       Lives inside the hero (position:absolute), centered along the bottom.
+       It scrolls away with the hero — no fixed-to-viewport floating.
+       Rotation is driven by JS based on real scroll input (no auto-spin). */
+    .scroll-indicator {
+      position: absolute;
+      bottom: clamp(1.5rem, 3.5vw, 2.5rem);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px; height: 150px;
+      z-index: 6;
+      pointer-events: none;
+      opacity: 0.92;
+    }
+    .scroll-indicator-svg {
+      width: 100%; height: 100%;
+      transform-origin: center;
+      will-change: transform;
+    }
+    .scroll-indicator-text {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      fill: hsl(var(--foreground));
+    }
+    .scroll-indicator-arrow {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 54px; height: 54px;
+      transform: translate(-50%, -50%);
+      border: none;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      background: hsl(var(--btn-blue));
+      box-shadow: 0 0 22px hsl(var(--btn-blue) / 0.5),
+                  0 4px 16px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+    .scroll-indicator-arrow svg {
+      animation: arrowSlideDown 1.6s ease-in-out infinite;
+    }
+    @keyframes arrowSlideDown {
+      0%      { transform: translateY(-4px); opacity: 0; }
+      30%     { opacity: 1; }
+      60%     { transform: translateY(0); opacity: 1; }
+      90%     { transform: translateY(4px); opacity: 0; }
+      100%    { transform: translateY(4px); opacity: 0; }
+    }
+    @media (max-width: 640px) {
+      .scroll-indicator { width: 118px; height: 118px; }
+      .scroll-indicator-arrow { width: 42px; height: 42px; }
+      .scroll-indicator-text { font-size: 11px; }
+    }
+    /* Hide when overlay menu is open */
+    body.overlay-open .scroll-indicator { opacity: 0; }
+    /* Reduced-motion users: still show but pause continuous motion */
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-indicator-svg,
+      .scroll-indicator-arrow svg { animation: none !important; transform: none !important; }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .overlay-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .overlay-secondary { gap: 2rem; }
+      .overlay-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .overlay-secondary { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
-  <!-- ===== NAVIGATION ===== -->
-  <nav class="navbar" id="navbar">
-    <div class="container nav-inner">
-      <a href="/" class="nav-logo">
-        <img src="/logo.svg" alt="RB Monogram" style="display:block;height:40px;width:auto" />
-        <span class="nav-logo-text">Ronnie Balonon</span>
-      </a>
-      <div class="nav-right">
-        <div class="nav-links">
-          <a href="/" class="active">Home</a>
-          <a href="/about/">About Me</a>
-          <div class="nav-dropdown">
-            <button type="button" class="nav-dropdown-trigger">
-              Portfolio
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="nav-dropdown-menu">
-              <a href="/skill-uiux/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>UI/UX &amp; Web Design</a>
-              <a href="/skill-photography/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Photography</a>
-              <a href="/skill-video-editing/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>Video</a>
-              <a href="/skill-artificial-intelligence/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.57-3.25 3.92L12 10v2"/><circle cx="12" cy="16" r="2"/><path d="M12 18v2"/><path d="M7 20h10"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>AI</a>
-              <a href="/skill-social-media/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SocialMedia</a>
-              <a href="/skill-graphic-design/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>Graphic</a>
-            </div>
-          </div>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <!-- ===== TOP BAR (no chrome — just logo + hamburger) ===== -->
+  <header class="topbar" id="navbar">
+    <a href="/" class="nav-logo">
+      <img src="/logo.svg" alt="RB Monogram" style="display:block;height:40px;width:auto" />
+      <span class="nav-logo-text">Ronnie Balonon</span>
+    </a>
+    <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="overlayMenu">
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+    </button>
+  </header>
+
+  <!-- ===== OVERLAY MENU ===== -->
+  <nav class="overlay-menu" id="overlayMenu" aria-hidden="true" aria-label="Site navigation">
+    <button class="overlay-close" aria-label="Close menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div class="overlay-inner">
+      <ul class="overlay-primary">
+        <li><a href="/" class="overlay-link active" data-overlay-link>Home</a></li>
+        <li><a href="/about/" class="overlay-link" data-overlay-link>About Me</a></li>
+        <li><a href="/my-skills/" class="overlay-link" data-overlay-link>My Skills</a></li>
+        <li><a href="#portfolio" class="overlay-link" data-overlay-link>Portfolio</a></li>
+        <li><a href="/contact/" class="overlay-link" data-overlay-link>Contact</a></li>
+      </ul>
+
+      <div class="overlay-secondary">
+        <div class="overlay-col">
+          <h3 class="overlay-col-title">Skills</h3>
+          <a href="/skill-uiux/" data-overlay-link>UI/UX &amp; Web Design</a>
+          <a href="/skill-photography/" data-overlay-link>Photography</a>
+          <a href="/skill-video-editing/" data-overlay-link>Video Editing</a>
+          <a href="/skill-artificial-intelligence/" data-overlay-link>Artificial Intelligence</a>
+          <a href="/skill-social-media/" data-overlay-link>Social Media</a>
+          <a href="/skill-graphic-design/" data-overlay-link>Graphic Design</a>
         </div>
-        <a href="/contact/" class="btn btn-sm" style="background:hsl(var(--primary));color:#fff;border:1px solid hsl(var(--primary));font-size:0.8rem;padding:0.4rem 1rem;border-radius:0.5rem;">Contact</a>
-        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-          <!-- Moon: shown in dark mode -->
-          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <!-- Sun: shown in light mode -->
-          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        </button>
-        <button class="mobile-menu-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Toggle menu">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
+        <div class="overlay-col">
+          <h3 class="overlay-col-title">Connect</h3>
+          <a href="mailto:ronniebalonon1996@gmail.com" data-overlay-link>Email</a>
+          <a href="https://wa.me/971543763091" target="_blank" rel="noopener" data-overlay-link>WhatsApp</a>
+          <a href="https://www.instagram.com/ronnieeee25/" target="_blank" rel="noopener" data-overlay-link>Instagram</a>
+          <a href="https://www.facebook.com/ronnieeee25" target="_blank" rel="noopener" data-overlay-link>Facebook</a>
+          <a href="https://www.tiktok.com/@ronnie.balonon" target="_blank" rel="noopener" data-overlay-link>TikTok</a>
+        </div>
       </div>
     </div>
-    <div class="mobile-menu" id="mobileMenu" style="background:hsl(var(--card));border-top:1px solid hsl(var(--border));padding:1rem;">
-      <div style="display:flex;flex-direction:column;gap:0.5rem;">
-        <a href="/" onclick="closeMobile()" style="padding:0.75rem 1rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Home</a>
-        <a href="/about/" onclick="closeMobile()" style="padding:0.75rem 1rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">About Me</a>
-        <div style="padding:0.5rem 1rem 0.25rem;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:hsl(var(--primary));">Portfolio</div>
-        <a href="/skill-uiux/" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">UI/UX &amp; Web Design</a>
-        <a href="/skill-photography/" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Photography</a>
-        <a href="/skill-video-editing/" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Video</a>
-        <a href="/skill-artificial-intelligence/" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">AI</a>
-        <a href="/skill-social-media/" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">SocialMedia</a>
-        <a href="/skill-graphic-design/" onclick="closeMobile()" style="padding:0.6rem 1.5rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Graphic</a>
-        <a href="/contact/" onclick="closeMobile()" style="padding:0.75rem 1rem;border-radius:0.5rem;font-size:0.875rem;color:hsl(var(--foreground)/0.7);">Contact</a>
+
+    <div class="overlay-footer">
+      <div class="overlay-location">
+        <h4>Dubai, UAE</h4>
+        <span class="overlay-location-sep">/</span>
+        <span>+971 54 376 3091</span>
+      </div>
+      <div class="overlay-footer-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <p class="overlay-copyright">© 2026 Ronnie Balonon Jr.</p>
       </div>
     </div>
   </nav>
 
+  <main id="main">
   <!-- ===== HERO SECTION ===== -->
   <section id="home" class="hero">
     <div class="hero-bg">
@@ -1885,29 +2711,103 @@
     <div class="hero-overlay2"></div>
 
     <div class="hero-content">
-      <div class="hero-text">
-        <div class="hero-tag">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          AI-Powered UI/UX Designer — Dubai
-        </div>
-        <h1 class="font-display">Designing Digital<br>Experiences That <span class="gradient-text">Actually Work</span></h1>
-        <p class="hero-subtitle">AI-Powered UI/UX Designer based in Dubai — building smart, modern interfaces with the speed and precision of AI-driven design workflows.</p>
-      </div>
-      <div class="hero-avatar">
-        <div class="hero-avatar-glow"></div>
-        <div class="hero-avatar-tilt">
-          <div class="hero-avatar-img">
-            <img src="https://cdn.prod.website-files.com/69de672ee0d6a689e77f0af6/69de67668f687747494b545f_Untitled-1.jpg" alt="Ronnie Balonon Jr." />
+      <div class="hero-left">
+        <div class="hero-text">
+          <div class="hero-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            AI-Powered UI/UX Designer — Dubai
           </div>
+          <h1 class="font-display hero-h1">
+            <span class="hero-line hero-line-1">
+              <span class="h1-heavy">Designing</span> <span class="h1-light">Digital</span>
+            </span>
+            <span class="hero-line hero-line-2">
+              <span class="h1-heavy">Experiences</span> <em class="h1-italic">that</em>
+            </span>
+            <span class="hero-line hero-line-3">
+              <span class="h1-heavy">Actually Work.</span>
+            </span>
+          </h1>
+          <p class="hero-subtitle">AI-Powered UI/UX Designer based in Dubai — building smart, modern interfaces with the speed and precision of AI-driven design workflows.</p>
         </div>
-        <div class="hero-badge"><span class="hero-badge-dot"></span>Available for hire</div>
+        <div class="hero-buttons">
+          <a href="/assets/docs/Ronnie-Balonon-CV.pdf" target="_blank" rel="noopener" download="Ronnie-Balonon-CV.pdf" class="btn btn-neon btn-lg">
+            <span class="btn-label">Download CV</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </a>
+          <a href="/resume/" target="_blank" rel="noopener" class="btn btn-outline btn-lg">
+            <span class="btn-label">My Resume</span>
+          </a>
+        </div>
       </div>
-      <div class="hero-buttons">
-        <a href="/assets/docs/Ronnie-Balonon-CV.pdf" target="_blank" rel="noopener" download="Ronnie-Balonon-CV.pdf" class="btn btn-neon btn-lg">
-          Download CV
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        </a>
-        <a href="/resume/" target="_blank" rel="noopener" class="btn btn-outline btn-lg">My Resume</a>
+      <div class="hero-right" aria-hidden="true"></div>
+    </div>
+
+    <!-- Scroll-down indicator — lives inside the hero, scrolls away with it. -->
+    <div class="scroll-indicator" id="scrollIndicator" aria-hidden="true">
+      <svg class="scroll-indicator-svg" viewBox="0 0 120 120">
+        <defs>
+          <path id="scrollCirclePath" d="M 60, 60 m -46, 0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/>
+        </defs>
+        <text class="scroll-indicator-text">
+          <textPath href="#scrollCirclePath" startOffset="0" textLength="289">SCROLL&#160;DOWN&#160;·&#160;SCROLL&#160;DOWN&#160;·&#160;</textPath>
+        </text>
+      </svg>
+      <div class="scroll-indicator-arrow" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <polyline points="19 12 12 19 5 12"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW I WORK (white-bg sub-hero) ===== -->
+  <section class="featured-cap" id="featuredCap" data-light-bg>
+    <div class="container">
+      <div class="fc-head">
+        <span class="fc-eyebrow"><span class="fc-eyebrow-dot"></span>The Process</span>
+        <h2 class="fc-title">How I <span class="fc-accent">Work.</span></h2>
+        <p class="fc-subtitle">A repeatable four-step loop — fast enough to ship, deliberate enough to get right.</p>
+      </div>
+      <div class="fc-grid">
+
+        <!-- Step 1 -->
+        <article class="fc-card fc-card--step" data-position="1">
+          <div class="fc-card-body">
+            <div class="fc-step-num">01</div>
+            <h3>Understand</h3>
+            <p>Brief, audience, constraints, brand. No design starts before the problem is clearly named.</p>
+          </div>
+        </article>
+
+        <!-- Step 2 -->
+        <article class="fc-card fc-card--step" data-position="2">
+          <div class="fc-card-body">
+            <div class="fc-step-num">02</div>
+            <h3>Draft Fast</h3>
+            <p>AI-assisted exploration of variants — layout, copy, imagery. Pick the strongest direction in hours, not weeks.</p>
+          </div>
+        </article>
+
+        <!-- Step 3 -->
+        <article class="fc-card fc-card--step" data-position="3">
+          <div class="fc-card-body">
+            <div class="fc-step-num">03</div>
+            <h3>Refine</h3>
+            <p>Tighten type, spacing, color, motion. This is where the human craft matters most.</p>
+          </div>
+        </article>
+
+        <!-- Step 4 -->
+        <article class="fc-card fc-card--step" data-position="4">
+          <div class="fc-card-body">
+            <div class="fc-step-num">04</div>
+            <h3>Ship &amp; Iterate</h3>
+            <p>Hand off cleanly, prototype the build, watch how it performs. Improve based on what's real, not what was assumed.</p>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -1962,90 +2862,7 @@
     <div class="cl-beam cl-beam--rtl" aria-hidden="true"></div>
   </section>
 
-  <!-- ===== SKILLS HIERARCHY ===== -->
-  <section id="skills" class="py-24 skills-section">
-    <div class="container">
-      <div class="text-center mb-16">
-        <h2 class="font-display section-title">Skills <span class="gradient-text">Hierarchy</span></h2>
-        <p class="section-subtitle">A balanced blend of design, photography, and development</p>
-      </div>
-      <div class="sk-grid">
-
-        <!-- Card 1 — UI/UX & Web Design -->
-        <div class="sk-card" data-accent="blue">
-          <span class="sk-tag">Primary</span>
-          <div class="sk-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
-          </div>
-          <h3 class="sk-title">UI/UX & Web Design</h3>
-          <div class="sk-list">
-            <div class="sk-list-item"><span class="sk-dot"></span>Wireframing</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Interactive Prototyping</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>User Research</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Interaction Design</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Mobile App UI Design</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Website Design</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Responsive Web Design</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>E-commerce UI Design</div>
-          </div>
-        </div>
-
-        <!-- Card 2 — Photography -->
-        <div class="sk-card" data-accent="purple">
-          <span class="sk-tag">Secondary</span>
-          <div class="sk-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-          </div>
-          <h3 class="sk-title">Photography and Video Editing</h3>
-          <div class="sk-list">
-            <div class="sk-list-item"><span class="sk-dot"></span>Food & Beverage Photography</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Product Photography</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Corporate Photography</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Portrait & Headshot Photography</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Social Media Video Editing</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Color Grading & Color Correction</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Short Video</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>AI Video</div>
-          </div>
-        </div>
-
-        <!-- Card 3 — Graphic Design & Social Media -->
-        <div class="sk-card" data-accent="teal">
-          <span class="sk-tag">Tertiary</span>
-          <div class="sk-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5Z"/></svg>
-          </div>
-          <h3 class="sk-title">Graphic Design & Social Media</h3>
-          <div class="sk-list">
-            <div class="sk-list-item"><span class="sk-dot"></span>Business Cards & Stationery Design</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Flyers, Posters & Roll-up Banners</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Packaging Design</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Instagram Feed Design</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Social Media Static Posts</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Carousel Posts</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Social Media Banners</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Reels & Short Video Thumbnails</div>
-          </div>
-        </div>
-
-        <!-- Card 4 — Basic Coding -->
-        <div class="sk-card" data-accent="amber">
-          <span class="sk-tag">Bonus</span>
-          <div class="sk-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <h3 class="sk-title">Basic Coding</h3>
-          <div class="sk-list">
-            <div class="sk-list-item"><span class="sk-dot"></span>HTML</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>CSS</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>VS Code</div>
-            <div class="sk-list-item"><span class="sk-dot"></span>Basic JavaScript</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  <!-- (Skills Hierarchy moved to /my-skills/) -->
 
   <!-- ===== RECENT UI/UX WORK ===== -->
   <section class="py-24 skills-section">
@@ -2062,7 +2879,7 @@
           </div>
           <div class="uw-card-info">
             <span class="uw-tag">Worship</span>
-            <h3>Play and Worship</h3>
+            <h3>Platform</h3>
             <p>Worship platform built for musicians and ministry teams.</p>
             <div class="uw-actions">
               <a href="https://ronnie0525.github.io/Play-and-Worship/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
@@ -2079,7 +2896,7 @@
           </div>
           <div class="uw-card-info">
             <span class="uw-tag">Restaurant</span>
-            <h3>Abby's Burger</h3>
+            <h3>Cafeteria</h3>
             <p>Landing page for a local burger joint — bold visuals and a sharp menu showcase.</p>
             <div class="uw-actions">
               <a href="https://ronnie0525.github.io/Abbys-Burger/Abbys%20Hungry%20No%20More/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
@@ -2096,7 +2913,7 @@
           </div>
           <div class="uw-card-info">
             <span class="uw-tag">Apparel</span>
-            <h3>Chammica Apparel</h3>
+            <h3>E-commerce</h3>
             <p>Brand site for an apparel label — clean product display and on-brand visuals.</p>
             <div class="uw-actions">
               <a href="https://ronnie0525.github.io/Chammica-apparel/Chammica's%20Apparel/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
@@ -2113,7 +2930,7 @@
           </div>
           <div class="uw-card-info">
             <span class="uw-tag">Cafe</span>
-            <h3>Ar-ar Coffee &amp; Sweets</h3>
+            <h3>Cafe</h3>
             <p>Cafe website with a warm visual style, menu, and store info.</p>
             <div class="uw-actions">
               <a href="https://ronnie0525.github.io/Ar-ar-Coffee-and-sweets/Ar-Ar%20Coffee%20and%20Sweets/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
@@ -2128,8 +2945,8 @@
     </div>
   </section>
 
-  <!-- ===== FEATURED WORK — Immersive Bento ===== -->
-  <section id="portfolio" class="py-24 fw-section">
+  <!-- ===== FEATURED WORK — Immersive Bento (WHITE bg) ===== -->
+  <section id="portfolio" class="py-24 fw-section" data-light-bg>
     <div class="container">
       <div class="text-center mb-12">
         <h2 class="font-display section-title">What I <span class="gradient-text">Offer</span></h2>
@@ -2339,6 +3156,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
@@ -2421,18 +3239,9 @@
       if (window.scrollY > 50) { nav.classList.add("scrolled"); }
       else { nav.classList.remove("scrolled"); }
 
-      // Scrollbar: blue (top) → purple (bottom)
-      var scrollTop = window.scrollY;
-      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      var t = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
-      // Interpolate hue 220 (blue) → 268 (purple)
-      var hue = Math.round(220 + t * 48);
-      var sat = Math.round(100 + t * (-18));   // 100% → 82%
-      var lit = Math.round(50 + t * 13);       // 50% → 63%
-      var color = 'hsl(' + hue + ' ' + sat + '% ' + lit + '%)';
-      var hover = 'hsl(' + hue + ' ' + sat + '% ' + Math.min(lit + 10, 75) + '%)';
-      document.documentElement.style.setProperty('--scrollbar-color', color);
-      document.documentElement.style.setProperty('--scrollbar-hover', hover);
+      // Scrollbar: monochrome — white thumb
+      document.documentElement.style.setProperty('--scrollbar-color', 'hsl(0 0% 100% / 0.5)');
+      document.documentElement.style.setProperty('--scrollbar-hover', 'hsl(0 0% 100% / 0.8)');
     });
     
     function closeMobile() {
@@ -2497,6 +3306,146 @@
         localStorage.setItem('theme', 'dark');
       }
     });
+
+    // ===== TOPBAR INVERT over [data-light-bg] sections =====
+    // Flips logo + hamburger to black when the topbar's band overlaps any
+    // section flagged data-light-bg (e.g. the white "Featured Capabilities").
+    (function() {
+      var topbar = document.querySelector('.topbar');
+      if (!topbar) return;
+      var lightSections = document.querySelectorAll('[data-light-bg]');
+      if (!lightSections.length) return;
+
+      var ticking = false;
+      function update() {
+        var topbarBottom = topbar.getBoundingClientRect().bottom;
+        var onLight = false;
+        for (var i = 0; i < lightSections.length; i++) {
+          var rect = lightSections[i].getBoundingClientRect();
+          if (rect.top <= topbarBottom && rect.bottom > 0) {
+            onLight = true;
+            break;
+          }
+        }
+        if (onLight) topbar.classList.add('topbar--on-light');
+        else topbar.classList.remove('topbar--on-light');
+        ticking = false;
+      }
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+      window.addEventListener('resize', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+      update();
+    })();
+
+    // ===== FEATURED CAPABILITIES — staggered entrance trigger =====
+    // Cards 2 & 3 animate in first; 1 & 4 follow ~500ms later.
+    // Fires when section is ~45-50% into the viewport.
+    (function() {
+      var section = document.getElementById('featuredCap');
+      if (!section) return;
+      if (!('IntersectionObserver' in window)) {
+        section.classList.add('is-visible');
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          // intersectionRatio: how much of the target is visible
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.45) {
+            section.classList.add('is-visible');
+            io.unobserve(section);
+          }
+        });
+      }, { threshold: [0.45, 0.5] });
+      io.observe(section);
+    })();
+
+    // ===== SCROLL DOWN INDICATOR — rotation driven by real scroll input =====
+    // No auto-spin: when you don't scroll, the ring sits still.
+    // When you scroll, it rotates proportionally to how far you've scrolled.
+    (function() {
+      var svg = document.querySelector('.scroll-indicator-svg');
+      if (!svg) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var rotation = 0;
+      var lastScroll = window.scrollY;
+      var ticking = false;
+
+      function update() {
+        var current = window.scrollY;
+        var delta = current - lastScroll;
+        lastScroll = current;
+        // Gentle multiplier — small scroll = small rotation.
+        // Direction follows scroll direction (down = clockwise).
+        rotation += delta * 0.25;
+        svg.style.transform = 'rotate(' + rotation + 'deg)';
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+
+    // ===== OVERLAY MENU =====
+    (function() {
+      var trigger = document.getElementById('menuToggle');
+      var overlay = document.getElementById('overlayMenu');
+      if (!trigger || !overlay) return;
+      var closeBtn = overlay.querySelector('.overlay-close');
+      var body = document.body;
+
+      function openMenu() {
+        body.classList.add('overlay-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.setAttribute('aria-label', 'Close menu');
+        // Move focus into the overlay so keyboard users can navigate
+        setTimeout(function() {
+          var firstLink = overlay.querySelector('.overlay-link');
+          if (firstLink) firstLink.focus();
+        }, 100);
+      }
+      function closeMenu() {
+        body.classList.remove('overlay-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.setAttribute('aria-label', 'Open menu');
+        trigger.focus();
+      }
+      function toggleMenu() {
+        if (body.classList.contains('overlay-open')) closeMenu();
+        else openMenu();
+      }
+
+      trigger.addEventListener('click', toggleMenu);
+      closeBtn.addEventListener('click', closeMenu);
+
+      // ESC to close
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && body.classList.contains('overlay-open')) closeMenu();
+      });
+
+      // Close after clicking any overlay link (so anchor jumps work cleanly)
+      overlay.querySelectorAll('[data-overlay-link]').forEach(function(a) {
+        a.addEventListener('click', function() {
+          // delay slightly so click registers visually before close anim
+          setTimeout(closeMenu, 120);
+        });
+      });
+    })();
 
     // ===== DROPDOWN — hover with 0.5s close delay + click toggle =====
     document.querySelectorAll('.nav-dropdown').forEach(function(dd) {

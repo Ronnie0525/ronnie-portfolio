@@ -92,7 +92,7 @@
 }
 .chatbot-hello-dots span {
   width: 5px; height: 5px; border-radius: 50%;
-  background: hsl(var(--primary));
+  background: hsl(var(--btn-blue));
   animation: dotBounce 1.2s ease-in-out infinite;
 }
 .chatbot-hello-dots span:nth-child(2) { animation-delay: 0.15s; }
@@ -112,7 +112,7 @@
   transition: all 0.2s;
 }
 .chatbot-hello-close:hover {
-  background: hsl(var(--primary)); color: #fff; border-color: hsl(var(--primary));
+  background: hsl(var(--btn-blue)); color: #fff; border-color: hsl(var(--btn-blue));
 }
 html.light .chatbot-hello {
   background: #fff;
@@ -193,7 +193,7 @@ html.light .chatbot-hello {
   align-self: flex-start;
 }
 .chat-msg-user {
-  background: hsl(var(--primary));
+  background: hsl(var(--btn-blue));
   color: #fff;
   border-bottom-right-radius: 0.25rem;
   align-self: flex-end;
@@ -228,19 +228,24 @@ html.light .chatbot-hello {
   outline: none;
   transition: border-color 0.3s;
 }
-.chatbot-input:focus { border-color: hsl(var(--primary)); }
+.chatbot-input:focus { border-color: hsl(var(--btn-blue)); }
 .chatbot-input::placeholder { color: hsl(var(--muted-foreground)); }
 .chatbot-send {
   width: 2.25rem; height: 2.25rem;
   border-radius: 50%;
-  background: hsl(var(--primary));
+  background: hsl(var(--btn-blue));
   border: none;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px hsl(var(--btn-blue) / 0.4);
 }
-.chatbot-send:hover { background: hsl(var(--primary) / 0.85); transform: scale(1.05); }
+.chatbot-send:hover {
+  background: hsl(var(--btn-blue-hover));
+  transform: scale(1.06);
+  box-shadow: 0 6px 18px hsl(var(--btn-blue) / 0.55);
+}
 .chatbot-send svg { width: 1rem; height: 1rem; color: #fff; }
 @media (max-width: 480px) {
   .chatbot-panel { width: calc(100vw - 2rem); right: 1rem; }
@@ -405,8 +410,8 @@ html.light .chatbot-hello-close { background: #fff; border-color: hsl(220 18% 86
       });
 
       // ── Smart NLP-like chatbot brain ──
-      var L = function(s){return '<a href="'+s+'" style="color:hsl(var(--primary))">';};
-      var La = function(s){return '<a href="'+s+'" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--primary))">';};
+      var L = function(s){return '<a href="'+s+'" style="color:hsl(var(--btn-blue));font-weight:600">';};
+      var La = function(s){return '<a href="'+s+'" target="_blank" rel="noopener noreferrer" style="color:hsl(var(--btn-blue));font-weight:600">';};
       var E = '</a>';
 
       // Knowledge base: each intent has keywords (weighted), multiple response variants, and follow-ups

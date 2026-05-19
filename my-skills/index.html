@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/logo.svg?v=2" />
+  <link rel="apple-touch-icon" href="/logo.svg?v=2" />
+  <title>My Skills | Ronnie Balonon Jr. — AI-Powered UI/UX Designer in Dubai</title>
+  <meta name="description" content="A breakdown of what I do: UI/UX & web design, photography & video, graphic design & social media, and basic coding. Tools, process, and approach." />
+  <meta name="author" content="Ronnie Balonon Jr." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0075FF" />
+  <link rel="canonical" href="https://ronnieb.design/my-skills/" />
+  <!-- Early theme init -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      if (t === 'light') {
+        document.documentElement.classList.replace('dark', 'light');
+        document.documentElement.style.background = '#fff';
+      }
+    })();
+  </script>
+  <!-- Google Fonts: DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & TOKENS ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --background: 0 0% 0%;
+      --foreground: 0 0% 100%;
+      --card: 0 0% 6%;
+      --muted-foreground: 0 0% 65%;
+      --border: 0 0% 14%;
+      --radius: 0.75rem;
+      --btn-blue: 220 100% 50%;
+      --btn-blue-hover: 220 100% 58%;
+      --neon-purple: 0 0% 100%;
+      --font-display: 'DM Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    button { cursor: pointer; font-family: inherit; }
+    ul { list-style: none; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 5rem); }
+
+    /* ===== A11Y FOCUS RING ===== */
+    :focus { outline: none; }
+    :focus-visible {
+      outline: 2px solid hsl(var(--foreground));
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .skip-link {
+      position: absolute; top: -40px; left: 0.75rem; z-index: 1000;
+      padding: 0.625rem 1rem; background: hsl(var(--btn-blue)); color: #fff;
+      font-weight: 600; font-size: 0.875rem; border-radius: 0.5rem;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus, .skip-link:focus-visible { top: 0.75rem; }
+
+    /* ===== TOP BAR ===== */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: clamp(1.25rem, 4vw, 2.5rem) clamp(1.5rem, 5vw, 5rem);
+      background: transparent;
+      pointer-events: none;
+    }
+    .topbar > * { pointer-events: auto; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo img { filter: brightness(1.8) saturate(1.15); }
+    html.light .nav-logo img { filter: none; }
+    .nav-logo-text { font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; }
+
+    .menu-toggle {
+      position: relative; width: 44px; height: 44px;
+      background: transparent;
+      border: 1px solid hsl(var(--foreground) / 0.18);
+      border-radius: 0.5rem; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .menu-toggle:hover {
+      border-color: hsl(var(--btn-blue) / 0.7);
+      background: hsl(var(--btn-blue) / 0.08);
+    }
+    .menu-toggle-bar {
+      position: absolute; left: 10px; right: 10px; height: 2.5px;
+      background: hsl(var(--foreground));
+      border-radius: 2px;
+      transition: transform 0.3s ease, top 0.3s ease, opacity 0.3s ease;
+    }
+    .menu-toggle-bar:nth-child(1) { top: 13px; }
+    .menu-toggle-bar:nth-child(2) { top: 21px; }
+    .menu-toggle-bar:nth-child(3) { top: 29px; }
+    body.overlay-open .menu-toggle-bar:nth-child(1) { top: 21px; transform: rotate(45deg); }
+    body.overlay-open .menu-toggle-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    body.overlay-open .menu-toggle-bar:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+    /* ===== OVERLAY MENU ===== */
+    .overlay-menu {
+      position: fixed; inset: 0; z-index: 200;
+      background: hsl(var(--background));
+      background-image:
+        radial-gradient(circle at 80% 10%, hsl(var(--btn-blue) / 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 10% 90%, hsl(var(--foreground) / 0.04) 0%, transparent 50%);
+      display: flex; flex-direction: column;
+      padding: clamp(5rem, 9vw, 7rem) clamp(1.5rem, 5vw, 5rem) clamp(1.5rem, 3vw, 2.5rem);
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.45s cubic-bezier(.16,1,.3,1), visibility 0s 0.45s;
+    }
+    body.overlay-open .overlay-menu {
+      opacity: 1; visibility: visible; pointer-events: auto;
+      transition: opacity 0.45s cubic-bezier(.16,1,.3,1), visibility 0s;
+    }
+    .overlay-close {
+      position: absolute;
+      top: clamp(1.25rem, 4vw, 2.5rem);
+      right: clamp(1.5rem, 5vw, 5rem);
+      width: 44px; height: 44px;
+      background: transparent; color: hsl(var(--foreground));
+      border: 1px solid hsl(var(--foreground) / 0.18);
+      border-radius: 0.5rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+    .overlay-close:hover {
+      border-color: hsl(var(--btn-blue));
+      color: hsl(var(--btn-blue));
+      transform: rotate(90deg);
+    }
+    .overlay-inner {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: clamp(2rem, 6vw, 6rem);
+      align-items: center;
+      max-width: 1400px; width: 100%; margin: 0 auto;
+    }
+    .overlay-primary {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .overlay-link {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.2vw, 3.5rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.2; color: hsl(var(--foreground) / 0.85);
+      transition: color 0.25s ease, transform 0.25s ease;
+      display: inline-block; white-space: nowrap;
+    }
+    .overlay-link:hover { color: hsl(var(--btn-blue)); transform: translateX(6px); }
+    .overlay-link.active { color: hsl(var(--btn-blue)); }
+    .overlay-secondary { display: flex; flex-direction: column; gap: 2.5rem; }
+    .overlay-col { display: flex; flex-direction: column; gap: 0.55rem; }
+    .overlay-col-title {
+      font-family: var(--font-display);
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: hsl(var(--foreground) / 0.35);
+      margin-bottom: 0.4rem;
+    }
+    .overlay-col a {
+      font-size: 0.95rem; font-weight: 500;
+      color: hsl(var(--foreground) / 0.78);
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .overlay-col a:hover { color: hsl(var(--btn-blue)); transform: translateX(4px); }
+    .overlay-footer {
+      max-width: 1400px; width: 100%; margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid hsl(var(--foreground) / 0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem;
+    }
+    .overlay-location {
+      display: flex; align-items: baseline; gap: 0.75rem;
+      font-size: 0.8rem; color: hsl(var(--foreground) / 0.55);
+    }
+    .overlay-location h4 {
+      font-family: var(--font-display);
+      font-size: 0.8rem; font-weight: 600;
+      color: hsl(var(--foreground) / 0.85); margin: 0;
+    }
+    .overlay-location-sep { color: hsl(var(--foreground) / 0.25); }
+    .overlay-copyright { font-size: 0.75rem; color: hsl(var(--foreground) / 0.35); margin: 0; }
+    .overlay-footer-right { display: flex; align-items: center; gap: 1.25rem; }
+    .theme-toggle {
+      width: 34px; height: 34px;
+      background: transparent; border: 1px solid hsl(var(--foreground) / 0.2);
+      color: hsl(var(--foreground)); border-radius: 0.4rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { border-color: hsl(var(--btn-blue)); color: hsl(var(--btn-blue)); }
+    html.dark .icon-sun, html.light .icon-moon { display: none; }
+    body.overlay-open { overflow: hidden; }
+    @media (max-width: 900px) {
+      .overlay-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .overlay-secondary { gap: 2rem; }
+      .overlay-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 25% 40%, hsl(var(--btn-blue) / 0.10) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, hsl(var(--foreground) / 0.03) 0%, transparent 50%);
+      z-index: 0;
+    }
+    .page-hero-content {
+      position: relative; z-index: 1;
+      max-width: 820px;
+    }
+    .page-hero-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: hsl(var(--btn-blue));
+      margin-bottom: 1.25rem;
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.5rem;
+    }
+    .page-hero h1 .light { font-weight: 200; opacity: 0.92; }
+    .page-hero h1 .italic { font-style: italic; font-weight: 300; opacity: 0.85; }
+    .page-hero p {
+      font-size: 1.1rem;
+      color: hsl(var(--foreground) / 0.7);
+      max-width: 620px;
+      line-height: 1.6;
+    }
+
+    /* ===== SKILLS HIERARCHY ===== */
+    section { position: relative; }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 0.75rem;
+    }
+    .section-subtitle {
+      color: hsl(var(--muted-foreground));
+      font-size: 1.05rem; max-width: 42rem;
+    }
+    .skills-section {
+      background: hsl(var(--background));
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .section-head { margin-bottom: 3rem; text-align: center; }
+    .section-head .section-subtitle { margin-left: auto; margin-right: auto; }
+
+    .sk-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    .sk-card {
+      position: relative;
+      background: hsl(var(--card) / 0.85);
+      border: 1px solid hsl(var(--border));
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      overflow: hidden;
+      transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
+    }
+    .sk-card:hover {
+      border-color: hsl(var(--foreground) / 0.35);
+      box-shadow: 0 0 50px hsl(var(--foreground) / 0.05),
+                  0 8px 30px rgba(0,0,0,0.4);
+      transform: translateY(-4px);
+    }
+    .sk-icon {
+      width: 3.25rem; height: 3.25rem; border-radius: 0.625rem;
+      background: hsl(var(--foreground) / 0.08);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .sk-icon svg { width: 1.5rem; height: 1.5rem; color: hsl(var(--foreground)); }
+    .sk-tag {
+      position: absolute; top: 1rem; right: 1rem;
+      font-size: 0.55rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.55rem; border-radius: 100px;
+      background: hsl(var(--foreground) / 0.08);
+      color: hsl(var(--foreground) / 0.85);
+    }
+    .sk-title {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      color: hsl(var(--foreground)); line-height: 1.3; margin-bottom: 1rem;
+    }
+    .sk-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .sk-list-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: hsl(var(--foreground) / 0.75);
+    }
+    .sk-dot {
+      width: 0.375rem; height: 0.375rem; border-radius: 50%;
+      flex-shrink: 0;
+      background: hsl(var(--foreground) / 0.55);
+    }
+    @media (max-width: 1024px) { .sk-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .sk-grid { grid-template-columns: 1fr; } }
+
+    /* ===== TOOLS PER SKILL ===== */
+    .tools-detail-section { padding: 5rem 0; background: hsl(0 0% 3%); }
+    .tools-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .tools-detail-card {
+      background: hsl(var(--card));
+      border: 1px solid hsl(var(--border));
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .tools-detail-card:hover {
+      border-color: hsl(var(--foreground) / 0.25);
+      transform: translateY(-2px);
+    }
+    .tools-detail-card h3 {
+      font-size: 1.25rem; font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .tools-detail-card .tools-card-meta {
+      font-size: 0.75rem;
+      color: hsl(var(--btn-blue));
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .tools-detail-card p {
+      font-size: 0.9rem;
+      color: hsl(var(--foreground) / 0.65);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+    .tools-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .tools-tag {
+      font-size: 0.7rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+      background: hsl(var(--foreground) / 0.06);
+      color: hsl(var(--foreground) / 0.8);
+      border: 1px solid hsl(var(--foreground) / 0.1);
+    }
+    @media (max-width: 760px) { .tools-detail-grid { grid-template-columns: 1fr; } }
+
+    /* ===== PROCESS ===== */
+    .process-section { padding: 5rem 0; }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .process-step {
+      position: relative;
+      padding: 2rem 1.5rem;
+      background: hsl(var(--card) / 0.6);
+      border: 1px solid hsl(var(--border));
+      border-radius: 1rem;
+    }
+    .process-step-num {
+      font-family: var(--font-display);
+      font-size: 3rem; font-weight: 800;
+      color: hsl(var(--btn-blue));
+      line-height: 1;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+    .process-step h4 {
+      font-size: 1.05rem; font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .process-step p {
+      font-size: 0.85rem;
+      color: hsl(var(--foreground) / 0.6);
+      line-height: 1.55;
+    }
+    @media (max-width: 1024px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .process-grid { grid-template-columns: 1fr; } }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      padding: 6rem 0 5rem;
+      text-align: center;
+      background: hsl(0 0% 2%);
+    }
+    .cta-section h2 {
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .cta-section h2 .light { font-weight: 200; opacity: 0.9; }
+    .cta-section p {
+      color: hsl(var(--foreground) / 0.65);
+      font-size: 1.1rem;
+      max-width: 30rem;
+      margin: 0 auto 2rem;
+    }
+    .cta-buttons {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.95rem 1.8rem;
+      border-radius: 0.65rem;
+      font-size: 0.9rem; font-weight: 600;
+      transition: all 0.3s cubic-bezier(.16,1,.3,1);
+    }
+    .cta-btn-primary {
+      background: hsl(var(--btn-blue));
+      color: #fff;
+      box-shadow: 0 8px 24px hsl(var(--btn-blue) / 0.3);
+    }
+    .cta-btn-primary:hover {
+      background: hsl(var(--btn-blue-hover));
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px hsl(var(--btn-blue) / 0.45);
+    }
+    .cta-btn-outline {
+      background: transparent;
+      color: hsl(var(--foreground));
+      border: 1px solid hsl(var(--foreground) / 0.25);
+    }
+    .cta-btn-outline:hover {
+      border-color: hsl(var(--btn-blue));
+      color: hsl(var(--btn-blue));
+      transform: translateY(-3px);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: hsl(0 0% 1%);
+      border-top: 1px solid hsl(var(--border));
+      padding: 3rem 0 2rem;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-left { display: flex; align-items: center; gap: 0.75rem; }
+    .footer-left img { height: 32px; }
+    .footer-left span { font-weight: 700; font-size: 1rem; }
+    .footer-right {
+      font-size: 0.85rem;
+      color: hsl(var(--foreground) / 0.5);
+    }
+
+    /* ===== A11Y: prefers-reduced-motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <a href="/" class="nav-logo">
+      <img src="/logo.svg" alt="RB Monogram" style="display:block;height:40px;width:auto" />
+      <span class="nav-logo-text">Ronnie Balonon</span>
+    </a>
+    <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="overlayMenu">
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+    </button>
+  </header>
+
+  <!-- ===== OVERLAY MENU ===== -->
+  <nav class="overlay-menu" id="overlayMenu" aria-hidden="true" aria-label="Site navigation">
+    <button class="overlay-close" aria-label="Close menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="overlay-inner">
+      <ul class="overlay-primary">
+        <li><a href="/" class="overlay-link">Home</a></li>
+        <li><a href="/about/" class="overlay-link">About Me</a></li>
+        <li><a href="/my-skills/" class="overlay-link active">My Skills</a></li>
+        <li><a href="/#portfolio" class="overlay-link">Portfolio</a></li>
+        <li><a href="/contact/" class="overlay-link">Contact</a></li>
+      </ul>
+      <div class="overlay-secondary">
+        <div class="overlay-col">
+          <h3 class="overlay-col-title">Skills</h3>
+          <a href="/skill-uiux/">UI/UX &amp; Web Design</a>
+          <a href="/skill-photography/">Photography</a>
+          <a href="/skill-video-editing/">Video Editing</a>
+          <a href="/skill-artificial-intelligence/">Artificial Intelligence</a>
+          <a href="/skill-social-media/">Social Media</a>
+          <a href="/skill-graphic-design/">Graphic Design</a>
+        </div>
+        <div class="overlay-col">
+          <h3 class="overlay-col-title">Connect</h3>
+          <a href="mailto:ronniebalonon1996@gmail.com">Email</a>
+          <a href="https://wa.me/971543763091" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://www.instagram.com/ronnieeee25/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/ronnieeee25" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.tiktok.com/@ronnie.balonon" target="_blank" rel="noopener">TikTok</a>
+        </div>
+      </div>
+    </div>
+    <div class="overlay-footer">
+      <div class="overlay-location">
+        <h4>Dubai, UAE</h4>
+        <span class="overlay-location-sep">/</span>
+        <span>+971 54 376 3091</span>
+      </div>
+      <div class="overlay-footer-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <p class="overlay-copyright">© 2026 Ronnie Balonon Jr.</p>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero-content">
+          <span class="page-hero-eyebrow">What I do</span>
+          <h1>
+            <span>My</span> <span class="italic">Skills</span><br/>
+            <span class="light">and what I</span> <span>actually do.</span>
+          </h1>
+          <p>A practical breakdown of the toolkit I bring to every project — UI/UX and web design at the core, with photography, video, graphic design, social media, and basic front-end coding rounding it out. Every skill below is something I've shipped real work with, not a buzzword pile.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS HIERARCHY ===== -->
+    <section class="skills-section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Skills Hierarchy</h2>
+          <p class="section-subtitle">A balanced blend of design, photography, and development — ranked by where I spend the most focused time.</p>
+        </div>
+        <div class="sk-grid">
+
+          <!-- Card 1 — UI/UX & Web Design -->
+          <div class="sk-card">
+            <span class="sk-tag">Primary</span>
+            <div class="sk-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+            </div>
+            <h3 class="sk-title">UI/UX &amp; Web Design</h3>
+            <div class="sk-list">
+              <div class="sk-list-item"><span class="sk-dot"></span>Wireframing</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Interactive Prototyping</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>User Research</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Interaction Design</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Mobile App UI Design</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Website Design</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Responsive Web Design</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>E-commerce UI Design</div>
+            </div>
+          </div>
+
+          <!-- Card 2 — Photography & Video -->
+          <div class="sk-card">
+            <span class="sk-tag">Secondary</span>
+            <div class="sk-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <h3 class="sk-title">Photography &amp; Video Editing</h3>
+            <div class="sk-list">
+              <div class="sk-list-item"><span class="sk-dot"></span>Food &amp; Beverage Photography</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Product Photography</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Corporate Photography</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Portrait &amp; Headshot Photography</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Social Media Video Editing</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Color Grading &amp; Color Correction</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Short Video</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>AI Video</div>
+            </div>
+          </div>
+
+          <!-- Card 3 — Graphic Design & Social Media -->
+          <div class="sk-card">
+            <span class="sk-tag">Tertiary</span>
+            <div class="sk-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5Z"/></svg>
+            </div>
+            <h3 class="sk-title">Graphic Design &amp; Social Media</h3>
+            <div class="sk-list">
+              <div class="sk-list-item"><span class="sk-dot"></span>Business Cards &amp; Stationery Design</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Flyers, Posters &amp; Roll-up Banners</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Packaging Design</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Instagram Feed Design</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Social Media Static Posts</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Carousel Posts</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Social Media Banners</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Reels &amp; Short Video Thumbnails</div>
+            </div>
+          </div>
+
+          <!-- Card 4 — Basic Coding -->
+          <div class="sk-card">
+            <span class="sk-tag">Bonus</span>
+            <div class="sk-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="sk-title">Basic Coding</h3>
+            <div class="sk-list">
+              <div class="sk-list-item"><span class="sk-dot"></span>HTML</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>CSS</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>VS Code</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>Basic JavaScript</div>
+              <div class="sk-list-item"><span class="sk-dot"></span>AI-assisted development</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TOOLS PER SKILL ===== -->
+    <section class="tools-detail-section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Tools I Actually Use</h2>
+          <p class="section-subtitle">The software, platforms, and AI workflows that turn ideas into shipped work.</p>
+        </div>
+        <div class="tools-detail-grid">
+
+          <div class="tools-detail-card">
+            <div class="tools-card-meta">Design &amp; Prototyping</div>
+            <h3>UI/UX &amp; Web</h3>
+            <p>Figma is home base for everything from low-fidelity wireframes to high-fidelity interactive prototypes. I work design-first, validate quickly, and hand off ready-to-build specs.</p>
+            <div class="tools-tags">
+              <span class="tools-tag">Figma</span>
+              <span class="tools-tag">Adobe XD</span>
+              <span class="tools-tag">Webflow</span>
+              <span class="tools-tag">Framer</span>
+              <span class="tools-tag">FigJam</span>
+            </div>
+          </div>
+
+          <div class="tools-detail-card">
+            <div class="tools-card-meta">Capture &amp; Edit</div>
+            <h3>Photography &amp; Video</h3>
+            <p>From product shoots to corporate portraits — I shoot, grade, and cut. Lightroom for color, Premiere for the timeline, AI tools for everything that used to take a week.</p>
+            <div class="tools-tags">
+              <span class="tools-tag">Lightroom</span>
+              <span class="tools-tag">Photoshop</span>
+              <span class="tools-tag">Premiere Pro</span>
+              <span class="tools-tag">Kling AI</span>
+              <span class="tools-tag">CapCut</span>
+            </div>
+          </div>
+
+          <div class="tools-detail-card">
+            <div class="tools-card-meta">Print &amp; Social</div>
+            <h3>Graphic Design</h3>
+            <p>Packaging, print, social — the kind of design that lives offline and online. Strong on layout, typography, and turning a brief into something a client can actually use tomorrow.</p>
+            <div class="tools-tags">
+              <span class="tools-tag">Illustrator</span>
+              <span class="tools-tag">InDesign</span>
+              <span class="tools-tag">Photoshop</span>
+              <span class="tools-tag">Canva Pro</span>
+              <span class="tools-tag">Freepik</span>
+            </div>
+          </div>
+
+          <div class="tools-detail-card">
+            <div class="tools-card-meta">AI &amp; Workflow</div>
+            <h3>AI-Powered Design</h3>
+            <p>Where most of my edge comes from. I use AI to draft variants fast, generate imagery, prototype copy, and build static sites — then bring a human eye to ship them.</p>
+            <div class="tools-tags">
+              <span class="tools-tag">Claude</span>
+              <span class="tools-tag">ChatGPT</span>
+              <span class="tools-tag">Midjourney</span>
+              <span class="tools-tag">Dreamania</span>
+              <span class="tools-tag">Kling</span>
+              <span class="tools-tag">VS Code</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section class="process-section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">How I Work</h2>
+          <p class="section-subtitle">A repeatable four-step loop — fast enough to ship, deliberate enough to get right.</p>
+        </div>
+        <div class="process-grid">
+          <div class="process-step">
+            <div class="process-step-num">01</div>
+            <h4>Understand</h4>
+            <p>Brief, audience, constraints, brand. No design starts before the problem is clearly named.</p>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">02</div>
+            <h4>Draft Fast</h4>
+            <p>AI-assisted exploration of variants — layout, copy, imagery. Pick the strongest direction in hours, not weeks.</p>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">03</div>
+            <h4>Refine</h4>
+            <p>Tighten type, spacing, color, motion. This is where the human craft matters most.</p>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">04</div>
+            <h4>Ship &amp; Iterate</h4>
+            <p>Hand off cleanly, prototype the build, watch how it performs. Improve based on what's real, not what was assumed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to <span class="light">build something</span> together?</h2>
+        <p>Tell me what you're working on — I'll come back with a direction within 48 hours.</p>
+        <div class="cta-buttons">
+          <a href="/contact/" class="cta-btn cta-btn-primary">
+            Start a project
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="/" class="cta-btn cta-btn-outline">Back to home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <img src="/logo.svg" alt="RB Monogram" />
+          <span>Ronnie Balonon Jr.</span>
+        </div>
+        <div class="footer-right">© 2026 Ronnie Balonon Jr. — AI-Powered UI/UX Designer, Dubai</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== THEME TOGGLE =====
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      var html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.replace('dark', 'light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.replace('light', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // ===== OVERLAY MENU =====
+    (function() {
+      var trigger = document.getElementById('menuToggle');
+      var overlay = document.getElementById('overlayMenu');
+      if (!trigger || !overlay) return;
+      var closeBtn = overlay.querySelector('.overlay-close');
+      var body = document.body;
+
+      function openMenu() {
+        body.classList.add('overlay-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.setAttribute('aria-label', 'Close menu');
+        setTimeout(function() {
+          var firstLink = overlay.querySelector('.overlay-link');
+          if (firstLink) firstLink.focus();
+        }, 100);
+      }
+      function closeMenu() {
+        body.classList.remove('overlay-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.setAttribute('aria-label', 'Open menu');
+        trigger.focus();
+      }
+      function toggleMenu() {
+        if (body.classList.contains('overlay-open')) closeMenu();
+        else openMenu();
+      }
+      trigger.addEventListener('click', toggleMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && body.classList.contains('overlay-open')) closeMenu();
+      });
+    })();
+  </script>
+</body>
+</html>
