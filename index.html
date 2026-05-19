@@ -8,7 +8,6 @@
   <meta http-equiv="Expires" content="0" />
   <link rel="icon" type="image/svg+xml" href="/logo.svg?v=2" />
   <link rel="apple-touch-icon" href="/logo.svg?v=2" />
-  <link rel="preload" as="image" href="/assets/hero/WEB%20hero%20section.jpg" fetchpriority="high" />
   <script src="/loader.js?v=5"></script>
   <script src="/search.js?v=9" defer></script>
   <script src="/chatbot.js?v=7" defer></script>
@@ -2186,8 +2185,8 @@
     .overlay-inner {
       flex: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-      gap: clamp(2rem, 6vw, 6rem);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      gap: clamp(2rem, 5vw, 5rem);
       align-items: center;
       max-width: 1400px;
       width: 100%;
@@ -2198,7 +2197,7 @@
       padding: 0;
       margin: 0;
       display: flex; flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
     .overlay-primary li {
       opacity: 0;
@@ -2217,36 +2216,33 @@
 
     .overlay-link {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4.2vw, 3.5rem);
+      font-size: clamp(1.75rem, 3.6vw, 2.85rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.2;
+      line-height: 1.25;
       color: hsl(var(--foreground) / 0.85);
       transition: color 0.25s ease, transform 0.25s ease;
       display: inline-block;
       white-space: nowrap;
     }
     .overlay-link:hover {
-      color: hsl(var(--primary));
+      color: hsl(var(--btn-blue));
       transform: translateX(6px);
     }
-    .overlay-link.active {
-      color: hsl(var(--primary));
-      background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--neon-purple)) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    .overlay-link.active { color: hsl(var(--btn-blue)); }
 
+    /* Secondary block becomes a 2-column grid (Skills | Connect)
+       sitting beside the primary nav — three visual columns total. */
     .overlay-secondary {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 3rem);
+      align-self: center;
     }
     .overlay-col {
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
+      gap: 0.65rem;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s cubic-bezier(.16,1,.3,1) 0.32s, transform 0.5s cubic-bezier(.16,1,.3,1) 0.32s;
@@ -2258,21 +2254,23 @@
     body.overlay-open .overlay-col:nth-child(2) { transition-delay: 0.40s; }
     .overlay-col-title {
       font-family: var(--font-display);
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: hsl(var(--foreground) / 0.35);
-      margin-bottom: 0.4rem;
+      color: hsl(var(--foreground) / 0.4);
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid hsl(var(--foreground) / 0.08);
     }
     .overlay-col a {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 500;
       color: hsl(var(--foreground) / 0.78);
       transition: color 0.2s ease, transform 0.2s ease;
     }
     .overlay-col a:hover {
-      color: hsl(var(--primary));
+      color: hsl(var(--btn-blue));
       transform: translateX(4px);
     }
 
@@ -2619,7 +2617,7 @@
         grid-template-columns: 1fr;
         gap: 2.5rem;
       }
-      .overlay-secondary { gap: 2rem; }
+      .overlay-secondary { grid-template-columns: 1fr; gap: 2rem; }
       .overlay-footer {
         flex-direction: column;
         align-items: flex-start;
@@ -2703,7 +2701,7 @@
   <!-- ===== HERO SECTION ===== -->
   <section id="home" class="hero">
     <div class="hero-bg">
-      <img src="/assets/hero/WEB%20hero%20section.jpg" alt="" class="hero-bg-image" loading="eager"/>
+      <!-- Background image to come — using clean dark backdrop for now -->
     </div>
     <!-- Floating sparkle particles -->
     <div class="hero-particles" id="heroParticles"></div>

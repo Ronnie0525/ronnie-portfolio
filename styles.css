@@ -2625,14 +2625,14 @@
     .overlay-inner {
       flex: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-      gap: clamp(2rem, 6vw, 6rem);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      gap: clamp(2rem, 5vw, 5rem);
       align-items: center;
       max-width: 1400px; width: 100%; margin: 0 auto;
     }
     .overlay-primary {
       list-style: none; padding: 0; margin: 0;
-      display: flex; flex-direction: column; gap: 0.5rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
     }
     .overlay-primary li {
       opacity: 0;
@@ -2649,18 +2649,25 @@
     body.overlay-open .overlay-primary li:nth-child(5) { transition-delay: 0.32s; }
     .overlay-link {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4.2vw, 3.5rem);
+      font-size: clamp(1.75rem, 3.6vw, 2.85rem);
       font-weight: 700; letter-spacing: -0.02em;
-      line-height: 1.2;
+      line-height: 1.25;
       color: hsl(var(--foreground) / 0.85);
       transition: color 0.25s ease, transform 0.25s ease;
       display: inline-block; white-space: nowrap;
     }
     .overlay-link:hover { color: hsl(var(--btn-blue)); transform: translateX(6px); }
     .overlay-link.active { color: hsl(var(--btn-blue)); }
-    .overlay-secondary { display: flex; flex-direction: column; gap: 2.5rem; }
+    /* Secondary block becomes a 2-column grid (Skills | Connect) sitting
+       beside the primary nav — three visual columns total. */
+    .overlay-secondary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 3rem);
+      align-self: center;
+    }
     .overlay-col {
-      display: flex; flex-direction: column; gap: 0.55rem;
+      display: flex; flex-direction: column; gap: 0.65rem;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s cubic-bezier(.16,1,.3,1) 0.32s,
@@ -2670,13 +2677,15 @@
     body.overlay-open .overlay-col:nth-child(2) { transition-delay: 0.40s; }
     .overlay-col-title {
       font-family: var(--font-display);
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: hsl(var(--foreground) / 0.35);
-      margin-bottom: 0.4rem;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: hsl(var(--foreground) / 0.4);
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid hsl(var(--foreground) / 0.08);
     }
     .overlay-col a {
-      font-size: 0.95rem; font-weight: 500;
+      font-size: 1rem; font-weight: 500;
       color: hsl(var(--foreground) / 0.78);
       transition: color 0.2s ease, transform 0.2s ease;
     }
@@ -2714,6 +2723,6 @@
     body.overlay-open { overflow: hidden; }
     @media (max-width: 900px) {
       .overlay-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .overlay-secondary { gap: 2rem; }
+      .overlay-secondary { grid-template-columns: 1fr; gap: 2rem; }
       .overlay-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
