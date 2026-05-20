@@ -2625,10 +2625,160 @@
     .overlay-inner {
       flex: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
       gap: clamp(2rem, 5vw, 5rem);
       align-items: center;
       max-width: 1400px; width: 100%; margin: 0 auto;
+    }
+    /* Left ID slot — same static ID badge on every page so the overlay is uniform */
+    .overlay-id {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 540px;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: opacity 0.6s cubic-bezier(.16,1,.3,1) 0.18s,
+                  transform 0.6s cubic-bezier(.16,1,.3,1) 0.18s;
+    }
+    body.overlay-open .overlay-id { opacity: 1; transform: translateY(0); }
+    /* Blue lanyard strip + buckle hanging above the card */
+    .overlay-id-cord {
+      width: 30px;
+      height: 90px;
+      background:
+        linear-gradient(180deg, hsl(218 90% 28%) 0%, hsl(218 92% 45%) 50%, hsl(218 92% 40%) 100%);
+      border-left: 2px solid hsl(218 90% 22%);
+      border-right: 2px solid hsl(218 90% 22%);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+    }
+    .overlay-id-buckle {
+      width: 44px;
+      height: 26px;
+      background: linear-gradient(180deg, #2a2c33 0%, #0a0b10 100%);
+      border-radius: 4px;
+      position: relative;
+      margin-top: -2px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 1px 0 rgba(255,255,255,0.18) inset,
+        0 4px 12px rgba(0,0,0,0.6);
+    }
+    .overlay-id-buckle::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 12px;
+      background: linear-gradient(180deg, #1e2027 0%, #0a0b10 100%);
+      border-radius: 0 0 4px 4px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 2px 4px rgba(0,0,0,0.5);
+    }
+    /* The static ID card itself */
+    .overlay-card {
+      position: relative;
+      width: 260px;
+      height: 400px;
+      margin-top: 14px;
+      background:
+        radial-gradient(ellipse at top, rgba(56,110,255,0.10) 0%, transparent 60%),
+        linear-gradient(165deg, #1a1d27 0%, #0a0b10 60%, #050609 100%);
+      border-radius: 16px;
+      padding: 32px 20px 0;
+      box-sizing: border-box;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 1px 0 rgba(255,255,255,0.20) inset,
+        0 -2px 0 rgba(0,0,0,0.4) inset,
+        0 8px 18px rgba(0,0,0,0.55),
+        0 28px 56px rgba(0,0,0,0.65);
+      overflow: hidden;
+    }
+    .overlay-card-slot {
+      position: absolute;
+      top: 10px; left: 50%;
+      transform: translateX(-50%);
+      width: 44px; height: 4px;
+      background: #000;
+      border-radius: 99px;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.12);
+    }
+    .overlay-card-header {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      color: #f3f4f7;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .overlay-card-photo {
+      width: 168px;
+      height: 168px;
+      margin: 18px auto 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #20232c 0%, #07080c 100%);
+      border: 2px solid rgba(255,255,255,0.28);
+      box-shadow:
+        0 8px 18px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(0,0,0,0.4),
+        0 0 22px hsl(220 100% 50% / 0.22);
+    }
+    .overlay-card-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 18%;
+      display: block;
+    }
+    .overlay-card-name {
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #f3f4f7;
+      margin-top: 18px;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+    }
+    .overlay-card-role {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: hsl(220 18% 55%);
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+    .overlay-card-bottom {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 36px;
+      background: linear-gradient(180deg, hsl(220 100% 58%) 0%, hsl(220 100% 45%) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.34em;
+      color: #fff;
+      text-transform: uppercase;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.25) inset,
+        0 -1px 0 rgba(0,0,0,0.3) inset;
+    }
+    /* Right column wraps the nav links + skills/connect grid */
+    .overlay-right {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      justify-content: center;
+      align-self: center;
     }
     .overlay-primary {
       list-style: none; padding: 0; margin: 0;
@@ -2658,13 +2808,11 @@
     }
     .overlay-link:hover { color: hsl(var(--btn-blue)); transform: translateX(6px); }
     .overlay-link.active { color: hsl(var(--btn-blue)); }
-    /* Secondary block becomes a 2-column grid (Skills | Connect) sitting
-       beside the primary nav — three visual columns total. */
+    /* Skills + Connect grid sits below the nav links in the right column */
     .overlay-secondary {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: clamp(2rem, 4vw, 3rem);
-      align-self: center;
     }
     .overlay-col {
       display: flex; flex-direction: column; gap: 0.65rem;
@@ -2723,6 +2871,7 @@
     body.overlay-open { overflow: hidden; }
     @media (max-width: 900px) {
       .overlay-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .overlay-id { display: none; }
       .overlay-secondary { grid-template-columns: 1fr; gap: 2rem; }
       .overlay-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }

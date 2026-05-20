@@ -705,7 +705,7 @@
       will-change: transform, opacity;
       transform: translateY(-130vh);
       opacity: 0;
-      animation: lanyardDrop 0.85s cubic-bezier(0.55, 0, 0.45, 1) 2.6s both;
+      animation: lanyardDrop 0.7s cubic-bezier(0.55, 0, 0.45, 1) 2.45s both;
     }
     @keyframes lanyardDrop {
       0%   { transform: translateY(-130vh); opacity: 0; }
@@ -960,7 +960,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 50% 22%; /* keep the face centered in the upper portion of the frame */
+      object-position: 50% 18%; /* keep the face centered in the upper portion of the frame */
       display: block;
     }
 
@@ -2676,34 +2676,26 @@
     .overlay-inner {
       flex: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
       gap: clamp(2rem, 5vw, 5rem);
-      align-items: stretch;
+      align-items: center;
       max-width: 1400px;
       width: 100%;
       margin: 0 auto;
     }
-    /* Left slot — sized so the hero lanyard lands here cleanly */
-    .overlay-id {
-      position: relative;
-      min-height: 700px;
-    }
-    /* Right column — nav band on top, then the skills+connect grid */
     .overlay-right {
       display: flex;
       flex-direction: column;
       gap: clamp(2rem, 4vw, 3.5rem);
       justify-content: center;
+      align-self: center;
     }
     .overlay-primary {
       list-style: none;
       padding: 0;
       margin: 0;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: clamp(1rem, 2.4vw, 2.4rem) clamp(1.25rem, 2.6vw, 2.6rem);
+      display: flex; flex-direction: column;
+      gap: 0.4rem;
     }
     .overlay-primary li {
       opacity: 0;
@@ -2722,10 +2714,10 @@
 
     .overlay-link {
       font-family: var(--font-display);
-      font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+      font-size: clamp(1.75rem, 3.6vw, 2.85rem);
       font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
       color: hsl(var(--foreground) / 0.85);
       transition: color 0.25s ease, transform 0.25s ease;
       display: inline-block;
@@ -2733,7 +2725,7 @@
     }
     .overlay-link:hover {
       color: hsl(var(--btn-blue));
-      transform: translateY(-3px);
+      transform: translateX(6px);
     }
     .overlay-link.active { color: hsl(var(--btn-blue)); }
 
@@ -3061,12 +3053,20 @@
       position: absolute;
       bottom: clamp(1.5rem, 3.5vw, 2.5rem);
       left: 50%;
-      transform: translateX(-50%);
       width: 150px; height: 150px;
       z-index: 6;
       pointer-events: none;
-      opacity: 0.92;
+      opacity: 0;
+      transform: translateX(-50%) translateY(24px) scale(0.82);
+      /* Fires right after the ID drop animation completes (~3.15s) */
+      animation: scrollIndicatorAppear 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) 3.2s both;
     }
+    @keyframes scrollIndicatorAppear {
+      0%   { opacity: 0;    transform: translateX(-50%) translateY(24px) scale(0.82); }
+      100% { opacity: 0.92; transform: translateX(-50%) translateY(0)   scale(1);    }
+    }
+    /* Pause during splash so it doesn't waste its entrance behind the splash screen */
+    html.splash-active .scroll-indicator { animation-play-state: paused; }
     .scroll-indicator-svg {
       width: 100%; height: 100%;
       transform-origin: center;
@@ -3109,8 +3109,9 @@
       .scroll-indicator-arrow { width: 42px; height: 42px; }
       .scroll-indicator-text { font-size: 11px; }
     }
-    /* Hide when overlay menu is open */
-    body.overlay-open .scroll-indicator { opacity: 0; }
+    /* Hide when overlay menu is open — !important needed because the entrance animation
+       uses animation-fill-mode: both, which would otherwise pin the opacity to 0.92. */
+    body.overlay-open .scroll-indicator { opacity: 0 !important; }
     /* Reduced-motion users: still show but pause continuous motion */
     @media (prefers-reduced-motion: reduce) {
       .scroll-indicator-svg,
@@ -3158,36 +3159,46 @@
     </button>
 
     <div class="overlay-inner">
-      <!-- Left slot — the hero lanyard physically transitions here when the menu opens -->
-      <div class="overlay-id" id="overlayIdSlot" aria-hidden="true"></div>
-
+      <div class="overlay-id" aria-hidden="true">
+        <div class="overlay-id-cord"></div>
+        <div class="overlay-id-buckle"></div>
+        <div class="overlay-card">
+          <div class="overlay-card-slot"></div>
+          <div class="overlay-card-header">Designer &middot; ID</div>
+          <div class="overlay-card-photo">
+            <img src="/assets/hero/ID.png" alt="" onerror="this.remove();"/>
+          </div>
+          <div class="overlay-card-name">Ronnie Balonon Jr.</div>
+          <div class="overlay-card-role">AI-Powered UI/UX</div>
+          <div class="overlay-card-bottom">Portfolio</div>
+        </div>
+      </div>
       <div class="overlay-right">
-        <ul class="overlay-primary">
-          <li><a href="/" class="overlay-link active" data-overlay-link>Home</a></li>
-          <li><a href="/about/" class="overlay-link" data-overlay-link>About Me</a></li>
-          <li><a href="/my-skills/" class="overlay-link" data-overlay-link>My Skills</a></li>
-          <li><a href="#portfolio" class="overlay-link" data-overlay-link>Portfolio</a></li>
-          <li><a href="/contact/" class="overlay-link" data-overlay-link>Contact</a></li>
-        </ul>
+      <ul class="overlay-primary">
+        <li><a href="/" class="overlay-link active" data-overlay-link>Home</a></li>
+        <li><a href="/about/" class="overlay-link" data-overlay-link>About Me</a></li>
+        <li><a href="/my-skills/" class="overlay-link" data-overlay-link>My Skills</a></li>
+        <li><a href="#portfolio" class="overlay-link" data-overlay-link>Portfolio</a></li>
+        <li><a href="/contact/" class="overlay-link" data-overlay-link>Contact</a></li>
+      </ul>
 
-        <div class="overlay-secondary">
-          <div class="overlay-col">
-            <h3 class="overlay-col-title">Skills</h3>
-            <a href="/skill-uiux/" data-overlay-link>UI/UX &amp; Web Design</a>
-            <a href="/skill-photography/" data-overlay-link>Photography</a>
-            <a href="/skill-video-editing/" data-overlay-link>Video Editing</a>
-            <a href="/skill-artificial-intelligence/" data-overlay-link>Artificial Intelligence</a>
-            <a href="/skill-social-media/" data-overlay-link>Social Media</a>
-            <a href="/skill-graphic-design/" data-overlay-link>Graphic Design</a>
-          </div>
-          <div class="overlay-col">
-            <h3 class="overlay-col-title">Connect</h3>
-            <a href="mailto:ronniebalonon1996@gmail.com" data-overlay-link>Email</a>
-            <a href="https://wa.me/971543763091" target="_blank" rel="noopener" data-overlay-link>WhatsApp</a>
-            <a href="https://www.instagram.com/ronnieeee25/" target="_blank" rel="noopener" data-overlay-link>Instagram</a>
-            <a href="https://www.facebook.com/ronnieeee25" target="_blank" rel="noopener" data-overlay-link>Facebook</a>
-            <a href="https://www.tiktok.com/@ronnie.balonon" target="_blank" rel="noopener" data-overlay-link>TikTok</a>
-          </div>
+      <div class="overlay-secondary">
+        <div class="overlay-col">
+          <h3 class="overlay-col-title">Skills</h3>
+          <a href="/skill-uiux/" data-overlay-link>UI/UX &amp; Web Design</a>
+          <a href="/skill-photography/" data-overlay-link>Photography</a>
+          <a href="/skill-video-editing/" data-overlay-link>Video Editing</a>
+          <a href="/skill-artificial-intelligence/" data-overlay-link>Artificial Intelligence</a>
+          <a href="/skill-social-media/" data-overlay-link>Social Media</a>
+          <a href="/skill-graphic-design/" data-overlay-link>Graphic Design</a>
+        </div>
+        <div class="overlay-col">
+          <h3 class="overlay-col-title">Connect</h3>
+          <a href="mailto:ronniebalonon1996@gmail.com" data-overlay-link>Email</a>
+          <a href="https://wa.me/971543763091" target="_blank" rel="noopener" data-overlay-link>WhatsApp</a>
+          <a href="https://www.instagram.com/ronnieeee25/" target="_blank" rel="noopener" data-overlay-link>Instagram</a>
+          <a href="https://www.facebook.com/ronnieeee25" target="_blank" rel="noopener" data-overlay-link>Facebook</a>
+          <a href="https://www.tiktok.com/@ronnie.balonon" target="_blank" rel="noopener" data-overlay-link>TikTok</a>
         </div>
       </div>
     </div>
@@ -3972,37 +3983,12 @@
       if (!trigger || !overlay) return;
       var closeBtn = overlay.querySelector('.overlay-close');
       var body = document.body;
-      var heroSlot = document.querySelector('.hero-right');
-      var overlaySlot = document.getElementById('overlayIdSlot');
-
-      // FLIP transition: physically move the lanyard between hero-right and the overlay slot,
-      // animating its position with a single smooth transform so it feels like the same object.
-      function moveLanyard(target) {
-        var stage = document.getElementById('lanyardStage');
-        if (!stage || !target || stage.parentElement === target) return;
-        var first = stage.getBoundingClientRect();
-        target.appendChild(stage);
-        var last = stage.getBoundingClientRect();
-        var dx = first.left - last.left;
-        var dy = first.top - last.top;
-        stage.style.transition = 'none';
-        stage.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
-        // Force the inverse-positioned state to flush before animating
-        // eslint-disable-next-line no-unused-expressions
-        stage.offsetHeight;
-        requestAnimationFrame(function() {
-          stage.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-          stage.style.transform = '';
-        });
-      }
 
       function openMenu() {
         body.classList.add('overlay-open');
         overlay.setAttribute('aria-hidden', 'false');
         trigger.setAttribute('aria-expanded', 'true');
         trigger.setAttribute('aria-label', 'Close menu');
-        // Slide the lanyard from the hero into the overlay's left slot
-        if (overlaySlot) moveLanyard(overlaySlot);
         // Move focus into the overlay so keyboard users can navigate
         setTimeout(function() {
           var firstLink = overlay.querySelector('.overlay-link');
@@ -4014,8 +4000,6 @@
         overlay.setAttribute('aria-hidden', 'true');
         trigger.setAttribute('aria-expanded', 'false');
         trigger.setAttribute('aria-label', 'Open menu');
-        // Slide the lanyard back to its hero position
-        if (heroSlot) moveLanyard(heroSlot);
         trigger.focus();
       }
       function toggleMenu() {
