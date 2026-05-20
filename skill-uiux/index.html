@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
   <script src="/loader.js?v=5"></script>
   <script src="/search.js?v=9" defer></script>
-  <link rel="stylesheet" href="/styles.css?v=44" />
+  <link rel="stylesheet" href="/styles.css?v=45" />
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
@@ -242,7 +242,7 @@
         <h2 class="font-display section-title">White-Label <span class="gradient-text">Designs</span></h2>
         <p class="section-subtitle">Brandable design concepts ready to be claimed and made yours</p>
       </div>
-      <div class="uw-grid">
+      <div class="uw-grid uw-grid--collapsible" id="webDesignsGrid">
 
         <div class="uw-card">
           <div class="uw-card-img">
@@ -250,7 +250,7 @@
           </div>
           <div class="uw-card-info">
             <span class="uw-tag">Crypto</span>
-            <h3>Aurum Crypto</h3>
+            <h3>Crypto</h3>
             <p>Crypto app concept with a web deploy workflow — built in TypeScript with React Native for web.</p>
             <div class="uw-actions">
               <a href="https://ronnie0525.github.io/Crypto/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
@@ -267,7 +267,7 @@
           </div>
           <div class="uw-card-info">
             <span class="uw-tag">Restaurant</span>
-            <h3>Abby's Burger</h3>
+            <h3>Cafeteria</h3>
             <p>Landing page for a local burger joint — bold visuals and a sharp menu showcase.</p>
             <div class="uw-actions">
               <a href="https://ronnie0525.github.io/Abbys-Burger/Abbys%20Hungry%20No%20More/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
@@ -284,7 +284,7 @@
           </div>
           <div class="uw-card-info">
             <span class="uw-tag">Apparel</span>
-            <h3>Chammica Apparel</h3>
+            <h3>E-commerce</h3>
             <p>Brand site for an apparel label — clean product display and on-brand visuals.</p>
             <div class="uw-actions">
               <a href="https://ronnie0525.github.io/Chammica-apparel/Chammica's%20Apparel/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
@@ -301,7 +301,7 @@
           </div>
           <div class="uw-card-info">
             <span class="uw-tag">Cafe</span>
-            <h3>Ar-ar Coffee &amp; Sweets</h3>
+            <h3>Cafe</h3>
             <p>Cafe website with a warm visual style, menu, and store info.</p>
             <div class="uw-actions">
               <a href="https://ronnie0525.github.io/Ar-ar-Coffee-and-sweets/Ar-Ar%20Coffee%20and%20Sweets/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
@@ -312,6 +312,30 @@
           </div>
         </div>
 
+        <div class="uw-card">
+          <div class="uw-card-img">
+            <img src="/assets/web/Advertising%20Website.png" alt="Click — Advertising and Digital Marketing Agency" loading="lazy"/>
+          </div>
+          <div class="uw-card-info">
+            <span class="uw-tag">Agency</span>
+            <h3>Advertising Website</h3>
+            <p>Advertising and digital marketing agency site for a Dubai-based brand — strategy, branding, social, and campaigns positioned for ambitious UAE clients.</p>
+            <div class="uw-actions">
+              <a href="https://ronnie0525.github.io/click/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                View Design
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="uw-see-more-wrap" id="webDesignsSeeMoreWrap" hidden>
+        <button class="uw-see-more" id="webDesignsSeeMore" type="button" aria-expanded="false" aria-controls="webDesignsGrid">
+          <span class="uw-see-more-label">See more</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -624,6 +648,24 @@
         el.style.transform = "translateY(30px)";
         el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
         observer.observe(el);
+      });
+    })();
+
+    // White-Label grid — show 4 cards, reveal the rest with the See more button
+    (function() {
+      var grid = document.getElementById('webDesignsGrid');
+      var wrap = document.getElementById('webDesignsSeeMoreWrap');
+      var btn  = document.getElementById('webDesignsSeeMore');
+      if (!grid || !wrap || !btn) return;
+      var cards = grid.querySelectorAll('.uw-card');
+      if (cards.length <= 4) return;
+      wrap.hidden = false;
+      var label = btn.querySelector('.uw-see-more-label');
+      btn.addEventListener('click', function() {
+        var open = grid.classList.toggle('is-expanded');
+        btn.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (label) label.textContent = open ? 'Show less' : 'See more';
       });
     })();
   </script>

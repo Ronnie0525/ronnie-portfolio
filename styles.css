@@ -1620,6 +1620,43 @@
       .uw-card-img { height: 260px; }
     }
 
+    /* Collapsible variant — show only the first 4 cards until toggled open */
+    .uw-grid--collapsible > .uw-card:nth-child(n+5) { display: none; }
+    .uw-grid--collapsible.is-expanded > .uw-card:nth-child(n+5) { display: flex; }
+    .uw-see-more-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .uw-see-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+      background: hsl(var(--btn-blue));
+      border: 1px solid hsl(var(--btn-blue));
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      box-shadow: 0 4px 14px hsl(var(--btn-blue) / 0.3);
+    }
+    .uw-see-more:hover {
+      background: hsl(var(--btn-blue-hover));
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px hsl(var(--btn-blue) / 0.4);
+    }
+    .uw-see-more svg {
+      width: 14px;
+      height: 14px;
+      transition: transform .3s ease;
+    }
+    .uw-see-more.is-open svg { transform: rotate(180deg); }
+
     /* ===== SPECIALTIES — "What I Do" service grid (all skill pages) ===== */
     .specialties-section {
       background: #000;
@@ -2782,7 +2819,9 @@
     }
     .overlay-primary {
       list-style: none; padding: 0; margin: 0;
-      display: flex; flex-direction: column; gap: 0.4rem;
+      display: flex; flex-direction: row; flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.4rem clamp(1.25rem, 2.4vw, 2.25rem);
     }
     .overlay-primary li {
       opacity: 0;
@@ -2799,14 +2838,14 @@
     body.overlay-open .overlay-primary li:nth-child(5) { transition-delay: 0.32s; }
     .overlay-link {
       font-family: var(--font-display);
-      font-size: clamp(1.75rem, 3.6vw, 2.85rem);
+      font-size: clamp(1.4rem, 2.4vw, 2.1rem);
       font-weight: 700; letter-spacing: -0.02em;
-      line-height: 1.25;
+      line-height: 1.2;
       color: hsl(var(--foreground) / 0.85);
       transition: color 0.25s ease, transform 0.25s ease;
       display: inline-block; white-space: nowrap;
     }
-    .overlay-link:hover { color: hsl(var(--btn-blue)); transform: translateX(6px); }
+    .overlay-link:hover { color: hsl(var(--btn-blue)); transform: translateY(-3px); }
     .overlay-link.active { color: hsl(var(--btn-blue)); }
     /* Skills + Connect grid sits below the nav links in the right column */
     .overlay-secondary {
