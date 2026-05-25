@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
@@ -6,8 +6,8 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <link rel="icon" type="image/svg+xml" href="/logo.svg?v=2" />
-  <link rel="apple-touch-icon" href="/logo.svg?v=2" />
+  <link rel="icon" type="image/png" href="/logo.png?v=3" />
+  <link rel="apple-touch-icon" href="/logo.png?v=3" />
   <script src="/loader.js?v=5"></script>
   <script src="/search.js?v=9" defer></script>
   <script src="/chatbot.js?v=7" defer></script>
@@ -2512,6 +2512,42 @@
       .uw-card-img { height: 260px; }
     }
 
+    /* "View more" pill — same shape as the skill-uiux See more button */
+    .uw-see-more-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .uw-see-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+      background: hsl(var(--btn-blue));
+      border: 1px solid hsl(var(--btn-blue));
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      box-shadow: 0 4px 14px hsl(var(--btn-blue) / 0.3);
+    }
+    .uw-see-more:hover {
+      background: hsl(var(--btn-blue-hover));
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px hsl(var(--btn-blue) / 0.4);
+    }
+    .uw-see-more svg {
+      width: 14px;
+      height: 14px;
+      transition: transform .3s ease;
+    }
+    .uw-see-more:hover svg { transform: translateX(3px); }
+
     /* ===== A11Y: Skip link (visible on focus) ===== */
     .skip-link {
       position: absolute;
@@ -2625,7 +2661,6 @@
       transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
     }
     .topbar--on-light .nav-logo-text { color: #0a0a0a; }
-    .topbar--on-light .nav-logo img { filter: none !important; }
     .topbar--on-light .menu-toggle { border-color: rgba(0, 0, 0, 0.18); }
     .topbar--on-light .menu-toggle:hover {
       border-color: hsl(var(--btn-blue) / 0.7);
@@ -3047,31 +3082,51 @@
     }
 
     /* ===== SCROLL DOWN INDICATOR =====
-       Lives inside the hero (position:absolute), centered along the bottom.
-       It scrolls away with the hero — no fixed-to-viewport floating.
-       Rotation is driven by JS based on real scroll input (no auto-spin). */
+       Lives at body level (after </main>) so it's painted last in the body
+       stacking context — that lets the SVG's mix-blend-mode see BOTH the
+       dark hero and the white sub-hero behind it as backdrop. Anchored at
+       document top:100vh, transform centres it on the seam.
+       End opacity is 1 (not 0.92) so the indicator doesn't become its own
+       stacking context post-entrance, which would isolate the blend.
+       Rotation is still driven by JS based on real scroll input. */
+    /* Lives at body level at top:100vh so it straddles the hero/sub-hero
+       seam. Bumped to 170px (from 150) so each letter gets ~13% more screen
+       pixels — that's what makes the white read as pure white instead of
+       greyish (the previous size was small enough for sub-pixel antialiasing
+       to wash the white toward grey). */
     .scroll-indicator {
       position: absolute;
-      bottom: clamp(1.5rem, 3.5vw, 2.5rem);
-      left: 50%;
-      width: 150px; height: 150px;
-      z-index: 6;
+      top: 100vh; left: 58%;
+      width: 170px; height: 170px;
       pointer-events: none;
       opacity: 0;
-      transform: translateX(-50%) translateY(24px) scale(0.82);
-      /* Fires right after the ID drop animation completes (2.0s + 0.4s = 2.4s) */
+      transform: translate(-50%, calc(-50% + 24px)) scale(0.82);
       animation: scrollIndicatorAppear 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) 2.45s both;
     }
     @keyframes scrollIndicatorAppear {
-      0%   { opacity: 0;    transform: translateX(-50%) translateY(24px) scale(0.82); }
-      100% { opacity: 0.92; transform: translateX(-50%) translateY(0)   scale(1);    }
+      0%   { opacity: 0; transform: translate(-50%, calc(-50% + 24px)) scale(0.82); }
+      100% { opacity: 1; transform: translate(-50%, -50%)              scale(1);    }
     }
-    /* Pause during splash so it doesn't waste its entrance behind the splash screen */
+    @media (max-width: 900px) {
+      .scroll-indicator { left: 50%; }
+    }
     html.splash-active .scroll-indicator { animation-play-state: paused; }
+    /* Two halves clipped top/bottom so each renders a hard fill — top is
+       solid white over the dark hero, bottom is solid black over the white
+       sub-hero. No stroke, no blend, no filter — clean colour each side. */
+    .scroll-indicator-half {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .scroll-indicator-half--top    { clip-path: inset(0 0 50% 0); }
+    .scroll-indicator-half--bottom { clip-path: inset(50% 0 0 0); }
+    .scroll-indicator-half--top    .scroll-indicator-text { fill: #ffffff; }
+    .scroll-indicator-half--bottom .scroll-indicator-text { fill: #000000; }
     .scroll-indicator-svg {
+      position: absolute; inset: 0;
       width: 100%; height: 100%;
       transform-origin: center;
-      will-change: transform;
     }
     .scroll-indicator-text {
       font-family: var(--font-display);
@@ -3079,7 +3134,6 @@
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      fill: hsl(var(--foreground));
     }
     .scroll-indicator-arrow {
       position: absolute;
@@ -3090,10 +3144,12 @@
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       color: #fff;
-      background: hsl(var(--btn-blue));
-      box-shadow: 0 0 22px hsl(var(--btn-blue) / 0.5),
-                  0 4px 16px rgba(0, 0, 0, 0.45);
-      overflow: hidden;
+      /* Force fully-opaque solid blue. z-index lifts the button above the
+         clip-path stacking contexts created by the two .scroll-indicator-half
+         siblings, so nothing can paint over the button or bleed through. */
+      background-color: hsl(var(--btn-blue));
+      opacity: 1;
+      z-index: 2;
     }
     .scroll-indicator-arrow svg {
       animation: arrowSlideDown 1.6s ease-in-out infinite;
@@ -3143,7 +3199,7 @@
   <!-- ===== TOP BAR (no chrome — just logo + hamburger) ===== -->
   <header class="topbar" id="navbar">
     <a href="/" class="nav-logo">
-      <img src="/logo.svg" alt="RB Monogram" style="display:block;height:40px;width:auto" />
+      <img src="/logo.png" alt="RB Monogram" style="display:block;height:40px;width:auto" />
       <span class="nav-logo-text">Ronnie Balonon</span>
     </a>
     <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="overlayMenu">
@@ -3321,23 +3377,6 @@
       </div>
     </div>
 
-    <!-- Scroll-down indicator — lives inside the hero, scrolls away with it. -->
-    <div class="scroll-indicator" id="scrollIndicator" aria-hidden="true">
-      <svg class="scroll-indicator-svg" viewBox="0 0 120 120">
-        <defs>
-          <path id="scrollCirclePath" d="M 60, 60 m -46, 0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/>
-        </defs>
-        <text class="scroll-indicator-text">
-          <textPath href="#scrollCirclePath" startOffset="0" textLength="289">SCROLL&#160;DOWN&#160;·&#160;SCROLL&#160;DOWN&#160;·&#160;</textPath>
-        </text>
-      </svg>
-      <div class="scroll-indicator-arrow" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <polyline points="19 12 12 19 5 12"/>
-        </svg>
-      </div>
-    </div>
   </section>
 
   <!-- ===== HOW I WORK (white-bg sub-hero) ===== -->
@@ -3453,14 +3492,14 @@
 
         <div class="uw-card">
           <div class="uw-card-img">
-            <img src="/assets/web/Play%20and%20Worship.png" alt="Play and Worship" loading="lazy"/>
+            <img src="/assets/web/Advertising%20Website.png" alt="Click — Advertising and Digital Marketing Agency" loading="lazy"/>
           </div>
           <div class="uw-card-info">
-            <span class="uw-tag">Worship</span>
-            <h3>Platform</h3>
-            <p>Worship platform built for musicians and ministry teams.</p>
+            <span class="uw-tag">Agency</span>
+            <h3>Marketing</h3>
+            <p>Advertising and digital marketing agency site for a Dubai-based brand.</p>
             <div class="uw-actions">
-              <a href="https://ronnie0525.github.io/Play-and-Worship/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
+              <a href="https://ronnie0525.github.io/click/" target="_blank" rel="noopener" class="uw-btn uw-btn-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 View Design
               </a>
@@ -3519,6 +3558,13 @@
           </div>
         </div>
 
+      </div>
+
+      <div class="uw-see-more-wrap">
+        <a href="/skill-uiux/" class="uw-see-more">
+          <span>View more Web design works</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -3736,13 +3782,42 @@
   </section>
   </main>
 
+  <!-- Scroll-down indicator — split halves at the seam (top:100vh).
+       Top half = pure white text over dark hero. Bottom half = pure black
+       text over white sub-hero. Blue button at centre is not clipped. -->
+  <div class="scroll-indicator" id="scrollIndicator" aria-hidden="true">
+    <div class="scroll-indicator-half scroll-indicator-half--top">
+      <svg class="scroll-indicator-svg" viewBox="0 0 120 120">
+        <defs>
+          <path id="scrollCirclePath" d="M 60, 60 m -46, 0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/>
+        </defs>
+        <text class="scroll-indicator-text">
+          <textPath href="#scrollCirclePath" startOffset="0" textLength="289">SCROLL&#160;DOWN&#160;·&#160;SCROLL&#160;DOWN&#160;·&#160;</textPath>
+        </text>
+      </svg>
+    </div>
+    <div class="scroll-indicator-half scroll-indicator-half--bottom">
+      <svg class="scroll-indicator-svg" viewBox="0 0 120 120">
+        <text class="scroll-indicator-text">
+          <textPath href="#scrollCirclePath" startOffset="0" textLength="289">SCROLL&#160;DOWN&#160;·&#160;SCROLL&#160;DOWN&#160;·&#160;</textPath>
+        </text>
+      </svg>
+    </div>
+    <div class="scroll-indicator-arrow" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <polyline points="19 12 12 19 5 12"/>
+      </svg>
+    </div>
+  </div>
+
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container" style="padding-top:4rem;padding-bottom:4rem;">
       <div class="footer-grid">
         <div>
           <a href="/" class="nav-logo mb-4" style="margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;">
-            <img src="/logo.svg" alt="RB Monogram" style="display:block;height:40px;width:auto" />
+            <img src="/logo.png" alt="RB Monogram" style="display:block;height:40px;width:auto" />
             <span class="font-display text-lg font-bold">Ronnie Balonon Jr.</span>
           </a>
           <p class="text-muted text-sm leading-relaxed mb-4" style="margin-bottom:1rem;">
@@ -3947,11 +4022,9 @@
     })();
 
     // ===== SCROLL DOWN INDICATOR — rotation driven by real scroll input =====
-    // No auto-spin: when you don't scroll, the ring sits still.
-    // When you scroll, it rotates proportionally to how far you've scrolled.
     (function() {
-      var svg = document.querySelector('.scroll-indicator-svg');
-      if (!svg) return;
+      var svgs = document.querySelectorAll('.scroll-indicator-svg');
+      if (!svgs.length) return;
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       var rotation = 0;
@@ -3962,10 +4035,9 @@
         var current = window.scrollY;
         var delta = current - lastScroll;
         lastScroll = current;
-        // Gentle multiplier — small scroll = small rotation.
-        // Direction follows scroll direction (down = clockwise).
         rotation += delta * 0.25;
-        svg.style.transform = 'rotate(' + rotation + 'deg)';
+        var t = 'rotate(' + rotation + 'deg)';
+        for (var i = 0; i < svgs.length; i++) svgs[i].style.transform = t;
         ticking = false;
       }
 

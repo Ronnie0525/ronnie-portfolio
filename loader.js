@@ -1,4 +1,4 @@
-// Site splash — long (~2.5s) on first entry, short (~1s) on subsequent navigations
+﻿// Site splash — long (~2.5s) on first entry, short (~1s) on subsequent navigations
 (function() {
   var KEY = 'splashShown_v3';
   var firstVisit = !sessionStorage.getItem(KEY);
@@ -54,7 +54,7 @@
     var splash = document.createElement('div');
     splash.className = 'site-splash';
     splash.innerHTML =
-      '<div class="site-splash-logo"><img src="/logo.svg" alt="" aria-hidden="true" /></div>' +
+      '<div class="site-splash-logo"><img src="/logo.png" alt="" aria-hidden="true" /></div>' +
       '<div class="site-splash-bar"></div>' +
       '<div class="site-splash-name">Ronnie Balonon</div>';
     document.body.insertBefore(splash, document.body.firstChild);
